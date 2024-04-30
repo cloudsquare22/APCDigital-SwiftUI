@@ -22,3 +22,11 @@ enum PageMondayDirection {
     case next
     case back
 }
+
+enum SwipeType: Int {
+    case none
+    case up
+    case down
+    case left
+    case right
+}

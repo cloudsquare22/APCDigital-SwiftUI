@@ -24,6 +24,13 @@ struct MainView: View {
                 MonthLabelView()
                 PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
                                            pkToolPicker: self.$pkToolPicker)
+                .gesture(DragGesture(coordinateSpace: .global)
+                    .onEnded({ value in
+                        let swipeType = self.swipeType(startLocation: value.startLocation,
+                                                       location: value.location)
+                        self.changePage(swipeType: swipeType)
+                    })
+                )
                 Text("Offset")
                     .font(Font.system(size: 48))
                     .foregroundStyle(.blue)
@@ -35,6 +42,48 @@ struct MainView: View {
             print(Device.getDevie())
             self.dateManagement.setPageStartday(direction: .today)
         }
+    }
+    
+    func changePage(swipeType: SwipeType) {
+        print("SwipeType:\(swipeType)")
+        switch swipeType {
+        case .left:
+            self.dateManagement.setPageStartday(direction: .next)
+        case .right:
+            self.dateManagement.setPageStartday(direction: .back)
+        case .up:
+            break;
+        case .down:
+            self.dateManagement.setPageStartday(direction: .today, selectday: Date.now)
+        case .none:
+            break;
+        }
+    }
+
+    func swipeType(startLocation: CGPoint, location: CGPoint) -> SwipeType {
+        var swipeType: SwipeType = .none
+//        print("startLocation:\(startLocation)")
+//        print("location     :\(location)")
+        let b = startLocation.y - location.y
+        let c = location.x - startLocation.x
+        let degree = atan2(b, c) * 180 / Double.pi
+//        print("\(#function) b:\(b)")
+//        print("\(#function) c:\(c)")
+//        print("\(#function)  :\(degree)")
+        if -30.0 <= degree && degree <= 30 {
+            swipeType = .right
+        }
+        else if 60.0 <= degree && degree <= 120 {
+            swipeType = .up
+        }
+        else if (150.0 <= degree && degree <= 180.0) ||
+                    (-180 <= degree && degree <= -150.0) {
+            swipeType = .left
+        }
+        else if -120.0 <= degree && degree <= -60.0 {
+            swipeType = .down
+        }
+        return swipeType
     }
 }
 
