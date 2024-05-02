@@ -12,7 +12,8 @@ import SwiftData
 struct APCDigital_SwiftUIApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @State private var dateamanagement: DateManagement = DateManagement()
-    
+    @State private var eventMangement: EventManagement = EventManagement()
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -30,6 +31,7 @@ struct APCDigital_SwiftUIApp: App {
         WindowGroup {
             MainView()
                 .environment(self.dateamanagement)
+                .environment(self.eventMangement)
         }
         .modelContainer(sharedModelContainer)
     }

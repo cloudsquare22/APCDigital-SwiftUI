@@ -10,6 +10,7 @@ import PencilKit
 
 struct MainView: View {
     @Environment(DateManagement.self) private var dateManagement
+    @Environment(EventManagement.self) private var eventMangement
 
     @State var pkCanvasView: PKCanvasView = PKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
@@ -22,6 +23,7 @@ struct MainView: View {
                     .scaledToFit()
                 DayLabelsView()
                 MonthLabelView()
+                EventView()
                 PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
                                            pkToolPicker: self.$pkToolPicker)
                 .gesture(DragGesture(coordinateSpace: .global)
@@ -31,16 +33,24 @@ struct MainView: View {
                         self.changePage(swipeType: swipeType)
                     })
                 )
-                Text("Offset")
-                    .font(Font.system(size: 48))
-                    .foregroundStyle(.blue)
-                    .border(.blue, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                    .offset(x: 0, y: 0)
+//                Text("1234567890")
+//                    .font(Font.system(size: 48))
+//                    .foregroundStyle(.blue)
+//                    .border(.blue, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+//                    .offset(x: 0, y: 0)
+//                Text("1234567890")
+//                    .font(Font.system(size: 48))
+//                    .foregroundStyle(.red)
+//                    .border(.blue, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+//                    .position(x: 0, y: 0)
             }
         }
         .onAppear() {
             print(Device.getDevie())
             self.dateManagement.setPageStartday(direction: .today)
+            self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                             endDay: self.dateManagement.daysDateComponents[.sunday]!)
+            self.eventMangement.updateCalendars()
         }
     }
     
@@ -90,4 +100,5 @@ struct MainView: View {
 #Preview {
     MainView()
         .environment(DateManagement())
+        .environment(EventManagement())
 }

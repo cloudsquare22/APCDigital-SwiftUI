@@ -29,6 +29,13 @@ import Foundation
                                           .saturday: 44,
                                           .sunday: 33]
     
+    var daysDateComponents: [WeekDay1stMonday : DateComponents] = [.monday: DateComponents(),
+                                                                   .tuesday: DateComponents(),
+                                                                   .wednesday: DateComponents(),
+                                                                   .thursday: DateComponents(),
+                                                                   .friday: DateComponents(),
+                                                                   .saturday: DateComponents(),
+                                                                   .sunday: DateComponents()]
     var pagestartday: Date? = nil
     var month: Int = 0
     var nextmonth: Int? = nil
@@ -80,6 +87,7 @@ import Foundation
                 dateComponents.setTimeInDateComponents(hour: 0, minute: 0, second: 0, nanosecond: 0)
             }
             self.days[weekDay] = dateComponents.day!
+            self.daysDateComponents[weekDay] = dateComponents
             if weekDay == .monday {
                 self.month = dateComponents.month!
             }

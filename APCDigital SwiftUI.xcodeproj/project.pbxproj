@@ -21,6 +21,8 @@
 		8D692E8C2BE10DCC00E616CF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E8B2BE10DCC00E616CF /* Extension.swift */; };
 		8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E8D2BE1116400E616CF /* MonthLabelView.swift */; };
 		8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E8F2BE11A4100E616CF /* AppDelegate.swift */; };
+		8D692E922BE3733500E616CF /* EventManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E912BE3733500E616CF /* EventManagement.swift */; };
+		8D692E942BE3773A00E616CF /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E932BE3773A00E616CF /* EventView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		8D692E8B2BE10DCC00E616CF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8D692E8D2BE1116400E616CF /* MonthLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthLabelView.swift; sourceTree = "<group>"; };
 		8D692E8F2BE11A4100E616CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8D692E912BE3733500E616CF /* EventManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagement.swift; sourceTree = "<group>"; };
+		8D692E932BE3773A00E616CF /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,8 @@
 				8D692E8B2BE10DCC00E616CF /* Extension.swift */,
 				8D692E8D2BE1116400E616CF /* MonthLabelView.swift */,
 				8D692E8F2BE11A4100E616CF /* AppDelegate.swift */,
+				8D692E912BE3733500E616CF /* EventManagement.swift */,
+				8D692E932BE3773A00E616CF /* EventView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -168,6 +174,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */,
+				8D692E942BE3773A00E616CF /* EventView.swift in Sources */,
+				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
 				8D692E882BE088FC00E616CF /* Enum.swift in Sources */,
