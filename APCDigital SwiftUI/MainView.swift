@@ -23,7 +23,7 @@ struct MainView: View {
                     .scaledToFit()
                 DayLabelsView()
                 MonthLabelView()
-                EventView()
+                EventsView()
                 PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
                                            pkToolPicker: self.$pkToolPicker)
                 .gesture(DragGesture(coordinateSpace: .global)

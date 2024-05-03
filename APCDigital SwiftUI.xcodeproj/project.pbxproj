@@ -22,7 +22,8 @@
 		8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E8D2BE1116400E616CF /* MonthLabelView.swift */; };
 		8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E8F2BE11A4100E616CF /* AppDelegate.swift */; };
 		8D692E922BE3733500E616CF /* EventManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E912BE3733500E616CF /* EventManagement.swift */; };
-		8D692E942BE3773A00E616CF /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E932BE3773A00E616CF /* EventView.swift */; };
+		8D692E942BE3773A00E616CF /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E932BE3773A00E616CF /* EventsView.swift */; };
+		8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E952BE4BDE300E616CF /* EventViewData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +43,8 @@
 		8D692E8D2BE1116400E616CF /* MonthLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthLabelView.swift; sourceTree = "<group>"; };
 		8D692E8F2BE11A4100E616CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D692E912BE3733500E616CF /* EventManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagement.swift; sourceTree = "<group>"; };
-		8D692E932BE3773A00E616CF /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		8D692E932BE3773A00E616CF /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
+		8D692E952BE4BDE300E616CF /* EventViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +92,8 @@
 				8D692E8D2BE1116400E616CF /* MonthLabelView.swift */,
 				8D692E8F2BE11A4100E616CF /* AppDelegate.swift */,
 				8D692E912BE3733500E616CF /* EventManagement.swift */,
-				8D692E932BE3773A00E616CF /* EventView.swift */,
+				8D692E932BE3773A00E616CF /* EventsView.swift */,
+				8D692E952BE4BDE300E616CF /* EventViewData.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -174,7 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */,
-				8D692E942BE3773A00E616CF /* EventView.swift in Sources */,
+				8D692E942BE3773A00E616CF /* EventsView.swift in Sources */,
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
@@ -186,6 +189,7 @@
 				8D692E742BDFD11700E616CF /* Item.swift in Sources */,
 				8D692E8A2BE10B9700E616CF /* PencilKitViewRepresentable.swift in Sources */,
 				8D692E862BE0834C00E616CF /* Device.swift in Sources */,
+				8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */,
 				8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
