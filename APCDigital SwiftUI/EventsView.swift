@@ -41,7 +41,7 @@ struct EventsView: View {
                                 CGPoint(x: eventViewData.width, y: 0),
                             ])
                          }
-                    .stroke(lineWidth: 0.8)
+                    .stroke(lineWidth: 1)
                 }
                 // 左
                 Path { path in
@@ -50,7 +50,7 @@ struct EventsView: View {
                             CGPoint(x: 0, y: eventViewData.height),
                         ])
                      }
-                .stroke(lineWidth: 0.8)
+                .stroke(lineWidth: 1)
                 // 右
                 Path { path in
                         path.addLines([
@@ -58,7 +58,7 @@ struct EventsView: View {
                             CGPoint(x: eventViewData.width, y: eventViewData.height),
                         ])
                      }
-                .stroke(lineWidth: 0.8)
+                .stroke(lineWidth: 1)
                 // 下
                 if eventViewData.dispBottomLine == true {
                     Path { path in
@@ -67,7 +67,7 @@ struct EventsView: View {
                                 CGPoint(x: eventViewData.width, y: eventViewData.height),
                             ])
                          }
-                    .stroke(lineWidth: 0.8)
+                    .stroke(lineWidth: 1)
                 }
             })
 //            .border(.black, width: 0.8)
