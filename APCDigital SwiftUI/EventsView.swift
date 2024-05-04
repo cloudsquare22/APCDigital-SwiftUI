@@ -20,16 +20,21 @@ struct EventsView: View {
 
     fileprivate func createEventView(_ event: EKEvent) -> some View {
         let eventViewData = self.eventMangement.eventPosition(event: event)
-        return Text("\(event.title!)")
+        return Text("\(eventViewData.contents)")
             .font(Font.system(size: 9.0, weight: .medium, design: .default))
             .padding(EdgeInsets(top: 1.0, leading: 6.0, bottom: 0.0, trailing: 0.0))
-            .frame(width: 142, height: eventViewData.height, alignment: .topLeading)
+            .frame(width: eventViewData.width, 
+                   height: eventViewData.height,
+                   alignment: .topLeading)
             .overlay(alignment: .topLeading, content: {
                 Image(systemName: eventViewData.minuteSymbolName)
                     .fontWeight(.light)
                     .position(x: 0, y: 0)
+                Image(systemName: eventViewData.endSymbolName)
+                    .fontWeight(.light)
+                    .position(x: 0, y: eventViewData.height + eventViewData.endSymbolYAdjust)
             })
-            .border(.black, width: 0.5)
+            .border(.black, width: 0.8)
             .background(Color(uiColor: self.cgToUIColor(cgColor: event.calendar.cgColor)))
             .offset(x: eventViewData.x,
                     y: eventViewData.y)

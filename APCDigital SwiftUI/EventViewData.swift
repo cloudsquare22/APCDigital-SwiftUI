@@ -8,8 +8,12 @@
 import Foundation
 
 struct EventViewData {
-    var x: CGFloat
-    var y: CGFloat
-    var height: CGFloat
-    var minuteSymbolName: String
+    var contents: String = ""
+    var x: CGFloat = 0.0
+    var y: CGFloat = 0.0
+    var width: CGFloat = 140.0
+    var height: CGFloat = 45.5
+    var minuteSymbolName: String = "circle"
+    var endSymbolName: String = "chevron.down"
+    var endSymbolYAdjust: CGFloat = -4.0
 }
