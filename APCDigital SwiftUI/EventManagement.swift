@@ -11,6 +11,8 @@ import EventKit
 @Observable class EventManagement {
     let eventStore = EKEventStore()
     var events: [EKEvent] = []
+    var mainAreaEvents: [EKEvent] = []
+    var allDayAreaEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
     
     let eventPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
@@ -25,7 +27,43 @@ import EventKit
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
         self.events = eventStore.events(matching: predicate)
-        print(events)
+//        print(events)
+        self.allDayAreaEvents = []
+        self.mainAreaEvents = []
+        for event in events {
+            if event.isAllDay == true {
+                self.allDayAreaEvents.append(event)
+            }
+            else {
+                if let startDate = event.startDate, let endDate = event.endDate {
+                    let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
+                    let endDateComponents = Calendar.current.dateComponents(in: .current, from: endDate)
+                    if let startDay = startDateComponents.day,
+                       let startHour = startDateComponents.hour,
+                       let startMinute = startDateComponents.minute,
+                       let endDay = endDateComponents.day,
+                       let endHour = endDateComponents.hour,
+                       let endMinute = endDateComponents.minute {
+                        if 0 <= startHour, startHour < 6 {
+                            if endHour < 6 || endHour == 6 && endMinute == 00 {
+                                print("[A] \(startDay) \(startHour):\(startMinute)〜\(endDay) \(endHour):\(endMinute) \(event.title ?? "")")
+                                self.allDayAreaEvents.append(event)
+                            }
+                            else {
+                                self.mainAreaEvents.append(event)
+                            }
+                        }
+                        else if startHour == 23, 31 <= startMinute {
+                            print("[B] \(startDay) \(startHour):\(startMinute)〜\(endDay) \(endHour):\(endMinute) \(event.title ?? "")")
+                            self.allDayAreaEvents.append(event)
+                        }
+                        else {
+                            self.mainAreaEvents.append(event)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func updateCalendars() {
@@ -51,7 +89,13 @@ import EventKit
         if let startDate = event.startDate, let endDate = event.endDate {
             let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
             let endDateComponents = Calendar.current.dateComponents(in: .current, from: endDate)
-            if let hour = startDateComponents.hour, let minute = startDateComponents.minute, hour >= 6 {
+            if let startDay = startDateComponents.day,
+               let startHour = startDateComponents.hour,
+               let startMinute = startDateComponents.minute,
+               let endDay = endDateComponents.day,
+               let endHour = endDateComponents.hour,
+               let endMinute = endDateComponents.minute {
+//                print("\(startDay) \(startHour):\(startMinute)〜\(endDay) \(endHour):\(endMinute) \(event.title ?? "")")
                 if let eventPositions = self.eventPositionsMap[Device.getDevie()] ,
                     let eventPosition = eventPositions[self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday)] {
                     var contents: String = event.title ?? "-"
@@ -62,18 +106,57 @@ import EventKit
                         }
                     }
                     eventViewData.contents = contents
+
+                    // 高さ：標準
                     let diff = endDate.timeIntervalSince(startDate) // seconds
-                    eventViewData.x = eventPosition.x
-                    eventViewData.y = eventPosition.y + CGFloat(45.5  *  Float(hour - 6 )) + CGFloat(45.5 / 60 * Float(minute))
-                    eventViewData.width = eventPosition.width
                     eventViewData.height = CGFloat((45.5 / 60) * (diff / 60))
-                    switch minute {
+
+                    switch startMinute {
                     case 0, 30:
-                        eventViewData.minuteSymbolName = "circle"
+                        eventViewData.startSymbolName = "circle"
                     case 51, 52, 53, 54, 55, 56, 57, 58, 59:
-                        eventViewData.minuteSymbolName = "circle"
+                        eventViewData.startSymbolName = "circle"
                     default:
-                        eventViewData.minuteSymbolName = String(minute) + ".circle"
+                        eventViewData.startSymbolName = String(startMinute) + ".circle"
+                    }
+
+                    // 期間外：開始
+                    var startHourAdjust = startHour
+                    var startMinuteAdjust = startMinute
+                    var startDateComponentsAdjust = startDateComponents
+                    if startHour < 6 {
+                        startDateComponentsAdjust.hour = 6
+                        startDateComponentsAdjust.minute = 0
+                        startHourAdjust = 6
+                        startMinuteAdjust = 0
+                        eventViewData.dispTopLine = false
+                        eventViewData.startSymbolName = "arrowtriangle.down"
+                        if let startDateAdjust = startDateComponentsAdjust.date {
+                            let diff = endDate.timeIntervalSince(startDateAdjust) // seconds
+                            eventViewData.height = CGFloat((45.5 / 60) * (diff / 60))
+                            eventViewData.contents = String(format: "%d:%02d〜", startHour, startMinute) + eventViewData.contents
+                        }
+                    }
+                    
+                    eventViewData.x = eventPosition.x
+                    eventViewData.y = eventPosition.y + CGFloat(45.5  *  Float(startHourAdjust - 6 )) + CGFloat(45.5 / 60 * Float(startMinuteAdjust))
+                    eventViewData.width = eventPosition.width
+                    
+                    // 期間外；終了
+                    if (startDay == endDay && 23 == endHour && 31 <= endMinute) ||
+                                (startDay != endDay) {
+                        var endDateComponentsLimit = endDateComponents
+                        endDateComponentsLimit.hour = 23
+                        endDateComponentsLimit.minute = 30
+                        endDateComponentsLimit.day = startDay
+                        if let endDateLimit = endDateComponentsLimit.date {
+                            let diff = endDateLimit.timeIntervalSince(startDate) // seconds
+                            eventViewData.height = CGFloat((45.5 / 60) * (diff / 60))
+                            eventViewData.contents =  eventViewData.contents + String(format: "\n〜%d:%02d", endHour, endMinute)
+                        }
+                        eventViewData.endSymbolName = "arrowtriangle.up"
+                        eventViewData.endSymbolYAdjust = 5.0
+                        eventViewData.dispBottomLine = false
                     }
                 }
             }

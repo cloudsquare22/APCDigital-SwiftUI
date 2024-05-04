@@ -27,14 +27,50 @@ struct EventsView: View {
                    height: eventViewData.height,
                    alignment: .topLeading)
             .overlay(alignment: .topLeading, content: {
-                Image(systemName: eventViewData.minuteSymbolName)
+                Image(systemName: eventViewData.startSymbolName)
                     .fontWeight(.light)
-                    .position(x: 0, y: 0)
+                    .position(x: 0, y: 0 + eventViewData.startSymbolYAdjust)
                 Image(systemName: eventViewData.endSymbolName)
                     .fontWeight(.light)
                     .position(x: 0, y: eventViewData.height + eventViewData.endSymbolYAdjust)
+                // 上
+                if eventViewData.dispTopLine == true {
+                    Path { path in
+                            path.addLines([
+                                CGPoint(x: 6, y: 0),
+                                CGPoint(x: eventViewData.width, y: 0),
+                            ])
+                         }
+                    .stroke(lineWidth: 0.8)
+                }
+                // 左
+                Path { path in
+                        path.addLines([
+                            CGPoint(x: 0, y: 6),
+                            CGPoint(x: 0, y: eventViewData.height),
+                        ])
+                     }
+                .stroke(lineWidth: 0.8)
+                // 右
+                Path { path in
+                        path.addLines([
+                            CGPoint(x: eventViewData.width, y: 0),
+                            CGPoint(x: eventViewData.width, y: eventViewData.height),
+                        ])
+                     }
+                .stroke(lineWidth: 0.8)
+                // 下
+                if eventViewData.dispBottomLine == true {
+                    Path { path in
+                            path.addLines([
+                                CGPoint(x: 0, y: eventViewData.height),
+                                CGPoint(x: eventViewData.width, y: eventViewData.height),
+                            ])
+                         }
+                    .stroke(lineWidth: 0.8)
+                }
             })
-            .border(.black, width: 0.8)
+//            .border(.black, width: 0.8)
             .background(Color(uiColor: self.cgToUIColor(cgColor: event.calendar.cgColor)))
             .offset(x: eventViewData.x,
                     y: eventViewData.y)
@@ -43,7 +79,7 @@ struct EventsView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
-                ForEach(self.eventMangement.events, id: \.self) { event in
+                ForEach(self.eventMangement.mainAreaEvents, id: \.self) { event in
                     createEventView(event)
 //                        Rectangle()
 //                            .fill(.cyan.opacity(0.1))

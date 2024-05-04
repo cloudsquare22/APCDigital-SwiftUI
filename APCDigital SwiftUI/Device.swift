@@ -15,14 +15,14 @@ class Device {
         case etc
     }
     static func getDevie() -> DType {
-        print("Device:\(UIScreen.main.bounds.size)")
+//        print("Device:\(UIScreen.main.bounds.size)")
         var dtype: DType = .etc
         switch UIScreen.main.bounds.size.width {
         case 1590.0:
-            print("iPad Pro 12.9 第6世代 スペースを拡大")
+//            print("iPad Pro 12.9 第6世代 スペースを拡大")
             dtype = .ipad_pro_12_9_6th_more_space
         case 1366.0:
-            print("iPad Pro 12.9 第6世代 デフォルト")
+//            print("iPad Pro 12.9 第6世代 デフォルト")
             dtype = .ipad_pro_12_9_6th
         case 1024.0:
             print("iPad mini")
