@@ -25,10 +25,13 @@ struct DayTopAreaView: View {
                             y: self.dateManagement.getRemainingLebel(weekDay: weekday).y)
             }
         }
+        HolidayLabelView()
+        EventsAllDayView()
     }
 }
 
 #Preview {
     DayTopAreaView()
         .environment(DateManagement())
+        .environment(EventManagement())
 }

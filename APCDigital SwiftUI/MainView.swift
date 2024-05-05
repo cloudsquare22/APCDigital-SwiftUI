@@ -21,7 +21,7 @@ struct MainView: View {
                 Image("aptemplate", bundle: .main)
                     .resizable()
                     .scaledToFit()
-                DayLabelsView()
+                DayTopAreaView()
                 MonthLabelView()
                 EventsView()
                 PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,

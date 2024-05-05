@@ -9,6 +9,7 @@ import Foundation
 
 struct EventViewData {
     var contents: String = ""
+    var contentsa: AttributedString = ""
     var x: CGFloat = 0.0
     var y: CGFloat = 0.0
     var width: CGFloat = 140.0

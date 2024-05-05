@@ -13,7 +13,7 @@
 		8D692E762BDFD11800E616CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E752BDFD11800E616CF /* Assets.xcassets */; };
 		8D692E792BDFD11800E616CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E782BDFD11800E616CF /* Preview Assets.xcassets */; };
 		8D692E802BE0749B00E616CF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E7F2BE0749B00E616CF /* MainView.swift */; };
-		8D692E822BE07C5600E616CF /* DayLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E812BE07C5600E616CF /* DayLabelsView.swift */; };
+		8D692E822BE07C5600E616CF /* DayTopAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E812BE07C5600E616CF /* DayTopAreaView.swift */; };
 		8D692E842BE07DED00E616CF /* DateManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E832BE07DED00E616CF /* DateManagement.swift */; };
 		8D692E862BE0834C00E616CF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E852BE0834C00E616CF /* Device.swift */; };
 		8D692E882BE088FC00E616CF /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E872BE088FC00E616CF /* Enum.swift */; };
@@ -24,6 +24,8 @@
 		8D692E922BE3733500E616CF /* EventManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E912BE3733500E616CF /* EventManagement.swift */; };
 		8D692E942BE3773A00E616CF /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E932BE3773A00E616CF /* EventsView.swift */; };
 		8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E952BE4BDE300E616CF /* EventViewData.swift */; };
+		8D692E982BE71E5600E616CF /* EventsAllDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E972BE71E5600E616CF /* EventsAllDayView.swift */; };
+		8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E992BE75F7800E616CF /* HolidayLabelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +36,7 @@
 		8D692E752BDFD11800E616CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D692E782BDFD11800E616CF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8D692E7F2BE0749B00E616CF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		8D692E812BE07C5600E616CF /* DayLabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelsView.swift; sourceTree = "<group>"; };
+		8D692E812BE07C5600E616CF /* DayTopAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTopAreaView.swift; sourceTree = "<group>"; };
 		8D692E832BE07DED00E616CF /* DateManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManagement.swift; sourceTree = "<group>"; };
 		8D692E852BE0834C00E616CF /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8D692E872BE088FC00E616CF /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
@@ -45,6 +47,8 @@
 		8D692E912BE3733500E616CF /* EventManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagement.swift; sourceTree = "<group>"; };
 		8D692E932BE3773A00E616CF /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		8D692E952BE4BDE300E616CF /* EventViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewData.swift; sourceTree = "<group>"; };
+		8D692E972BE71E5600E616CF /* EventsAllDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAllDayView.swift; sourceTree = "<group>"; };
+		8D692E992BE75F7800E616CF /* HolidayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayLabelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +87,7 @@
 				8D692E752BDFD11800E616CF /* Assets.xcassets */,
 				8D692E772BDFD11800E616CF /* Preview Content */,
 				8D692E7F2BE0749B00E616CF /* MainView.swift */,
-				8D692E812BE07C5600E616CF /* DayLabelsView.swift */,
+				8D692E812BE07C5600E616CF /* DayTopAreaView.swift */,
 				8D692E832BE07DED00E616CF /* DateManagement.swift */,
 				8D692E852BE0834C00E616CF /* Device.swift */,
 				8D692E872BE088FC00E616CF /* Enum.swift */,
@@ -94,6 +98,8 @@
 				8D692E912BE3733500E616CF /* EventManagement.swift */,
 				8D692E932BE3773A00E616CF /* EventsView.swift */,
 				8D692E952BE4BDE300E616CF /* EventViewData.swift */,
+				8D692E972BE71E5600E616CF /* EventsAllDayView.swift */,
+				8D692E992BE75F7800E616CF /* HolidayLabelView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -181,9 +187,11 @@
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
+				8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */,
 				8D692E882BE088FC00E616CF /* Enum.swift in Sources */,
 				8D692E842BE07DED00E616CF /* DateManagement.swift in Sources */,
-				8D692E822BE07C5600E616CF /* DayLabelsView.swift in Sources */,
+				8D692E822BE07C5600E616CF /* DayTopAreaView.swift in Sources */,
+				8D692E982BE71E5600E616CF /* EventsAllDayView.swift in Sources */,
 				8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */,
 				8D692E8C2BE10DCC00E616CF /* Extension.swift in Sources */,
 				8D692E742BDFD11700E616CF /* Item.swift in Sources */,

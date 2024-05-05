@@ -7,31 +7,55 @@
 
 import Foundation
 import EventKit
+import SwiftUI
 
 @Observable class EventManagement {
     let eventStore = EKEventStore()
     var events: [EKEvent] = []
     var mainAreaEvents: [EKEvent] = []
     var allDayAreaEvents: [EKEvent] = []
+    var holidayEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
     
     let eventPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
-    [.ipad_pro_12_9_6th : [.monday : (55, 133.5, 140.0),
-                           .tuesday: (203, 133.5, 140.0),
-                           .wednesday: (351, 133.5, 140.0),
-                           .thursday: (499, 133.5, 143.5),
-                           .friday: (720, 133.5, 140.0),
-                           .saturday: (868, 133.5, 140.0),
-                           .sunday: (1016, 133.5, 143.5)]]
-    
+    [.ipad_pro_12_9_6th : [.monday :   (  55.0, 133.5, 140.0),
+                           .tuesday:   ( 203.0, 133.5, 140.0),
+                           .wednesday: ( 351.0, 133.5, 140.0),
+                           .thursday:  ( 499.0, 133.5, 143.5),
+                           .friday:    ( 720.0, 133.5, 140.0),
+                           .saturday:  ( 868.0, 133.5, 140.0),
+                           .sunday:    (1016.0, 133.5, 143.5)]]
+
+    let eventAllDayPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
+    [.ipad_pro_12_9_6th : [.monday :   (  60.0, 72.0, 140.0),
+                           .tuesday:   ( 208.0, 72.0, 140.0),
+                           .wednesday: ( 356.0, 72.0, 140.0),
+                           .thursday:  ( 504.0, 72.0, 140.0),
+                           .friday:    ( 725.0, 72.0, 140.0),
+                           .saturday:  ( 873.0, 72.0, 140.0),
+                           .sunday:    (1021.0, 72.0, 140.0)]]
+
+    let holidayPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
+    [.ipad_pro_12_9_6th : [.monday :   (  96.0, 59.0, 100.0),
+                           .tuesday:   ( 244.0, 59.0, 100.0),
+                           .wednesday: ( 392.0, 59.0, 100.0),
+                           .thursday:  ( 540.0, 59.0, 100.0),
+                           .friday:    ( 761.0, 59.0, 100.0),
+                           .saturday:  ( 909.0, 59.0, 100.0),
+                           .sunday:    (1057.0, 59.0, 100.0)]]
+
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
         self.events = eventStore.events(matching: predicate)
 //        print(events)
         self.allDayAreaEvents = []
         self.mainAreaEvents = []
+        self.holidayEvents = []
         for event in events {
-            if event.isAllDay == true {
+            if let calendar = event.calendar, calendar.title == "日本の祝日" {
+                self.holidayEvents.append(event)
+            }
+            else if event.isAllDay == true {
                 self.allDayAreaEvents.append(event)
             }
             else {
@@ -164,6 +188,73 @@ import EventKit
         return eventViewData
     }
     
+    func createAllDayViewData(weekDay1stMonday: WeekDay1stMonday) -> EventViewData {
+        var eventViewData = EventViewData()
+        var contents = ""
+        var contentsa: AttributedString = ""
+        for event in allDayAreaEvents {
+            if let startDate = event.startDate, let endDate = event.endDate {
+                let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
+                let endDateComponents = Calendar.current.dateComponents(in: .current, from: endDate)
+                if let startDay = startDateComponents.day,
+                   let startHour = startDateComponents.hour,
+                   let startMinute = startDateComponents.minute,
+                   let endDay = endDateComponents.day,
+                   let endHour = endDateComponents.hour,
+                   let endMinute = endDateComponents.minute {
+                    if self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday) == weekDay1stMonday {
+                        contents = contents + event.title + "\n"
+                        var attributedString = AttributedString("●" + event.title + "\n")
+                        let range = attributedString.range(of: "●")
+                        let color = self.cgToUIColor(cgColor: event.calendar.cgColor, alpha: 1.0)
+                        attributedString[range!].foregroundColor = color
+                        contentsa = contentsa + attributedString
+                    }
+                }
+            }
+        }
+        eventViewData.contents = contents
+        eventViewData.contentsa = contentsa
+        if let eventPositions = self.eventAllDayPositionsMap[Device.getDevie()] ,
+           let eventPosition = eventPositions[weekDay1stMonday] {
+            eventViewData.x = eventPosition.x
+            eventViewData.y = eventPosition.y
+            eventViewData.width = eventPosition.width
+        }
+        return eventViewData
+    }
+
+    func createHolidayViewData(weekDay1stMonday: WeekDay1stMonday) -> EventViewData {
+        var eventViewData = EventViewData()
+        for event in holidayEvents {
+            if let startDate = event.startDate {
+                let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
+                if self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday) == weekDay1stMonday {
+                    eventViewData.contents = event.title
+                    break
+                }
+            }
+        }
+        if let eventPositions = self.holidayPositionsMap[Device.getDevie()] ,
+           let eventPosition = eventPositions[weekDay1stMonday] {
+            eventViewData.x = eventPosition.x
+            eventViewData.y = eventPosition.y
+            eventViewData.width = eventPosition.width
+        }
+        return eventViewData
+    }
+
+    func cgToUIColor(cgColor: CGColor?, alpha: CGFloat = 0.3) -> Color {
+        var color: Color = .clear
+        if let cgColor = cgColor {
+            color = Color(uiColor: UIColor(red: cgColor.components![0],
+                                           green: cgColor.components![1],
+                                           blue: cgColor.components![2],
+                                           alpha: alpha))
+        }
+        return color
+    }
+
     func weekDayToWeekDay1stMonday(weekDay: Int?) -> WeekDay1stMonday {
         var weekDay1stMonday: WeekDay1stMonday = .monday
         if let weekDay = weekDay {
