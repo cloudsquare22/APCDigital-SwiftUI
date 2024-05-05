@@ -16,7 +16,7 @@ struct APCDigital_SwiftUIApp: App {
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            PencilData.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -32,6 +32,7 @@ struct APCDigital_SwiftUIApp: App {
             MainView()
                 .environment(self.dateamanagement)
                 .environment(self.eventMangement)
+                .environment(DataOperation(modelContext: self.sharedModelContainer.mainContext))
         }
         .modelContainer(sharedModelContainer)
     }

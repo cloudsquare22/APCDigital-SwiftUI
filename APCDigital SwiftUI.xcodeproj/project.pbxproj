@@ -26,6 +26,8 @@
 		8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E952BE4BDE300E616CF /* EventViewData.swift */; };
 		8D692E982BE71E5600E616CF /* EventsAllDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E972BE71E5600E616CF /* EventsAllDayView.swift */; };
 		8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E992BE75F7800E616CF /* HolidayLabelView.swift */; };
+		8D692E9D2BE79FBC00E616CF /* PencilData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E9C2BE79FBC00E616CF /* PencilData.swift */; };
+		8D692E9F2BE7A0B400E616CF /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E9E2BE7A0B400E616CF /* DataOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		8D692E952BE4BDE300E616CF /* EventViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewData.swift; sourceTree = "<group>"; };
 		8D692E972BE71E5600E616CF /* EventsAllDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAllDayView.swift; sourceTree = "<group>"; };
 		8D692E992BE75F7800E616CF /* HolidayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayLabelView.swift; sourceTree = "<group>"; };
+		8D692E9C2BE79FBC00E616CF /* PencilData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilData.swift; sourceTree = "<group>"; };
+		8D692E9E2BE7A0B400E616CF /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 		8D692E6E2BDFD11700E616CF /* APCDigital SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				8D692E9B2BE79F7E00E616CF /* Model */,
 				8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */,
 				8D692E712BDFD11700E616CF /* ContentView.swift */,
 				8D692E732BDFD11700E616CF /* Item.swift */,
@@ -100,6 +105,7 @@
 				8D692E952BE4BDE300E616CF /* EventViewData.swift */,
 				8D692E972BE71E5600E616CF /* EventsAllDayView.swift */,
 				8D692E992BE75F7800E616CF /* HolidayLabelView.swift */,
+				8D692E9E2BE7A0B400E616CF /* DataOperation.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -110,6 +116,14 @@
 				8D692E782BDFD11800E616CF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8D692E9B2BE79F7E00E616CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D692E9C2BE79FBC00E616CF /* PencilData.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,11 +163,12 @@
 			};
 			buildConfigurationList = 8D692E672BDFD11700E616CF /* Build configuration list for PBXProject "APCDigital SwiftUI" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 8D692E632BDFD11700E616CF;
 			productRefGroup = 8D692E6D2BDFD11700E616CF /* Products */;
@@ -192,12 +207,14 @@
 				8D692E842BE07DED00E616CF /* DateManagement.swift in Sources */,
 				8D692E822BE07C5600E616CF /* DayTopAreaView.swift in Sources */,
 				8D692E982BE71E5600E616CF /* EventsAllDayView.swift in Sources */,
+				8D692E9F2BE7A0B400E616CF /* DataOperation.swift in Sources */,
 				8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */,
 				8D692E8C2BE10DCC00E616CF /* Extension.swift in Sources */,
 				8D692E742BDFD11700E616CF /* Item.swift in Sources */,
 				8D692E8A2BE10B9700E616CF /* PencilKitViewRepresentable.swift in Sources */,
 				8D692E862BE0834C00E616CF /* Device.swift in Sources */,
 				8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */,
+				8D692E9D2BE79FBC00E616CF /* PencilData.swift in Sources */,
 				8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
