@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DayLabelsView: View {
+struct DayTopAreaView: View {
     @Environment(DateManagement.self) private var dateManagement
     
     var body: some View {
@@ -18,12 +18,17 @@ struct DayLabelsView: View {
                     .font(Font.system(size: 24.0, weight: .semibold))
                     .offset(x: self.dateManagement.getDayLebelPosition(weekDay: weekday).x,
                             y: self.dateManagement.getDayLebelPosition(weekDay: weekday).y)
+                Text("\(self.dateManagement.getRemainingLebel(weekDay: weekday).contents)")
+                    .foregroundStyle(Color("Basic Green", bundle: .main))
+                    .font(Font.system(size: 10.0, weight: .semibold))
+                    .offset(x: self.dateManagement.getRemainingLebel(weekDay: weekday).x,
+                            y: self.dateManagement.getRemainingLebel(weekDay: weekday).y)
             }
         }
     }
 }
 
 #Preview {
-    DayLabelsView()
+    DayTopAreaView()
         .environment(DateManagement())
 }
