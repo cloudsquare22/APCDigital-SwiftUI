@@ -177,7 +177,7 @@ class MonthlyCalendarView {
     }
     
     func createDayUILabel(day:Int, weekdayIndex:Int, weekIndex:Int) -> UIView {
-        print("day: \(day) weekdayIndex: \(weekdayIndex) weekIndex: \(weekIndex)")
+//        print("day: \(day) weekdayIndex: \(weekdayIndex) weekIndex: \(weekIndex)")
         let dayView = UILabel(frame: CGRect(x: 4.0 + (20.0 * CGFloat(weekdayIndex)),
                                             y: 31.5 + (11.5 * CGFloat(weekIndex)),
                                             width: 20,

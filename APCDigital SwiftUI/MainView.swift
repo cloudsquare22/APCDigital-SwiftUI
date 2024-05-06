@@ -27,7 +27,7 @@ struct MainView: View {
                     .resizable()
                     .scaledToFit()
                 DayTopAreaView()
-                MonthLabelView()
+                RightAreaView()
                 EventsView()
                 PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
                                            pkToolPicker: self.$pkToolPicker)

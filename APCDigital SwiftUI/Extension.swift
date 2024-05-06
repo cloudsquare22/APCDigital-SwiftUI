@@ -26,3 +26,11 @@ extension DateComponents {
         self.nanosecond = nanosecond
     }
 }
+
+extension Calendar {
+    static func shortMonthSymbols(local: Locale) -> [String] {
+        var calendar = Calendar.current
+        calendar.locale = local
+        return calendar.shortMonthSymbols
+    }
+}

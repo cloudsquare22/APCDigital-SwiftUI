@@ -230,7 +230,7 @@ import SwiftUI
         // 内容
         var contents: AttributedString = ""
         for event in allDayAreaEvents {
-            if let startDate = event.startDate, let endDate = event.endDate {
+            if let startDate = event.startDate {
                 let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
                 if let startHour = startDateComponents.hour,
                    let startMinute = startDateComponents.minute {
@@ -276,11 +276,12 @@ import SwiftUI
                 }
             }
         }
-        if let eventPositions = self.HOLIDAY_POSITIONS_MAP[Device.getDevie()] ,
-           let eventPosition = eventPositions[weekDay1stMonday] {
-            eventViewData.x = eventPosition.x
-            eventViewData.y = eventPosition.y
-            eventViewData.width = eventPosition.width
+        
+        // 座標幅
+        if let position = self.getPosition(positionsMap: self.HOLIDAY_POSITIONS_MAP, weekDay1stMonday: weekDay1stMonday) {
+            eventViewData.x = position.x
+            eventViewData.y = position.y
+            eventViewData.width = position.width
         }
         return eventViewData
     }

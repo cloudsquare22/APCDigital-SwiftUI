@@ -28,6 +28,12 @@
 		8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E992BE75F7800E616CF /* HolidayLabelView.swift */; };
 		8D692E9D2BE79FBC00E616CF /* PencilData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E9C2BE79FBC00E616CF /* PencilData.swift */; };
 		8D692E9F2BE7A0B400E616CF /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E9E2BE7A0B400E616CF /* DataOperation.swift */; };
+		8D692EA12BE8E9F700E616CF /* DayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA02BE8E9F700E616CF /* DayLabelView.swift */; };
+		8D692EA32BE8ED0800E616CF /* RemainingLebelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA22BE8ED0800E616CF /* RemainingLebelView.swift */; };
+		8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA62BE8F63D00E616CF /* RightAreaView.swift */; };
+		8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA82BE8F65E00E616CF /* FromToView.swift */; };
+		8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */; };
+		8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +59,12 @@
 		8D692E992BE75F7800E616CF /* HolidayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayLabelView.swift; sourceTree = "<group>"; };
 		8D692E9C2BE79FBC00E616CF /* PencilData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilData.swift; sourceTree = "<group>"; };
 		8D692E9E2BE7A0B400E616CF /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
+		8D692EA02BE8E9F700E616CF /* DayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelView.swift; sourceTree = "<group>"; };
+		8D692EA22BE8ED0800E616CF /* RemainingLebelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingLebelView.swift; sourceTree = "<group>"; };
+		8D692EA62BE8F63D00E616CF /* RightAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAreaView.swift; sourceTree = "<group>"; };
+		8D692EA82BE8F65E00E616CF /* FromToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromToView.swift; sourceTree = "<group>"; };
+		8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarView.swift; sourceTree = "<group>"; };
+		8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,27 +97,33 @@
 		8D692E6E2BDFD11700E616CF /* APCDigital SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				8D692E772BDFD11800E616CF /* Preview Content */,
 				8D692E9B2BE79F7E00E616CF /* Model */,
 				8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */,
 				8D692E712BDFD11700E616CF /* ContentView.swift */,
 				8D692E732BDFD11700E616CF /* Item.swift */,
 				8D692E752BDFD11800E616CF /* Assets.xcassets */,
-				8D692E772BDFD11800E616CF /* Preview Content */,
 				8D692E7F2BE0749B00E616CF /* MainView.swift */,
 				8D692E812BE07C5600E616CF /* DayTopAreaView.swift */,
+				8D692EA02BE8E9F700E616CF /* DayLabelView.swift */,
+				8D692EA22BE8ED0800E616CF /* RemainingLebelView.swift */,
+				8D692E992BE75F7800E616CF /* HolidayLabelView.swift */,
+				8D692E972BE71E5600E616CF /* EventsAllDayView.swift */,
+				8D692EA62BE8F63D00E616CF /* RightAreaView.swift */,
+				8D692E8D2BE1116400E616CF /* MonthLabelView.swift */,
+				8D692EA82BE8F65E00E616CF /* FromToView.swift */,
 				8D692E832BE07DED00E616CF /* DateManagement.swift */,
 				8D692E852BE0834C00E616CF /* Device.swift */,
 				8D692E872BE088FC00E616CF /* Enum.swift */,
 				8D692E892BE10B9700E616CF /* PencilKitViewRepresentable.swift */,
 				8D692E8B2BE10DCC00E616CF /* Extension.swift */,
-				8D692E8D2BE1116400E616CF /* MonthLabelView.swift */,
 				8D692E8F2BE11A4100E616CF /* AppDelegate.swift */,
 				8D692E912BE3733500E616CF /* EventManagement.swift */,
 				8D692E932BE3773A00E616CF /* EventsView.swift */,
 				8D692E952BE4BDE300E616CF /* EventViewData.swift */,
-				8D692E972BE71E5600E616CF /* EventsAllDayView.swift */,
-				8D692E992BE75F7800E616CF /* HolidayLabelView.swift */,
 				8D692E9E2BE7A0B400E616CF /* DataOperation.swift */,
+				8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */,
+				8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -199,7 +217,11 @@
 			files = (
 				8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */,
 				8D692E942BE3773A00E616CF /* EventsView.swift in Sources */,
+				8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */,
+				8D692EA12BE8E9F700E616CF /* DayLabelView.swift in Sources */,
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
+				8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */,
+				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
 				8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */,
@@ -208,6 +230,7 @@
 				8D692E822BE07C5600E616CF /* DayTopAreaView.swift in Sources */,
 				8D692E982BE71E5600E616CF /* EventsAllDayView.swift in Sources */,
 				8D692E9F2BE7A0B400E616CF /* DataOperation.swift in Sources */,
+				8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */,
 				8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */,
 				8D692E8C2BE10DCC00E616CF /* Extension.swift in Sources */,
 				8D692E742BDFD11700E616CF /* Item.swift in Sources */,
@@ -215,6 +238,7 @@
 				8D692E862BE0834C00E616CF /* Device.swift in Sources */,
 				8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */,
 				8D692E9D2BE79FBC00E616CF /* PencilData.swift in Sources */,
+				8D692EA32BE8ED0800E616CF /* RemainingLebelView.swift in Sources */,
 				8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct FromToView: View {
+    @Environment(DateManagement.self) private var dateManagement
+
+    fileprivate func createFromToView() -> some View {
+        let labelViewData = self.dateManagement.createFromToLebelViewData()
+        return Text(labelViewData.contents)
+            .multilineTextAlignment(.center)
+            .foregroundStyle(Color("Basic Green", bundle: .main))
+            .font(Font.system(size: 15.0, weight: .regular))
+            .position(x: labelViewData.x,
+                    y: labelViewData.y)
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geometry in
+            ZStack(alignment: .topLeading) {
+                self.createFromToView()
+            }
+        }
     }
 }
 
 #Preview {
     FromToView()
+        .environment(DateManagement())
 }

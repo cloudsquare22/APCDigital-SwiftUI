@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct DayTopAreaView: View {
-    @Environment(DateManagement.self) private var dateManagement
-    
     var body: some View {
         DayLabelView()
         RemainingLebelView()
