@@ -11,7 +11,7 @@ struct EventsAllDayView: View {
     @Environment(EventManagement.self) private var eventMangement
 
     fileprivate func createEventAllDayView(_ weekDay1stMonday: WeekDay1stMonday) -> some View {
-        let eventViewData = self.eventMangement.createAllDayViewData(weekDay1stMonday: weekDay1stMonday)
+        let eventViewData = self.eventMangement.createAllDayEventViewData(weekDay1stMonday: weekDay1stMonday)
         return Text(eventViewData.contents)
             .lineLimit(5)
             .font(Font.system(size: 10.0, weight: .medium, design: .default))

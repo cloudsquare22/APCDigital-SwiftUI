@@ -11,15 +11,8 @@ import EventKit
 struct EventsView: View {
     @Environment(EventManagement.self) private var eventMangement
 
-    func cgToUIColor(cgColor: CGColor, alpha: CGFloat = 0.3) -> UIColor {
-        return UIColor(red: cgColor.components![0],
-                       green: cgColor.components![1],
-                       blue: cgColor.components![2],
-                       alpha: alpha)
-    }
-
     fileprivate func createEventView(_ event: EKEvent) -> some View {
-        let eventViewData = self.eventMangement.eventPosition(event: event)
+        let eventViewData = self.eventMangement.createEventViewData(event: event)
         return Text(eventViewData.contents)
             .font(Font.system(size: 10.0, weight: .medium, design: .default))
             .padding(EdgeInsets(top: 0.0, leading: 6.0, bottom: 0.0, trailing: 0.0))
@@ -81,8 +74,7 @@ struct EventsView: View {
                     .stroke(lineWidth: 1)
                 }
             })
-//            .border(.black, width: 0.8)
-            .background(Color(uiColor: self.cgToUIColor(cgColor: event.calendar.cgColor)))
+            .background(eventViewData.color)
             .offset(x: eventViewData.x,
                     y: eventViewData.y)
     }
@@ -92,20 +84,8 @@ struct EventsView: View {
             ZStack(alignment: .topLeading) {
                 ForEach(self.eventMangement.mainAreaEvents, id: \.self) { event in
                     createEventView(event)
-//                        Rectangle()
-//                            .fill(.cyan.opacity(0.1))
-//                            .frame(width: 100, height: 100, alignment: .topLeading)
-//                            .overlay(content: {
-//                                Text("\(event.title!)")
-//                                    .offset(x: 0, y: 0)
-//                            })
-//                            .offset(x: 0, y: 0)
-//                    }
                 }
             }
-        }
-        .onAppear() {
-            print(self.eventMangement.events.count)
         }
     }
 }

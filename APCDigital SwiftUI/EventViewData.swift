@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct EventViewData {
     var contents: AttributedString = ""
@@ -20,4 +21,5 @@ struct EventViewData {
     var dispTopLine: Bool = true
     var dispBottomLine: Bool = true
     var isMove: Bool = false
+    var color: Color = .clear
 }

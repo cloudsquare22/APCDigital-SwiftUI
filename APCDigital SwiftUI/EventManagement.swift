@@ -17,7 +17,12 @@ import SwiftUI
     var holidayEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
     
-    let eventPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
+    let ONE_HOUR_HEIGHT: CGFloat = 45.5
+    let MOVE_SYMBOLS: [String] = ["🚗", "🚃"]
+
+    typealias XYWidth = (x:CGFloat, y:CGFloat, width: CGFloat)
+    
+    let EVENT_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
     [.ipad_pro_12_9_6th : [.monday :   (  55.0, 133.5, 140.0),
                            .tuesday:   ( 203.0, 133.5, 140.0),
                            .wednesday: ( 351.0, 133.5, 140.0),
@@ -26,7 +31,7 @@ import SwiftUI
                            .saturday:  ( 868.0, 133.5, 140.0),
                            .sunday:    (1016.0, 133.5, 143.5)]]
 
-    let eventAllDayPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
+    let EVENT_ALLDAY_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
     [.ipad_pro_12_9_6th : [.monday :   (  60.0, 70.0, 140.0),
                            .tuesday:   ( 208.0, 70.0, 140.0),
                            .wednesday: ( 356.0, 70.0, 140.0),
@@ -35,7 +40,7 @@ import SwiftUI
                            .saturday:  ( 873.0, 70.0, 140.0),
                            .sunday:    (1021.0, 70.0, 140.0)]]
 
-    let holidayPositionsMap: [Device.DType : [WeekDay1stMonday : (x:CGFloat, y:CGFloat, width: CGFloat)]] =
+    let HOLIDAY_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
     [.ipad_pro_12_9_6th : [.monday :   (  96.0, 59.0, 100.0),
                            .tuesday:   ( 244.0, 59.0, 100.0),
                            .wednesday: ( 392.0, 59.0, 100.0),
@@ -65,15 +70,13 @@ import SwiftUI
                 if let startDate = event.startDate, let endDate = event.endDate {
                     let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
                     let endDateComponents = Calendar.current.dateComponents(in: .current, from: endDate)
-                    if let startDay = startDateComponents.day,
-                       let startHour = startDateComponents.hour,
+                    if let startHour = startDateComponents.hour,
                        let startMinute = startDateComponents.minute,
-                       let endDay = endDateComponents.day,
                        let endHour = endDateComponents.hour,
                        let endMinute = endDateComponents.minute {
                         if 0 <= startHour, startHour < 6 {
-                            if endHour < 6 || endHour == 6 && endMinute == 00 {
-                                print("[A] \(startDay) \(startHour):\(startMinute)〜\(endDay) \(endHour):\(endMinute) \(event.title ?? "")")
+                            if endHour < 6 || endHour == 6 && endMinute == 0 {
+                                print("[A] \(event.title ?? "")")
                                 self.allDayAreaEvents.append(event)
                             }
                             else {
@@ -81,7 +84,7 @@ import SwiftUI
                             }
                         }
                         else if startHour == 23, 31 <= startMinute {
-                            print("[B] \(startDay) \(startHour):\(startMinute)〜\(endDay) \(endHour):\(endMinute) \(event.title ?? "")")
+                            print("[B] \(event.title ?? "")")
                             self.allDayAreaEvents.append(event)
                         }
                         else {
@@ -97,6 +100,7 @@ import SwiftUI
         let calendarAll = eventStore.calendars(for: .event)
         self.calendars = []
         for calendar in calendarAll {
+            print(calendar)
             switch calendar.type {
             case .local, .calDAV,
                     .subscription where calendar.title != "日本の祝日":
@@ -108,10 +112,33 @@ import SwiftUI
         self.calendars.sort() {
             $0.title < $1.title
         }
-        print(calendars)
+//        print(calendars)
     }
     
-    func eventPosition(event: EKEvent) -> EventViewData {
+    func getPosition(positionsMap: [Device.DType : [WeekDay1stMonday : XYWidth]], weekDay: Int?) -> XYWidth? {
+        self.getPosition(positionsMap: positionsMap, weekDay1stMonday: self.weekDayToWeekDay1stMonday(weekDay: weekDay))
+    }
+
+    func getPosition(positionsMap: [Device.DType : [WeekDay1stMonday : XYWidth]], weekDay1stMonday: WeekDay1stMonday) -> XYWidth? {
+        var position: XYWidth? = nil
+        if let positions = positionsMap[Device.getDevie()] {
+            position = positions[weekDay1stMonday]
+        }
+        return position
+    }
+
+    func getHeight(startDate: Date, endDate: Date) -> CGFloat {
+        var height: CGFloat = ONE_HOUR_HEIGHT
+        let diff: TimeInterval = endDate.timeIntervalSince(startDate) // seconds
+        height = CGFloat((ONE_HOUR_HEIGHT / 60) * (diff / 60))
+        return height
+    }
+    
+    func isMove(title: String) -> Bool {
+        MOVE_SYMBOLS.contains(String(title.prefix(1)))
+    }
+    
+    func createEventViewData(event: EKEvent) -> EventViewData {
         var eventViewData = EventViewData()
         if let startDate = event.startDate, let endDate = event.endDate {
             let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
@@ -123,8 +150,8 @@ import SwiftUI
                let endHour = endDateComponents.hour,
                let endMinute = endDateComponents.minute {
 //                print("\(startDay) \(startHour):\(startMinute)〜\(endDay) \(endHour):\(endMinute) \(event.title ?? "")")
-                if let eventPositions = self.eventPositionsMap[Device.getDevie()] ,
-                    let eventPosition = eventPositions[self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday)] {
+                if let position = self.getPosition(positionsMap: self.EVENT_POSITIONS_MAP, weekDay: startDateComponents.weekday) {
+                    // 内容
                     var contents: AttributedString = AttributedString(event.title)
                     if let location = event.location, location.isEmpty == false {
                         contents = contents + AttributedString("(" + location + ")")
@@ -137,14 +164,13 @@ import SwiftUI
                     }
                     eventViewData.contents = contents
                     
-                    if event.title.starts(with: "🚃") == true || event.title.starts(with: "🚗") == true{
-                        eventViewData.isMove = true
-                    }
+                    // 移動：線中央にする
+                    eventViewData.isMove = self.isMove(title: event.title)
 
                     // 高さ：標準
-                    let diff = endDate.timeIntervalSince(startDate) // seconds
-                    eventViewData.height = CGFloat((45.5 / 60) * (diff / 60))
+                    eventViewData.height = self.getHeight(startDate: startDate, endDate: endDate)
 
+                    // 開始マーク：標準（期間外補正：開始で上書きケースあり）
                     switch startMinute {
                     case 0, 30:
                         eventViewData.startSymbolName = "circle"
@@ -154,38 +180,38 @@ import SwiftUI
                         eventViewData.startSymbolName = String(startMinute) + ".circle"
                     }
 
-                    // 期間外：開始
-                    var startHourAdjust = startHour
-                    var startMinuteAdjust = startMinute
-                    var startDateComponentsAdjust = startDateComponents
+                    // 座標：標準
+                    eventViewData.x = position.x
+                    eventViewData.y = position.y + (ONE_HOUR_HEIGHT * CGFloat(startHour - 6 )) + (ONE_HOUR_HEIGHT / 60 * CGFloat(startMinute))
+
+                    // 幅
+                    eventViewData.width = position.width
+
+                    // 背景色
+                    eventViewData.color = self.cgToUIColor(cgColor: event.calendar.cgColor)
+
+                    // 期間外補正：開始
                     if startHour < 6 {
+                        var startDateComponentsAdjust = startDateComponents
                         startDateComponentsAdjust.hour = 6
                         startDateComponentsAdjust.minute = 0
-                        startHourAdjust = 6
-                        startMinuteAdjust = 0
                         eventViewData.dispTopLine = false
                         eventViewData.startSymbolName = "arrowtriangle.down"
                         if let startDateAdjust = startDateComponentsAdjust.date {
-                            let diff = endDate.timeIntervalSince(startDateAdjust) // seconds
-                            eventViewData.height = CGFloat((45.5 / 60) * (diff / 60))
-                            eventViewData.contents = AttributedString(String(format: "%d:%02d〜", startHour, startMinute)) + eventViewData.contents
+                            eventViewData.height = self.getHeight(startDate: startDateAdjust, endDate: endDate)
+                            eventViewData.contents = AttributedString(String(format: "%d:%02d〜", startDateComponentsAdjust.hour!, startDateComponentsAdjust.minute!)) + eventViewData.contents
                         }
+                        eventViewData.y = position.y + (ONE_HOUR_HEIGHT * CGFloat(startDateComponentsAdjust.hour! - 6 )) + (ONE_HOUR_HEIGHT / 60 * CGFloat(startDateComponentsAdjust.minute!))
                     }
                     
-                    eventViewData.x = eventPosition.x
-                    eventViewData.y = eventPosition.y + CGFloat(45.5  *  Float(startHourAdjust - 6 )) + CGFloat(45.5 / 60 * Float(startMinuteAdjust))
-                    eventViewData.width = eventPosition.width
-                    
-                    // 期間外；終了
-                    if (startDay == endDay && 23 == endHour && 31 <= endMinute) ||
-                                (startDay != endDay) {
+                    // 期間外補正；終了
+                    if (startDay == endDay && 23 == endHour && 31 <= endMinute) || (startDay != endDay) {
                         var endDateComponentsLimit = endDateComponents
                         endDateComponentsLimit.hour = 23
                         endDateComponentsLimit.minute = 30
                         endDateComponentsLimit.day = startDay
                         if let endDateLimit = endDateComponentsLimit.date {
-                            let diff = endDateLimit.timeIntervalSince(startDate) // seconds
-                            eventViewData.height = CGFloat((45.5 / 60) * (diff / 60))
+                            eventViewData.height = self.getHeight(startDate: startDate, endDate: endDateLimit)
                             eventViewData.contents =  eventViewData.contents + AttributedString(String(format: "\n〜%d:%02d", endHour, endMinute))
                         }
                         eventViewData.endSymbolName = "arrowtriangle.up"
@@ -198,50 +224,43 @@ import SwiftUI
         return eventViewData
     }
     
-    func createAllDayViewData(weekDay1stMonday: WeekDay1stMonday) -> EventViewData {
+    func createAllDayEventViewData(weekDay1stMonday: WeekDay1stMonday) -> EventViewData {
         var eventViewData = EventViewData()
+        
+        // 内容
         var contents: AttributedString = ""
         for event in allDayAreaEvents {
             if let startDate = event.startDate, let endDate = event.endDate {
                 let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
-                let endDateComponents = Calendar.current.dateComponents(in: .current, from: endDate)
-                if let startDay = startDateComponents.day,
-                   let startHour = startDateComponents.hour,
-                   let startMinute = startDateComponents.minute,
-                   let endDay = endDateComponents.day,
-                   let endHour = endDateComponents.hour,
-                   let endMinute = endDateComponents.minute {
+                if let startHour = startDateComponents.hour,
+                   let startMinute = startDateComponents.minute {
                     if self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday) == weekDay1stMonday {
                         if contents.runs.isEmpty == false {
                             contents = contents + "\n"
                         }
-                        if event.isAllDay == true {
-                            var attributedString = AttributedString("●" + event.title)
-                            let range = attributedString.range(of: "●")
-                            let color = self.cgToUIColor(cgColor: event.calendar.cgColor, alpha: 1.0)
-                            attributedString[range!].foregroundColor = color
-                            contents = contents + attributedString
+                        var startDateString:String = ""
+                        if event.isAllDay == false {
+                            startDateString = String(format: "%d:%02d ", startHour, startMinute)
                         }
-                        else {
-                            let startDateString = String(format: "%d:%02d ", startHour, startMinute)
-                            var attributedString = AttributedString("●" + startDateString + event.title)
-                            let range = attributedString.range(of: "●")
-                            let color = self.cgToUIColor(cgColor: event.calendar.cgColor, alpha: 1.0)
-                            attributedString[range!].foregroundColor = color
-                            let rangeDate = attributedString.range(of: startDateString)
-                            attributedString[rangeDate!].foregroundColor = Color(.basicGreen)
-                            contents = contents + attributedString
+                        var attributedString = AttributedString("●" + startDateString + event.title)
+                        let range = attributedString.range(of: "●")
+                        let color = self.cgToUIColor(cgColor: event.calendar.cgColor, alpha: 1.0)
+                        attributedString[range!].foregroundColor = color
+                        if let rangeDate = attributedString.range(of: startDateString) {
+                            attributedString[rangeDate].foregroundColor = Color(.basicGreen)
                         }
+                        contents = contents + attributedString
                     }
                 }
             }
         }
         eventViewData.contents = contents
-        if let eventPositions = self.eventAllDayPositionsMap[Device.getDevie()] ,
-           let eventPosition = eventPositions[weekDay1stMonday] {
-            eventViewData.x = eventPosition.x
-            eventViewData.y = eventPosition.y
-            eventViewData.width = eventPosition.width
+        
+        // 座標幅
+        if let position = self.getPosition(positionsMap: self.EVENT_ALLDAY_POSITIONS_MAP, weekDay1stMonday: weekDay1stMonday) {
+            eventViewData.x = position.x
+            eventViewData.y = position.y
+            eventViewData.width = position.width
         }
         return eventViewData
     }
@@ -257,7 +276,7 @@ import SwiftUI
                 }
             }
         }
-        if let eventPositions = self.holidayPositionsMap[Device.getDevie()] ,
+        if let eventPositions = self.HOLIDAY_POSITIONS_MAP[Device.getDevie()] ,
            let eventPosition = eventPositions[weekDay1stMonday] {
             eventViewData.x = eventPosition.x
             eventViewData.y = eventPosition.y
