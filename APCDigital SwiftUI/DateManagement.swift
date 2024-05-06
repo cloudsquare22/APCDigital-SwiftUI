@@ -33,8 +33,11 @@ import Foundation
     let MONTH_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
     [.ipad_pro_12_9_6th : (1240, 40.0)]
 
-    let FROM_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
+    let FROMTO_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
     [.ipad_pro_12_9_6th : (1240, 90)]
+
+    let WEEKOFYEAR_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
+    [.ipad_pro_12_9_6th : (1240, 352)]
 
     var days: [WeekDay1stMonday : Int] = [.monday: 2,
                                           .tuesday: 88,
@@ -86,7 +89,7 @@ import Foundation
 
     func createFromToLebelViewData() -> LabelViewData {
         var viewData: LabelViewData = ("", 0.0, 0.0)
-        if let position = self.FROM_LABEL_POSITION_MAP[Device.getDevie()],
+        if let position = self.FROMTO_LABEL_POSITION_MAP[Device.getDevie()],
            let mondayMonth = self.daysDateComponents[.monday]?.month,
            let mondayDay = self.daysDateComponents[.monday]?.day,
            let sundayMonth = self.daysDateComponents[.sunday]?.month,
@@ -99,6 +102,18 @@ import Foundation
         }
         return viewData
     }
+
+    func createWeekOfYearViewData() -> LabelViewData {
+        var viewData: LabelViewData = ("", 0.0, 0.0)
+        if let position = self.WEEKOFYEAR_LABEL_POSITION_MAP[Device.getDevie()],
+           let mondayDate = self.pagestartday {
+            viewData.x = position.x
+            viewData.y = position.y
+            viewData.contents = String(Calendar.current.component(.weekOfYear, from: mondayDate)) + " week"
+        }
+        return viewData
+    }
+
 
     func createRemainingLebelViewData(weekDay1stMonday: WeekDay1stMonday) -> LabelViewData {
         var viewData: LabelViewData = ("", 0.0, 0.0)

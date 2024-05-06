@@ -20,6 +20,7 @@ struct RightAreaView: View {
                 .offset(x: 1170, y: 132)
             MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$nextMonthlyCalendarView)
                 .offset(x: 1170, y: 237)
+            WeekOfYearView()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {

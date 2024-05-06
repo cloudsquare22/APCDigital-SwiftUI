@@ -17,7 +17,7 @@ struct FromToView: View {
             .foregroundStyle(Color("Basic Green", bundle: .main))
             .font(Font.system(size: 15.0, weight: .regular))
             .position(x: labelViewData.x,
-                    y: labelViewData.y)
+                      y: labelViewData.y)
     }
 
     var body: some View {
