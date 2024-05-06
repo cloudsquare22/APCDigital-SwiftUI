@@ -8,8 +8,7 @@
 import Foundation
 
 struct EventViewData {
-    var contents: String = ""
-    var contentsa: AttributedString = ""
+    var contents: AttributedString = ""
     var x: CGFloat = 0.0
     var y: CGFloat = 0.0
     var width: CGFloat = 140.0
@@ -20,4 +19,5 @@ struct EventViewData {
     var endSymbolYAdjust: CGFloat = -4.0
     var dispTopLine: Bool = true
     var dispBottomLine: Bool = true
+    var isMove: Bool = false
 }
