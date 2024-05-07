@@ -38,6 +38,7 @@ struct MainView: View {
                         self.changePage(swipeType: swipeType)
                     })
                 )
+//                PencilCaseView(pkCanvasView: self.$pkCanvasView)
             }
         }
         .onAppear() {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PencilKit
 
 extension Date {
     func printStyleString(style: DateFormatter.Style) -> String {
@@ -32,5 +33,11 @@ extension Calendar {
         var calendar = Calendar.current
         calendar.locale = local
         return calendar.shortMonthSymbols
+    }
+}
+
+extension PKInkingTool.InkType {
+    func minWidth() -> CGFloat {
+        return self.validWidthRange.lowerBound
     }
 }

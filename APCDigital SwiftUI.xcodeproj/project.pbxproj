@@ -35,6 +35,7 @@
 		8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */; };
 		8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */; };
 		8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EB02BE9104400E616CF /* WeekOfYearView.swift */; };
+		8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarView.swift; sourceTree = "<group>"; };
 		8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewRepresentable.swift; sourceTree = "<group>"; };
 		8D692EB02BE9104400E616CF /* WeekOfYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekOfYearView.swift; sourceTree = "<group>"; };
+		8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilCaseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */,
 				8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */,
 				8D692EB02BE9104400E616CF /* WeekOfYearView.swift */,
+				8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
 				8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */,
+				8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */,
 				8D692E882BE088FC00E616CF /* Enum.swift in Sources */,
 				8D692E842BE07DED00E616CF /* DateManagement.swift in Sources */,
 				8D692E822BE07C5600E616CF /* DayTopAreaView.swift in Sources */,
