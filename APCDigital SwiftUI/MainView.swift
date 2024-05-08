@@ -19,7 +19,12 @@ struct MainView: View {
     
     @State var pkCanvasView: PKCanvasView = PKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
-    
+
+    @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)
+    @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
+
+    @State var longpressPoint: CGPoint = .zero
+
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
@@ -27,10 +32,20 @@ struct MainView: View {
                     .resizable()
                     .scaledToFit()
                 DayTopAreaView()
-                RightAreaView()
+                // Right Area
+                Group {
+                    MonthLabelView()
+                    FromToView()
+                    MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)
+                        .offset(x: 1170, y: 132)
+                    MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$nextMonthlyCalendarView)
+                        .offset(x: 1170, y: 237)
+                    WeekOfYearView()
+                }
                 EventsView()
                 PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
-                                           pkToolPicker: self.$pkToolPicker)
+                                           pkToolPicker: self.$pkToolPicker,
+                                           point: self.$longpressPoint)
                 .gesture(DragGesture(coordinateSpace: .global)
                     .onEnded({ value in
                         let swipeType = self.swipeType(startLocation: value.startLocation,
@@ -38,9 +53,19 @@ struct MainView: View {
                         self.changePage(swipeType: swipeType)
                     })
                 )
-//                PencilCaseView(pkCanvasView: self.$pkCanvasView)
+                .onChange(of: self.longpressPoint, { old, new in
+                    print("#### \(new)")
+                })
             }
         }
+        .onChange(of: self.dateManagement.pagestartday, { old, new in
+            if let day = new {
+                self.monthlyCalendarView.update(day: day)
+                if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: day) {
+                    self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
+                }
+            }
+        })
         .onAppear() {
             print(Device.getDevie())
             self.dateManagement.setPageStartday(direction: .today)
@@ -101,6 +126,7 @@ struct MainView: View {
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
         case .none:
+            print("none")
             break;
         }
     }
