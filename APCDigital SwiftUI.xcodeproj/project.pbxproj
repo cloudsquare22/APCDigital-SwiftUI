@@ -36,6 +36,7 @@
 		8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */; };
 		8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EB02BE9104400E616CF /* WeekOfYearView.swift */; };
 		8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */; };
+		8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163C2BECFE6200B5A880 /* EventEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewRepresentable.swift; sourceTree = "<group>"; };
 		8D692EB02BE9104400E616CF /* WeekOfYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekOfYearView.swift; sourceTree = "<group>"; };
 		8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilCaseView.swift; sourceTree = "<group>"; };
+		8D9F163C2BECFE6200B5A880 /* EventEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */,
 				8D692EB02BE9104400E616CF /* WeekOfYearView.swift */,
 				8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */,
+				8D9F163C2BECFE6200B5A880 /* EventEditView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
+				8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
 				8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */,
 				8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */,

@@ -24,6 +24,7 @@ struct MainView: View {
     @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
 
     @State var longpressPoint: CGPoint = .zero
+    @State var dispEventEditView: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -55,8 +56,16 @@ struct MainView: View {
                 )
                 .onChange(of: self.longpressPoint, { old, new in
                     print("#### \(new)")
+                    self.dispEventEditView.toggle()
                 })
             }
+        }
+        .onAppear() {
+            print(Device.getDevie())
+            self.dateManagement.setPageStartday(direction: .today)
+            self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                             endDay: self.dateManagement.daysDateComponents[.sunday]!)
+            self.eventMangement.updateCalendars()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {
@@ -66,13 +75,6 @@ struct MainView: View {
                 }
             }
         })
-        .onAppear() {
-            print(Device.getDevie())
-            self.dateManagement.setPageStartday(direction: .today)
-            self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
-                                             endDay: self.dateManagement.daysDateComponents[.sunday]!)
-            self.eventMangement.updateCalendars()
-        }
         .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
             if let date = oldDate {
                 print("onchange olddate:\(date.printStyleString(style: .medium))")
@@ -83,6 +85,11 @@ struct MainView: View {
                 print("onchange newdate:\(date.printStyleString(style: .medium))")
                 self.drawingPencilData(date: date)
             }
+        })
+        .sheet(isPresented: self.$dispEventEditView,
+               onDismiss: {}, 
+               content: {
+            EventEditView()
         })
         .onChange(of: scenePhase) { oldvalue, newvalue in
             switch(newvalue) {
