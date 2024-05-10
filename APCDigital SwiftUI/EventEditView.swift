@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct EventEditView: View {
+    @State var title: String = ""
+    
     var body: some View {
-        Text("EventEditView!")
+        Form {
+            TextField("Title", text: self.$title)
+        }
     }
 }
 
