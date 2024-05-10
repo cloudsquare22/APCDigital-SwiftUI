@@ -9,10 +9,12 @@ import SwiftUI
 
 struct EventEditView: View {
     @State var title: String = ""
-    
+    @State var location: String = ""
+
     var body: some View {
         Form {
             TextField("Title", text: self.$title)
+            TextField("Location", text: self.$location)
         }
     }
 }

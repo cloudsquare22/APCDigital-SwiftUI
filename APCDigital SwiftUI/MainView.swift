@@ -29,9 +29,13 @@ struct MainView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
-                Image("aptemplate", bundle: .main)
-                    .resizable()
-                    .scaledToFit()
+                VStack {
+                    Spacer()
+                    Image("aptemplate", bundle: .main)
+                        .resizable()
+                        .scaledToFit()
+                    Spacer()
+                }
                 DayTopAreaView()
                 // Right Area
                 Group {
@@ -58,8 +62,14 @@ struct MainView: View {
                     print("#### \(new)")
                     self.dispEventEditView.toggle()
                 })
+                .sheet(isPresented: self.$dispEventEditView,
+                       onDismiss: {},
+                       content: {
+                    EventEditView()
+                })
             }
         }
+        .edgesIgnoringSafeArea(.all)
         .onAppear() {
             print(Device.getDevie())
             self.dateManagement.setPageStartday(direction: .today)
@@ -85,11 +95,6 @@ struct MainView: View {
                 print("onchange newdate:\(date.printStyleString(style: .medium))")
                 self.drawingPencilData(date: date)
             }
-        })
-        .sheet(isPresented: self.$dispEventEditView,
-               onDismiss: {}, 
-               content: {
-            EventEditView()
         })
         .onChange(of: scenePhase) { oldvalue, newvalue in
             switch(newvalue) {
