@@ -29,22 +29,19 @@ struct MainView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
-                VStack {
-                    Spacer()
-                    Image("aptemplate", bundle: .main)
-                        .resizable()
-                        .scaledToFit()
-                    Spacer()
-                }
+                Image("aptemplate", bundle: .main)
+                    .resizable()
+                    .scaledToFit()
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 DayTopAreaView()
                 // Right Area
                 Group {
                     MonthLabelView()
                     FromToView()
                     MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)
-                        .offset(x: 1170, y: 132)
+                        .offset(x: 1170, y: 168)
                     MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$nextMonthlyCalendarView)
-                        .offset(x: 1170, y: 237)
+                        .offset(x: 1170, y: 273)
                     WeekOfYearView()
                 }
                 EventsView()

@@ -17,37 +17,37 @@ import SwiftUI
     var holidayEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
     
-    let ONE_HOUR_HEIGHT: CGFloat = 45.5
+    let ONE_HOUR_HEIGHT: CGFloat = 45.6
     let MOVE_SYMBOLS: [String] = ["🚗", "🚃"]
 
     typealias XYWidth = (x:CGFloat, y:CGFloat, width: CGFloat)
     
     let EVENT_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
-    [.ipad_pro_12_9_6th : [.monday :   (  55.0, 133.5, 140.0),
-                           .tuesday:   ( 203.0, 133.5, 140.0),
-                           .wednesday: ( 351.0, 133.5, 140.0),
-                           .thursday:  ( 499.0, 133.5, 143.5),
-                           .friday:    ( 720.0, 133.5, 140.0),
-                           .saturday:  ( 868.0, 133.5, 140.0),
-                           .sunday:    (1016.0, 133.5, 143.5)]]
+    [.ipad_pro_12_9_6th : [.monday :   (  55.0, 169.0, 140.0),
+                           .tuesday:   ( 203.0, 169.0, 140.0),
+                           .wednesday: ( 351.0, 169.0, 140.0),
+                           .thursday:  ( 499.0, 169.0, 143.5),
+                           .friday:    ( 720.0, 169.0, 140.0),
+                           .saturday:  ( 868.0, 169.0, 140.0),
+                           .sunday:    (1016.0, 169.0, 143.5)]]
 
     let EVENT_ALLDAY_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
-    [.ipad_pro_12_9_6th : [.monday :   (  60.0, 70.0, 140.0),
-                           .tuesday:   ( 208.0, 70.0, 140.0),
-                           .wednesday: ( 356.0, 70.0, 140.0),
-                           .thursday:  ( 504.0, 70.0, 140.0),
-                           .friday:    ( 725.0, 70.0, 140.0),
-                           .saturday:  ( 873.0, 70.0, 140.0),
-                           .sunday:    (1021.0, 70.0, 140.0)]]
+    [.ipad_pro_12_9_6th : [.monday :   (  60.0, 105.0, 140.0),
+                           .tuesday:   ( 208.0, 105.0, 140.0),
+                           .wednesday: ( 356.0, 105.0, 140.0),
+                           .thursday:  ( 504.0, 105.0, 140.0),
+                           .friday:    ( 725.0, 105.0, 140.0),
+                           .saturday:  ( 873.0, 105.0, 140.0),
+                           .sunday:    (1021.0, 105.0, 140.0)]]
 
     let HOLIDAY_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
-    [.ipad_pro_12_9_6th : [.monday :   (  96.0, 59.0, 100.0),
-                           .tuesday:   ( 244.0, 59.0, 100.0),
-                           .wednesday: ( 392.0, 59.0, 100.0),
-                           .thursday:  ( 540.0, 59.0, 100.0),
-                           .friday:    ( 761.0, 59.0, 100.0),
-                           .saturday:  ( 909.0, 59.0, 100.0),
-                           .sunday:    (1057.0, 59.0, 100.0)]]
+    [.ipad_pro_12_9_6th : [.monday :   (  96.0, 93.0, 100.0),
+                           .tuesday:   ( 244.0, 93.0, 100.0),
+                           .wednesday: ( 392.0, 93.0, 100.0),
+                           .thursday:  ( 540.0, 93.0, 100.0),
+                           .friday:    ( 761.0, 93.0, 100.0),
+                           .saturday:  ( 909.0, 93.0, 100.0),
+                           .sunday:    (1057.0, 93.0, 100.0)]]
 
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
@@ -199,7 +199,7 @@ import SwiftUI
                         eventViewData.startSymbolName = "arrowtriangle.down"
                         if let startDateAdjust = startDateComponentsAdjust.date {
                             eventViewData.height = self.getHeight(startDate: startDateAdjust, endDate: endDate)
-                            eventViewData.contents = AttributedString(String(format: "%d:%02d〜", startDateComponentsAdjust.hour!, startDateComponentsAdjust.minute!)) + eventViewData.contents
+                            eventViewData.contents = AttributedString(String(format: "%d:%02d〜", startDateComponents.hour!, startDateComponents.minute!)) + eventViewData.contents
                         }
                         eventViewData.y = position.y + (ONE_HOUR_HEIGHT * CGFloat(startDateComponentsAdjust.hour! - 6 )) + (ONE_HOUR_HEIGHT / 60 * CGFloat(startDateComponentsAdjust.minute!))
                     }

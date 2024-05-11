@@ -12,32 +12,32 @@ import Foundation
     
     let DAY_LABEL_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : (x: CGFloat, y:CGFloat)]] =
     [.ipad_pro_12_9_6th : [
-        .monday: (60.0, 45.0),
-        .tuesday: (208.0, 45.0),
-        .wednesday: (356.0, 45.0),
-        .thursday: (504.0, 45.0),
-        .friday: (725.0, 45.0),
-        .saturday: (873.0, 45.0),
-        .sunday: (1021.0, 45.0)]]
+        .monday: (60.0, 80.0),
+        .tuesday: (208.0, 80.0),
+        .wednesday: (356.0, 80.0),
+        .thursday: (504.0, 80.0),
+        .friday: (725.0, 80.0),
+        .saturday: (873.0, 80.0),
+        .sunday: (1021.0, 80.0)]]
 
     let REMAINING_LABEL_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : (x: CGFloat, y:CGFloat)]] =
     [.ipad_pro_12_9_6th : [
-        .monday: (93.0, 48.0),
-        .tuesday: (241.0, 48.0),
-        .wednesday: (389.0, 48.0),
-        .thursday: (537.0, 48.0),
-        .friday: (758.0, 48.0),
-        .saturday: (906.0, 48.0),
-        .sunday: (1054.0, 48.0)]]
+        .monday: (93.0, 83.0),
+        .tuesday: (241.0, 83.0),
+        .wednesday: (389.0, 83.0),
+        .thursday: (537.0, 83.0),
+        .friday: (758.0, 83.0),
+        .saturday: (906.0, 83.0),
+        .sunday: (1054.0, 83.0)]]
 
     let MONTH_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
-    [.ipad_pro_12_9_6th : (1240, 40.0)]
+    [.ipad_pro_12_9_6th : (1240, 80.0)]
 
     let FROMTO_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
-    [.ipad_pro_12_9_6th : (1240, 90)]
+    [.ipad_pro_12_9_6th : (1240, 130.0)]
 
     let WEEKOFYEAR_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
-    [.ipad_pro_12_9_6th : (1240, 352)]
+    [.ipad_pro_12_9_6th : (1240, 388.0)]
 
     var days: [WeekDay1stMonday : Int] = [.monday: 2,
                                           .tuesday: 88,
