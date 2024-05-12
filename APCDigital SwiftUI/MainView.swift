@@ -62,7 +62,7 @@ struct MainView: View {
                 .sheet(isPresented: self.$dispEventEditView,
                        onDismiss: {},
                        content: {
-                    EventEditView()
+                    EventEditView(point: self.longpressPoint)
                 })
             }
         }
