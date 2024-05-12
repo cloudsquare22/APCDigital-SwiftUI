@@ -37,6 +37,7 @@
 		8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EB02BE9104400E616CF /* WeekOfYearView.swift */; };
 		8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */; };
 		8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163C2BECFE6200B5A880 /* EventEditView.swift */; };
+		8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163E2BF0DB9800B5A880 /* EventData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		8D692EB02BE9104400E616CF /* WeekOfYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekOfYearView.swift; sourceTree = "<group>"; };
 		8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilCaseView.swift; sourceTree = "<group>"; };
 		8D9F163C2BECFE6200B5A880 /* EventEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
+		8D9F163E2BF0DB9800B5A880 /* EventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				8D692EB02BE9104400E616CF /* WeekOfYearView.swift */,
 				8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */,
 				8D9F163C2BECFE6200B5A880 /* EventEditView.swift */,
+				8D9F163E2BF0DB9800B5A880 /* EventData.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */,
 				8D692EA12BE8E9F700E616CF /* DayLabelView.swift in Sources */,
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
+				8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */,
 				8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */,
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,

@@ -6,3 +6,19 @@
 //
 
 import Foundation
+import EventKit
+import SwiftUI
+
+@Observable class EventData {
+    var title: String = ""
+    var location: String = ""
+    var calendar: String = ""
+    var allDay: Bool = false
+    var startDate: Date = Date.now
+    var endDate: Date = Date.now
+    var todo: Bool = false
+    var notification: Bool = true
+    var memo: Bool = false
+    var memoText: String = ""
+    var eKEvent: EKEvent? = nil
+}

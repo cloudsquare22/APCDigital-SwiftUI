@@ -102,8 +102,7 @@ import SwiftUI
         for calendar in calendarAll {
             print(calendar)
             switch calendar.type {
-            case .local, .calDAV,
-                    .subscription where calendar.title != "日本の祝日":
+            case .local, .calDAV:
                 self.calendars.append(calendar)
             default:
                 break
@@ -284,6 +283,98 @@ import SwiftUI
             eventViewData.width = position.width
         }
         return eventViewData
+    }
+    
+    func createEventData(point: CGPoint, daysDateComponents: [WeekDay1stMonday : DateComponents]) -> EventData? {
+        var eventData: EventData? = nil
+        for weekDay1stMonday in WeekDay1stMonday.allCases {
+            if let xywith = self.getPosition(positionsMap: self.EVENT_POSITIONS_MAP, weekDay1stMonday: weekDay1stMonday) {
+                if xywith.x <= point.x, point.x <= xywith.x + xywith.width {
+                    if let dateComponents = daysDateComponents[weekDay1stMonday] {
+                        var startDateComponents = dateComponents
+                        print("\(#function):\(weekDay1stMonday)")
+                        let (startH, startM) = self.pointToHM(point: point, xywith: xywith)
+                        if 24 <= startH || (startH == 23 && startM == 30) {
+                            break
+                        }
+                        if self.calendars.count <= 0 {
+                            break
+                        }
+                        eventData = EventData()
+                        eventData?.calendar = self.calendars[0].calendarIdentifier
+                        startDateComponents.hour = startH
+                        startDateComponents.minute = startM
+                        eventData!.startDate = startDateComponents.date!
+                        eventData!.endDate = startDateComponents.date! + (60 * 60)
+                        if point.y < xywith.y {
+                            eventData!.allDay = true
+                        }
+                        break
+                    }
+                }
+            }
+        }
+        return eventData
+    }
+    
+    func pointToHM(point: CGPoint, xywith: XYWidth) -> (startH: Int, startM: Int) {
+        let pointH = ((point.y - xywith.y) / self.ONE_HOUR_HEIGHT) + 6
+        var startH = Int(pointH)
+        if point.y < xywith.y {
+            startH = 0
+        }
+        var startM = 0
+        if pointH > CGFloat(startH) + 0.5 {
+            startM = 30
+        }
+        print("\(startH):\(startM)")
+        return (startH, startM)
+    }
+    
+    func saveEventData(eventData: EventData) {
+        guard let calendar = self.getCalendar(id: eventData.calendar) else {
+            return
+        }
+        if eventData.eKEvent == nil {
+            let event = EKEvent(eventStore: eventStore)
+            event.title = eventData.todo == true ? "□" : ""
+            event.title = event.title + eventData.title
+            event.location = eventData.location
+            event.startDate = eventData.startDate
+            event.endDate = eventData.endDate
+            event.calendar = calendar
+            if eventData.memo == true {
+                event.notes = "【memo on】\n" + eventData.memoText
+            }
+            else {
+                event.notes = eventData.memoText
+            }
+            event.isAllDay = eventData.allDay
+            if eventData.allDay == false && eventData.notification == true {
+                let alarmEvent = EKAlarm(relativeOffset: 0)
+                let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
+                event.alarms = [alarmEvent, alarm5Minute]
+            }
+
+            do {
+                try eventStore.save(event, span: .thisEvent)
+            }
+            catch {
+                let nserror = error as NSError
+                print(nserror)
+            }
+        }
+    }
+    
+    func getCalendar(id: String) -> EKCalendar? {
+        var resultCaledar: EKCalendar? = nil
+        for calendar in self.calendars {
+            if calendar.calendarIdentifier == id {
+                resultCaledar = calendar
+                break
+            }
+        }
+        return resultCaledar
     }
 
     func cgToUIColor(cgColor: CGColor?, alpha: CGFloat = 0.3) -> Color {

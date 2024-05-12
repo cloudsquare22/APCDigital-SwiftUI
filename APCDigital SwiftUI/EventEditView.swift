@@ -10,62 +10,56 @@ import SwiftUI
 struct EventEditView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(EventManagement.self) private var eventMangement
+    @State var eventData: EventData
+    
     let point: CGPoint?
-
-    @State var title: String = ""
-    @State var location: String = ""
-    @State var calendar: String = ""
-    @State var allDay: Bool = false
-    @State var startDate: Date = Date.now
-    @State var endDate: Date = Date.now
-    @State var todo: Bool = false
-    @State var notification: Bool = false
-    @State var memo: Bool = false
-    @State var memoText: String = ""
 
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Title", text: self.$title)
-                TextField("Location", text: self.$location)
-                Picker("Calendar", selection: self.$calendar, content: {
+                TextField("Title", text: self.$eventData.title)
+                TextField("Location", text: self.$eventData.location)
+                Picker("Calendar", selection: self.$eventData.calendar, content: {
                     ForEach(self.eventMangement.calendars, id: \.self) { calendar in
                         Text(calendar.title)
                             .tag(calendar.calendarIdentifier)
                     }
                 })
-                Toggle("All day", isOn: self.$allDay)
+                Toggle("All day", isOn: self.$eventData.allDay)
                 DatePicker("Start Date",
-                           selection: self.$startDate,
-                           displayedComponents: [.date, .hourAndMinute])
-                HStack {
-                    Spacer()
-                    Button("+0.5H", action: {
-                    })
-                    .buttonStyle(BorderedProminentButtonStyle())
-                    Button("+1.0H", action: {
-                    })
-                    .buttonStyle(BorderedProminentButtonStyle())
-                    Button("+1.5H", action: {
-                    })
-                    .buttonStyle(BorderedProminentButtonStyle())
-                    Button("+2.0H", action: {
-                    })
-                    .buttonStyle(BorderedProminentButtonStyle())
-                    Button("+2.5H", action: {
-                    })
-                    .buttonStyle(BorderedProminentButtonStyle())
-                    Button("+3.0H", action: {
-                    })
+                           selection: self.$eventData.startDate,
+                           displayedComponents: self.eventData.allDay ? [.date] : [.date, .hourAndMinute])
+                if self.eventData.allDay == false {
+                    HStack {
+                        Spacer()
+                        Button("+0.5H", action: {
+                            self.eventData.endDate = self.eventData.startDate + (60 * 30)
+                        })
+                        Button("+1.0H", action: {
+                            self.eventData.endDate = self.eventData.startDate + (60 * 60)
+                        })
+                        Button("+1.5H", action: {
+                            self.eventData.endDate = self.eventData.startDate + (60 * 90)
+                        })
+                        Button("+2.0H", action: {
+                            self.eventData.endDate = self.eventData.startDate + (60 * 120)
+                       })
+                        Button("+2.5H", action: {
+                            self.eventData.endDate = self.eventData.startDate + (60 * 150)
+                        })
+                        Button("+3.0H", action: {
+                            self.eventData.endDate = self.eventData.startDate + (60 * 180)
+                        })
+                    }
                     .buttonStyle(BorderedProminentButtonStyle())
                 }
                 DatePicker("End Date",
-                           selection: self.$endDate,
-                           displayedComponents: [.date, .hourAndMinute])
-                Toggle("To Do", isOn: self.$todo)
-                Toggle("Notification", isOn: self.$notification)
-                Toggle("Memo", isOn: self.$memo)
-                TextEditor(text: self.$memoText)
+                           selection: self.$eventData.endDate,
+                           displayedComponents: self.eventData.allDay ? [.date] : [.date, .hourAndMinute])
+                Toggle("To Do", isOn: self.$eventData.todo)
+                Toggle("Notification", isOn: self.$eventData.notification)
+                Toggle("Memo", isOn: self.$eventData.memo)
+                TextEditor(text: self.$eventData.memoText)
             }
             .navigationTitle("Event")
             .toolbarTitleDisplayMode(.inline)
@@ -79,8 +73,16 @@ struct EventEditView: View {
                 ToolbarItem(placement: .confirmationAction, content: {
                     Button("Save",
                            action: {
+                        self.eventMangement.saveEventData(eventData: self.eventData)
+                        self.presentationMode.wrappedValue.dismiss()
                     })
+                    .disabled(self.eventData.title.isEmpty ? true : false)
                 })
+            })
+            .onChange(of: self.eventData.allDay, { old, new in
+                if new == true {
+                    self.eventData.notification = false
+                }
             })
         }
         .onAppear() {
@@ -90,6 +92,6 @@ struct EventEditView: View {
 }
 
 #Preview {
-    EventEditView(point: CGPointZero)
+    EventEditView(eventData: EventData(), point: CGPointZero)
         .environment(EventManagement())
 }

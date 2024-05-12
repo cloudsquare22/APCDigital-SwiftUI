@@ -25,6 +25,8 @@ struct MainView: View {
 
     @State var longpressPoint: CGPoint = .zero
     @State var dispEventEditView: Bool = false
+    
+    static var eventData: EventData? = nil
 
     var body: some View {
         GeometryReader { geometry in
@@ -57,12 +59,23 @@ struct MainView: View {
                 )
                 .onChange(of: self.longpressPoint, { old, new in
                     print("#### \(new)")
-                    self.dispEventEditView.toggle()
+                    if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
+                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
+                        MainView.eventData = eventData
+                        self.dispEventEditView.toggle()
+                    }
                 })
                 .sheet(isPresented: self.$dispEventEditView,
-                       onDismiss: {},
+                       onDismiss: {
+                    MainView.eventData = nil
+                    self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                     endDay: self.dateManagement.daysDateComponents[.sunday]!)
+                },
                        content: {
-                    EventEditView(point: self.longpressPoint)
+                    if let eventData = MainView.eventData {
+                        EventEditView(eventData: eventData,
+                                      point: self.longpressPoint)
+                    }
                 })
             }
         }
