@@ -25,9 +25,8 @@ struct MainView: View {
 
     @State var longpressPoint: CGPoint = .zero
     @State var dispEventEditView: Bool = false
+    @State var dispEventSelectDialog: Bool = false
     
-    static var eventData: EventData? = nil
-
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
@@ -59,23 +58,36 @@ struct MainView: View {
                 )
                 .onChange(of: self.longpressPoint, { old, new in
                     print("#### \(new)")
-                    if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
-                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
-                        MainView.eventData = eventData
-                        self.dispEventEditView.toggle()
+                    let mainAreaEvents = self.eventMangement.checkMainAreaEvents(point: self.longpressPoint)
+                    if mainAreaEvents.count == 0 {
+                        if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
+                                                                               daysDateComponents: self.dateManagement.daysDateComponents) {
+                            self.eventMangement.operationEventData = eventData
+                            self.dispEventEditView.toggle()
+                        }
+                    }
+                    else {
+                        self.eventMangement.operationEKEvents = mainAreaEvents
+                        self.eventMangement.operationPoint = self.longpressPoint
+                        self.dispEventSelectDialog.toggle()
                     }
                 })
                 .sheet(isPresented: self.$dispEventEditView,
                        onDismiss: {
-                    MainView.eventData = nil
+                    self.eventMangement.operationEventData = nil
                     self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
                 },
                        content: {
-                    if let eventData = MainView.eventData {
+                    if let eventData = self.eventMangement.operationEventData {
                         EventEditView(eventData: eventData,
                                       point: self.longpressPoint)
                     }
+                })
+                .sheet(isPresented: self.$dispEventSelectDialog, onDismiss: {
+                    
+                }, content: {
+                    Text("Example")
                 })
             }
         }

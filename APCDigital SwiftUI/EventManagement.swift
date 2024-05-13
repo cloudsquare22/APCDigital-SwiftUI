@@ -17,6 +17,16 @@ import SwiftUI
     var holidayEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
     
+    @ObservationIgnored
+    var mainAreaEventViewDataMap: [String: (eventViewData: EventViewData, event: EKEvent)] = [:]
+    
+    @ObservationIgnored
+    var operationEventData: EventData? = nil
+    @ObservationIgnored
+    var operationEKEvents: [EKEvent]? = nil
+    @ObservationIgnored
+    var operationPoint: CGPoint = .zero
+
     let ONE_HOUR_HEIGHT: CGFloat = 45.6
     let MOVE_SYMBOLS: [String] = ["🚗", "🚃"]
 
@@ -56,6 +66,7 @@ import SwiftUI
         self.allDayAreaEvents = []
         self.mainAreaEvents = []
         self.holidayEvents = []
+        self.mainAreaEventViewDataMap = [:]
         for event in events {
             if let calendar = event.calendar, calendar.title == "日本の祝日" {
                 self.holidayEvents.append(event)
@@ -220,6 +231,7 @@ import SwiftUI
                 }
             }
         }
+        self.mainAreaEventViewDataMap[event.calendarItemIdentifier] = (eventViewData: eventViewData, event: event)
         return eventViewData
     }
     
@@ -283,6 +295,22 @@ import SwiftUI
             eventViewData.width = position.width
         }
         return eventViewData
+    }
+    
+    func checkMainAreaEvents(point: CGPoint) -> [EKEvent] {
+        var events: [EKEvent] = []
+        for (_, value) in mainAreaEventViewDataMap {
+            guard value.event.calendar.type == .calDAV else {
+                continue
+            }
+            let eventViewData: EventViewData = value.eventViewData
+            if eventViewData.x <= point.x && point.x <= eventViewData.x + eventViewData.width &&
+                eventViewData.y <= point.y && point.y <= eventViewData.y + eventViewData.height {
+                print(value.event.title!)
+                events.append(value.event)
+            }
+        }
+        return events
     }
     
     func createEventData(point: CGPoint, daysDateComponents: [WeekDay1stMonday : DateComponents]) -> EventData? {
