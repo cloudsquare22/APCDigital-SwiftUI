@@ -25,7 +25,6 @@ struct MainView: View {
 
     @State var longpressPoint: CGPoint = .zero
     @State var dispEventEditView: Bool = false
-    @State var dispEventSelectDialog: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -69,7 +68,6 @@ struct MainView: View {
                     else {
                         self.eventMangement.operationEKEvents = mainAreaEvents
                         self.eventMangement.operationPoint = self.longpressPoint
-                        self.dispEventSelectDialog.toggle()
                     }
                 })
                 .sheet(isPresented: self.$dispEventEditView,
@@ -83,11 +81,6 @@ struct MainView: View {
                         EventEditView(eventData: eventData,
                                       point: self.longpressPoint)
                     }
-                })
-                .sheet(isPresented: self.$dispEventSelectDialog, onDismiss: {
-                    
-                }, content: {
-                    Text("Example")
                 })
             }
         }
