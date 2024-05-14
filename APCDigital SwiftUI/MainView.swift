@@ -66,8 +66,13 @@ struct MainView: View {
                         }
                     }
                     else {
-                        self.eventMangement.operationEKEvents = mainAreaEvents
-                        self.eventMangement.operationPoint = self.longpressPoint
+                        if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
+                                                                               daysDateComponents: self.dateManagement.daysDateComponents) {
+                            self.eventMangement.operationEventData = eventData
+                            self.eventMangement.operationEKEvents = mainAreaEvents
+                            self.eventMangement.operationPoint = self.longpressPoint
+                            self.dispEventEditView.toggle()
+                        }
                     }
                 })
                 .sheet(isPresented: self.$dispEventEditView,
@@ -79,6 +84,7 @@ struct MainView: View {
                        content: {
                     if let eventData = self.eventMangement.operationEventData {
                         EventEditView(eventData: eventData,
+                                      eventDatas: self.eventMangement.operationEKEvents ?? [],
                                       point: self.longpressPoint)
                     }
                 })

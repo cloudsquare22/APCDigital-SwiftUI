@@ -6,17 +6,33 @@
 //
 
 import SwiftUI
+import EventKit
 
 struct EventEditView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(EventManagement.self) private var eventMangement
     @State var eventData: EventData
     
+    @State var actionEvent: String = "new"
+    let eventDatas: [EKEvent]
+    
     let point: CGPoint?
 
     var body: some View {
         NavigationStack {
             Form {
+                Section {
+                    Picker("Event", selection: self.$actionEvent, content: {
+                        Text("New")
+                            .tag("new")
+                        ForEach(Array(self.eventDatas.enumerated()), id: \.offset, content: {
+                            offset, event in
+                            Text(event.title)
+                                .tag(String(offset))
+                        })
+                    })
+                    .pickerStyle(.segmented)
+                }
                 TextField("Title", text: self.$eventData.title)
                 TextField("Location", text: self.$eventData.location)
                 Picker("Calendar", selection: self.$eventData.calendar, content: {
@@ -92,6 +108,6 @@ struct EventEditView: View {
 }
 
 #Preview {
-    EventEditView(eventData: EventData(), point: CGPointZero)
+    EventEditView(eventData: EventData(), eventDatas: [EKEvent()], point: CGPointZero)
         .environment(EventManagement())
 }
