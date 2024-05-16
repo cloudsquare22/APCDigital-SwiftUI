@@ -82,6 +82,7 @@ struct MainView: View {
                     self.eventMangement.operationEventData = nil
                     self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
+                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     if let eventData = self.eventMangement.operationEventData {
