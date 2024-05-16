@@ -116,6 +116,7 @@ struct MainView: View {
                 print("onchange newdate:\(date.printStyleString(style: .medium))")
                 self.drawingPencilData(date: date)
             }
+            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: scenePhase) { oldvalue, newvalue in
             switch(newvalue) {
@@ -130,6 +131,9 @@ struct MainView: View {
                         self.dataOperation.upsertPencilData(date: date,
                                                             pagedata: self.pkCanvasView.drawing.dataRepresentation())
                     }
+                }
+                else {
+                    self.pkCanvasView.becomeFirstResponder()
                 }
             @unknown default:
                 print("default")
