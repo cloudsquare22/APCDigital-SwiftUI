@@ -15,7 +15,7 @@ struct EventViewData {
     var width: CGFloat = 140.0
     var height: CGFloat = 45.6
     var startSymbolName: String = "circle"
-    var startSymbolYAdjust: CGFloat = 0.0
+    var startSymbolYAdjust: CGFloat = -1.0
     var endSymbolName: String = "chevron.down"
     var endSymbolYAdjust: CGFloat = -4.0
     var dispTopLine: Bool = true

@@ -32,7 +32,7 @@ import SwiftUI
             return 45.6
         }
         else if Device.getDevie() == .ipad_pro_13 {
-            return 45.8
+            return 45.85
         }
         return 45.6
     }
@@ -42,38 +42,42 @@ import SwiftUI
     
     let EVENT_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
     [
-        .ipad_pro_12_9_6th : [.monday :   (  55.0, 169.0, 140.0),
-                              .tuesday:   ( 203.0, 169.0, 140.0),
-                              .wednesday: ( 351.0, 169.0, 140.0),
-                              .thursday:  ( 499.0, 169.0, 143.5),
-                              .friday:    ( 720.0, 169.0, 140.0),
-                              .saturday:  ( 868.0, 169.0, 140.0),
-                              .sunday:    (1016.0, 169.0, 143.5)],
-        .ipad_pro_13 :       [.monday :   (  56.0, 171.5, 140.0),
-                              .tuesday:   ( 205.0, 171.5, 140.0),
-                              .wednesday: ( 354.0, 171.5, 140.0),
-                              .thursday:  ( 503.0, 171.5, 143.5),
-                              .friday:    ( 726.5, 171.5, 140.0),
-                              .saturday:  ( 875.0, 171.5, 140.0),
-                              .sunday:    (1023.0, 171.5, 143.5)]
+        .ipad_pro_12_9_6th : 
+            [.monday :   (  55.0, 169.0, 140.0),
+             .tuesday:   ( 203.0, 169.0, 140.0),
+             .wednesday: ( 351.0, 169.0, 140.0),
+             .thursday:  ( 499.0, 169.0, 143.5),
+             .friday:    ( 720.0, 169.0, 140.0),
+             .saturday:  ( 868.0, 169.0, 140.0),
+             .sunday:    (1016.0, 169.0, 143.5)],
+        .ipad_pro_13 :
+            [.monday :   (  56.0, 171.5, 140.0),
+             .tuesday:   ( 205.0, 171.5, 140.0),
+             .wednesday: ( 354.0, 171.5, 140.0),
+             .thursday:  ( 503.0, 171.5, 143.5),
+             .friday:    ( 726.5, 171.5, 140.0),
+             .saturday:  ( 875.0, 171.5, 140.0),
+             .sunday:    (1024.0, 171.5, 143.5)]
     ]
 
     let EVENT_ALLDAY_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
     [
-        .ipad_pro_12_9_6th : [.monday :   (  60.0, 105.0, 140.0),
-                              .tuesday:   ( 208.0, 105.0, 140.0),
-                              .wednesday: ( 356.0, 105.0, 140.0),
-                              .thursday:  ( 504.0, 105.0, 140.0),
-                              .friday:    ( 725.0, 105.0, 140.0),
-                              .saturday:  ( 873.0, 105.0, 140.0),
-                              .sunday:    (1021.0, 105.0, 140.0)],
-        .ipad_pro_13 :       [.monday :   (  61.0, 105.0, 140.0),
-                              .tuesday:   ( 210.0, 105.0, 140.0),
-                              .wednesday: ( 359.0, 105.0, 140.0),
-                              .thursday:  ( 508.0, 105.0, 140.0),
-                              .friday:    ( 730.0, 105.0, 140.0),
-                              .saturday:  ( 880.0, 105.0, 140.0),
-                              .sunday:    (1028.0, 105.0, 140.0)]
+        .ipad_pro_12_9_6th : 
+            [.monday :   (  60.0, 105.0, 140.0),
+             .tuesday:   ( 208.0, 105.0, 140.0),
+             .wednesday: ( 356.0, 105.0, 140.0),
+             .thursday:  ( 504.0, 105.0, 140.0),
+             .friday:    ( 725.0, 105.0, 140.0),
+             .saturday:  ( 873.0, 105.0, 140.0),
+             .sunday:    (1021.0, 105.0, 140.0)],
+        .ipad_pro_13 :       
+            [.monday :   (  61.0, 105.5, 140.0),
+             .tuesday:   ( 210.0, 105.5, 140.0),
+             .wednesday: ( 359.0, 105.5, 140.0),
+             .thursday:  ( 508.0, 105.5, 140.0),
+             .friday:    ( 731.0, 105.5, 140.0),
+             .saturday:  ( 881.0, 105.5, 140.0),
+             .sunday:    (1030.0, 105.5, 140.0)]
     ]
 
     let HOLIDAY_POSITIONS_MAP: [Device.DType : [WeekDay1stMonday : XYWidth]] =
@@ -87,13 +91,13 @@ import SwiftUI
              .saturday:  ( 909.0, 93.0, 100.0),
              .sunday:    (1057.0, 93.0, 100.0)],
         .ipad_pro_13 :
-            [.monday :   (  96.0, 93.0, 100.0),
-             .tuesday:   ( 244.0, 93.0, 100.0),
-             .wednesday: ( 392.0, 93.0, 100.0),
-             .thursday:  ( 540.0, 93.0, 100.0),
-             .friday:    ( 761.0, 93.0, 100.0),
-             .saturday:  ( 909.0, 93.0, 100.0),
-             .sunday:    (1057.0, 93.0, 100.0)],
+            [.monday :   (  97.0, 93.0, 100.0),
+             .tuesday:   ( 246.0, 93.0, 100.0),
+             .wednesday: ( 395.0, 93.0, 100.0),
+             .thursday:  ( 544.0, 93.0, 100.0),
+             .friday:    ( 767.0, 93.0, 100.0),
+             .saturday:  ( 917.0, 93.0, 100.0),
+             .sunday:    (1066.0, 93.0, 100.0)],
     ]
 
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {

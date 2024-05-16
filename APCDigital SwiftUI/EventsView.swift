@@ -47,7 +47,7 @@ struct EventsView: View {
                     // 左
                     Path { path in
                             path.addLines([
-                                CGPoint(x: 0, y: 6),
+                                CGPoint(x: 0, y: 5),
                                 CGPoint(x: 0, y: eventViewData.height),
                             ])
                          }
