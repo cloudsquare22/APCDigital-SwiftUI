@@ -39,9 +39,11 @@ struct MainView: View {
                     MonthLabelView()
                     FromToView()
                     MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)
-                        .offset(x: 1170, y: 168)
+                        .offset(x: self.monthlyCalendarView.getOffset().x,
+                                y: self.monthlyCalendarView.getOffset().y)
                     MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$nextMonthlyCalendarView)
-                        .offset(x: 1170, y: 273)
+                        .offset(x: self.nextMonthlyCalendarView.getOffset().x,
+                                y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
                     WeekOfYearView()
                 }
                 EventsView()

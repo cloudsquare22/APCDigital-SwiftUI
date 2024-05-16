@@ -17,6 +17,16 @@ class MonthlyCalendarView {
     let backColor = UIColor(named: "Basic Gray Light")
     let lineColor = UIColor(named: "Basic Gray Middle")!.cgColor
 
+    let MONTHLY_CALENDAR_POSITION_MAP: [Device.DType : (x: CGFloat, y: CGFloat)] =
+    [
+        .ipad_pro_12_9_6th :
+            (1170.0, 168.0),
+        .ipad_pro_13 :
+            (1180.0, 169.0)
+    ]
+    
+    let MONTHLY_CALENDAR_HEIGHTMAX: CGFloat = 105.0
+
     init(frame: CGRect, day: Date, selectWeek: Bool = true) {
         print("frame: \(frame) day: \(day) selectWeek: \(selectWeek)")
         self.view = UIView(frame: frame)
@@ -31,6 +41,14 @@ class MonthlyCalendarView {
             selectWeekMonday = day
         }
         createCalendar()
+    }
+    
+    func getOffset() -> (x: CGFloat, y:CGFloat) {
+        var offset: (x: CGFloat, y: CGFloat) = (0, 0)
+        if let potision = self.MONTHLY_CALENDAR_POSITION_MAP[Device.getDevie()] {
+            offset = potision
+        }
+        return offset
     }
     
     func update(day: Date, selectWeek: Bool = true) {
@@ -138,7 +156,6 @@ class MonthlyCalendarView {
         let widthMin: CGFloat = 1.0
         let widthMax: CGFloat = 145.0
         let heightMin: CGFloat = 1.0
-        let heightMax: CGFloat = 105.0
         
         // 横線
         let topBorder = CALayer()
@@ -150,17 +167,17 @@ class MonthlyCalendarView {
         middleBorder.backgroundColor = self.lineColor
         self.view.layer.addSublayer(middleBorder)
         let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: 105, width: widthMax, height: heightMin)
+        bottomBorder.frame = CGRect(x: 0, y: self.MONTHLY_CALENDAR_HEIGHTMAX, width: widthMax, height: heightMin)
         bottomBorder.backgroundColor = self.lineColor
         self.view.layer.addSublayer(bottomBorder)
         
         // 縦線
         let leftBorder = CALayer()
-        leftBorder.frame = CGRect(x: 0, y: 0, width: widthMin, height: heightMax)
+        leftBorder.frame = CGRect(x: 0, y: 0, width: widthMin, height: self.MONTHLY_CALENDAR_HEIGHTMAX)
         leftBorder.backgroundColor = self.lineColor
         self.view.layer.addSublayer(leftBorder)
         let rightBorder = CALayer()
-        rightBorder.frame = CGRect(x: 145, y: 0, width: widthMin, height: heightMax)
+        rightBorder.frame = CGRect(x: 145, y: 0, width: widthMin, height: self.MONTHLY_CALENDAR_HEIGHTMAX)
         rightBorder.backgroundColor = self.lineColor
         self.view.layer.addSublayer(rightBorder)
     }

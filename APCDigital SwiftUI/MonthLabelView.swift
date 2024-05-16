@@ -16,7 +16,7 @@ struct MonthLabelView: View {
             .foregroundStyle(Color("Basic Green", bundle: .main))
             .font(Font.system(size: 48.0, weight: .semibold))
             .position(x: labelViewData.x,
-                    y: labelViewData.y)
+                      y: labelViewData.y)
     }
 
     var body: some View {

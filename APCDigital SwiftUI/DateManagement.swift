@@ -48,28 +48,28 @@ import Foundation
         .sunday:    (1063.0, 83.0)]
     ]
 
-    let MONTH_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
+    let MONTH_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y: CGFloat)] =
     [
         .ipad_pro_12_9_6th : 
             (1240, 80.0),
         .ipad_pro_13 : 
-            (1240, 80.0)
+            (1255, 78.0)
     ]
 
-    let FROMTO_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
+    let FROMTO_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y: CGFloat)] =
     [
         .ipad_pro_12_9_6th : 
             (1240, 130.0),
-        .ipad_pro_13 : 
-            (1240, 130.0)
+        .ipad_pro_13 :
+            (1255, 130.0)
     ]
 
-    let WEEKOFYEAR_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y:CGFloat)] =
+    let WEEKOFYEAR_LABEL_POSITION_MAP: [Device.DType : (x: CGFloat, y: CGFloat)] =
     [
         .ipad_pro_12_9_6th : 
             (1240, 388.0),
         .ipad_pro_13 : 
-            (1240, 388.0)
+            (1255, 388.0)
     ]
 
     var days: [WeekDay1stMonday : Int] = [.monday: 2,
