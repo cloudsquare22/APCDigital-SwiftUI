@@ -25,6 +25,7 @@ struct MainView: View {
 
     @State var longpressPoint: CGPoint = .zero
     @State var dispEventEditView: Bool = false
+    @State var dispDaySelectView: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -38,12 +39,6 @@ struct MainView: View {
                 Group {
                     MonthLabelView()
                     FromToView()
-                    MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)
-                        .offset(x: self.monthlyCalendarView.getOffset().x,
-                                y: self.monthlyCalendarView.getOffset().y)
-                    MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$nextMonthlyCalendarView)
-                        .offset(x: self.nextMonthlyCalendarView.getOffset().x,
-                                y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
                     WeekOfYearView()
                 }
                 EventsView()
@@ -90,6 +85,27 @@ struct MainView: View {
                                       eventDatas: self.eventMangement.operationEKEvents ?? [],
                                       point: self.longpressPoint)
                     }
+                })
+                // Right Area at the very top
+                Group {
+                    MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)
+                        .frame(width: 145, height: 105)
+                        .offset(x: self.monthlyCalendarView.getOffset().x,
+                                y: self.monthlyCalendarView.getOffset().y)
+                    MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$nextMonthlyCalendarView)
+                        .frame(width: 145, height: 105)
+                        .offset(x: self.nextMonthlyCalendarView.getOffset().x,
+                                y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
+                }
+                .onTapGesture {
+                    print("Monthly Calenar Tap")
+                    self.dispDaySelectView.toggle()
+                }
+                .sheet(isPresented: self.$dispDaySelectView, 
+                       onDismiss: {
+                },
+                       content: {
+                    DaySelectView()
                 })
             }
         }

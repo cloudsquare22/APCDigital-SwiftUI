@@ -38,6 +38,7 @@
 		8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */; };
 		8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163C2BECFE6200B5A880 /* EventEditView.swift */; };
 		8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163E2BF0DB9800B5A880 /* EventData.swift */; };
+		8DAC133B2BF63FD8009590D5 /* DaySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilCaseView.swift; sourceTree = "<group>"; };
 		8D9F163C2BECFE6200B5A880 /* EventEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
 		8D9F163E2BF0DB9800B5A880 /* EventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventData.swift; sourceTree = "<group>"; };
+		8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */,
 				8D9F163C2BECFE6200B5A880 /* EventEditView.swift */,
 				8D9F163E2BF0DB9800B5A880 /* EventData.swift */,
+				8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -184,7 +187,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					8D692E6B2BDFD11700E616CF = {
 						CreatedOnToolsVersion = 15.3;
@@ -228,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */,
+				8DAC133B2BF63FD8009590D5 /* DaySelectView.swift in Sources */,
 				8D692E942BE3773A00E616CF /* EventsView.swift in Sources */,
 				8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */,
 				8D692EA12BE8E9F700E616CF /* DayLabelView.swift in Sources */,
@@ -267,6 +271,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -330,6 +335,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

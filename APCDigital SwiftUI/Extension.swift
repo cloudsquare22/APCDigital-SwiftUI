@@ -41,3 +41,11 @@ extension PKInkingTool.InkType {
         return self.validWidthRange.lowerBound
     }
 }
+
+extension Calendar {
+    func withMondayAsFirstDayOfWeek() -> Calendar {
+        var calendar = self
+        calendar.firstWeekday = 2 // 1: Sunday, 2: Monday, ...
+        return calendar
+    }
+}
