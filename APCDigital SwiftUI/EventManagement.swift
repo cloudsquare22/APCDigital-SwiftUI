@@ -16,7 +16,9 @@ import SwiftUI
     var allDayAreaEvents: [EKEvent] = []
     var holidayEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
-    
+    var pageStartDate: Date = Date.now
+    var pageEndDate: Date = Date.now
+
     @ObservationIgnored
     var mainAreaEventViewDataMap: [String: (eventViewData: EventViewData, event: EKEvent)] = [:]
     
@@ -102,6 +104,8 @@ import SwiftUI
 
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
+        self.pageStartDate = startDay.date!
+        self.pageEndDate = endDay.date!
         self.events = eventStore.events(matching: predicate)
 //        print(events)
         self.allDayAreaEvents = []
@@ -282,11 +286,12 @@ import SwiftUI
         // 内容
         var contents: AttributedString = ""
         for event in allDayAreaEvents {
-            if let startDate = event.startDate {
+            if let startDate = event.startDate, let endDate = event.endDate {
                 let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
                 if let startHour = startDateComponents.hour,
                    let startMinute = startDateComponents.minute {
-                    if self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday) == weekDay1stMonday {
+                    if self.isWeekDayRange(startDate: startDate, endDate: endDate, weekDay1stMonday: weekDay1stMonday) == true {
+//                    if self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday) == weekDay1stMonday {
                         if contents.runs.isEmpty == false {
                             contents = contents + "\n"
                         }
@@ -315,6 +320,22 @@ import SwiftUI
             eventViewData.width = position.width
         }
         return eventViewData
+    }
+    
+    func isWeekDayRange(startDate: Date, endDate: Date, weekDay1stMonday: WeekDay1stMonday) -> Bool {
+        var isWeekDayRange: Bool = false
+        var targetDate: Date = startDate
+        while targetDate <= endDate {
+            if pageStartDate <= targetDate && targetDate <= endDate {
+                let targetDateComponents = Calendar.current.dateComponents(in: .current, from: targetDate)
+                if self.weekDayToWeekDay1stMonday(weekDay: targetDateComponents.weekday) == weekDay1stMonday {
+                    isWeekDayRange = true
+                    break
+                }
+            }
+            targetDate = targetDate + TimeInterval(24 * 60 * 60)
+        }
+        return isWeekDayRange
     }
 
     func createHolidayViewData(weekDay1stMonday: WeekDay1stMonday) -> EventViewData {
