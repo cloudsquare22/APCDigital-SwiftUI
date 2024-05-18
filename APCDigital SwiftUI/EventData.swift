@@ -17,7 +17,7 @@ import SwiftUI
     var startDate: Date = Date.now
     var endDate: Date = Date.now
     var todo: Bool = false
-    var notification: Bool = true
+    var notification: Bool = false
     var memo: Bool = false
     var memoText: String = ""
     var eKEvent: EKEvent? = nil

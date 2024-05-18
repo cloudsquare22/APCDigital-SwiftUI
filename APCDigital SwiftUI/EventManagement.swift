@@ -367,10 +367,10 @@ import SwiftUI
                 eventData.title.removeFirst()
             }
             eventData.location = event.location ?? ""
-            eventData.calendar = event.calendarItemIdentifier
+            eventData.calendar = event.calendar.calendarIdentifier
             eventData.allDay = event.isAllDay
-            if event.isAllDay {
-                eventData.notification = false
+            if let alarms = event.alarms, alarms.count > 0 {
+                eventData.notification = true
             }
             eventData.startDate = event.startDate
             eventData.endDate = event.endDate
@@ -417,15 +417,20 @@ import SwiftUI
                         if self.calendars.count <= 0 {
                             break
                         }
-                        eventData = EventData()
-                        eventData?.calendar = self.calendars[0].calendarIdentifier
+                        let createEventData = EventData()
+                        createEventData.calendar = self.calendars[0].calendarIdentifier
                         startDateComponents.hour = startH
                         startDateComponents.minute = startM
-                        eventData!.startDate = startDateComponents.date!
-                        eventData!.endDate = startDateComponents.date! + (60 * 60)
+                        createEventData.startDate = startDateComponents.date!
+                        createEventData.endDate = startDateComponents.date! + (60 * 60)
+                        // All Day
                         if point.y < xywith.y {
-                            eventData!.allDay = true
+                            createEventData.allDay = true
                         }
+                        else {
+                            createEventData.notification = true
+                        }
+                        eventData = createEventData
                         break
                     }
                 }
@@ -452,34 +457,33 @@ import SwiftUI
         guard let calendar = self.getCalendar(id: eventData.calendar) else {
             return
         }
-        if eventData.eKEvent == nil {
-            let event = EKEvent(eventStore: eventStore)
-            event.title = eventData.todo == true ? "□" : ""
-            event.title = event.title + eventData.title
-            event.location = eventData.location
-            event.startDate = eventData.startDate
-            event.endDate = eventData.endDate
-            event.calendar = calendar
-            if eventData.memo == true {
-                event.notes = "【memo on】\n" + eventData.memoText
-            }
-            else {
-                event.notes = eventData.memoText
-            }
-            event.isAllDay = eventData.allDay
-            if eventData.allDay == false && eventData.notification == true {
-                let alarmEvent = EKAlarm(relativeOffset: 0)
-                let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
-                event.alarms = [alarmEvent, alarm5Minute]
-            }
+        let event = eventData.eKEvent ?? EKEvent(eventStore: eventStore)
+        event.title = eventData.todo == true ? "□" : ""
+        event.title = event.title + eventData.title
+        event.location = eventData.location
+        event.startDate = eventData.startDate
+        event.endDate = eventData.endDate
+        event.calendar = calendar
+        if eventData.memo == true {
+            event.notes = "【memo on】\n" + eventData.memoText
+        }
+        else {
+            event.notes = eventData.memoText
+        }
+        event.isAllDay = eventData.allDay
+        event.alarms = []
+        if eventData.allDay == false && eventData.notification == true {
+            let alarmEvent = EKAlarm(relativeOffset: 0)
+            let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
+            event.alarms = [alarmEvent, alarm5Minute]
+        }
 
-            do {
-                try eventStore.save(event, span: .thisEvent)
-            }
-            catch {
-                let nserror = error as NSError
-                print(nserror)
-            }
+        do {
+            try eventStore.save(event, span: .thisEvent)
+        }
+        catch {
+            let nserror = error as NSError
+            print(nserror)
         }
     }
     

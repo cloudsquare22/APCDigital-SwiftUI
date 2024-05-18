@@ -25,13 +25,13 @@ struct EventEditView: View {
                         ForEach(Array(self.eventDatas.enumerated()), id: \.offset, content: {
                             offset, event in
                             Text(event.eKEvent == nil ? "New" : event.title)
-                                .tag(offset)
                         })
                     })
                     .pickerStyle(.segmented)
                     .onChange(of: self.actionEvent, { old, new in
                         print(old)
                         print(new)
+                        print(self.eventDatas[new].title)
                         self.eventData = self.eventDatas[new]
                     })
                 }
@@ -89,7 +89,7 @@ struct EventEditView: View {
                     })
                 })
                 ToolbarItem(placement: .confirmationAction, content: {
-                    Button("Save",
+                    Button(self.eventData.eKEvent == nil ? "Create" : "Save",
                            action: {
                         self.eventMangement.saveEventData(eventData: self.eventData)
                         self.presentationMode.wrappedValue.dismiss()
@@ -106,6 +106,7 @@ struct EventEditView: View {
         .onAppear() {
             if self.eventDatas.isEmpty == false {
                 self.eventData = self.eventDatas[0]
+                self.actionEvent = 0
             }
         }
     }
