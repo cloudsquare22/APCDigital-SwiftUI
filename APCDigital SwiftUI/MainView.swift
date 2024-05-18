@@ -54,40 +54,24 @@ struct MainView: View {
                 )
                 .onChange(of: self.longpressPoint, { old, new in
                     print("#### \(new)")
-                    let mainAreaEvents = self.eventMangement.checkMainAreaEvents(point: self.longpressPoint)
-                    if mainAreaEvents.count == 0 {
-                        if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
-                                                                               daysDateComponents: self.dateManagement.daysDateComponents) {
-                            self.eventMangement.operationEventData = eventData
-                            self.dispEventEditView.toggle()
-                        }
-                    }
-                    else {
-                        if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
-                                                                               daysDateComponents: self.dateManagement.daysDateComponents) {
-                            self.eventMangement.operationEventData = eventData
-                            self.eventMangement.operationEKEvents = mainAreaEvents
-                            self.eventMangement.operationPoint = self.longpressPoint
-                            self.dispEventEditView.toggle()
-                        }
+                    var mainAreaEventDatas = self.eventMangement.createMainAreaEventDatas(point: self.longpressPoint)
+                    if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
+                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
+                        mainAreaEventDatas.insert(newEventData, at: 0)
+                        self.eventMangement.operationEventDatas = mainAreaEventDatas
+                        self.dispEventEditView.toggle()
                     }
                 })
                 .sheet(isPresented: self.$dispEventEditView,
                        onDismiss: {
-                    self.eventMangement.operationEventData = nil
+                    self.eventMangement.operationEventDatas = []
                     self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
                     self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
-                    if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
-                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
-                    }
-                    
-                    if let eventData = self.eventMangement.operationEventData {
-                        EventEditView(eventData: eventData,
-                                      eventDatas: self.eventMangement.operationEKEvents ?? [],
-                                      point: self.longpressPoint)
+                    if self.eventMangement.operationEventDatas.isEmpty == false {
+                        EventEditView(eventDatas: self.eventMangement.operationEventDatas)
                     }
                 })
                 // Right Area at the very top

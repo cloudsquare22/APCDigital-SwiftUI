@@ -23,11 +23,7 @@ import SwiftUI
     var mainAreaEventViewDataMap: [String: (eventViewData: EventViewData, event: EKEvent)] = [:]
     
     @ObservationIgnored
-    var operationEventData: EventData? = nil
-    @ObservationIgnored
-    var operationEKEvents: [EKEvent]? = nil
-    @ObservationIgnored
-    var operationPoint: CGPoint = .zero
+    var operationEventDatas: [EventData] = []
 
     var ONE_HOUR_HEIGHT: CGFloat {
         if Device.getDevie() == .ipad_pro_12_9_6th {
@@ -363,7 +359,7 @@ import SwiftUI
         var eventDatas: [EventData] = []
         let events: [EKEvent] = self.checkMainAreaEvents(point: point)
         for event in events {
-            var eventData: EventData = EventData()
+            let eventData: EventData = EventData()
             eventData.eKEvent = event
             eventData.title = event.title
             if eventData.title.hasPrefix("□") == true {
@@ -385,6 +381,7 @@ import SwiftUI
                     eventData.memoText = eventData.memoText.replacingOccurrences(of: "【memo on】\n", with: "")
                 }
             }
+            eventDatas.append(eventData)
         }
         return eventDatas
     }

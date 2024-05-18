@@ -11,27 +11,29 @@ import EventKit
 struct EventEditView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(EventManagement.self) private var eventMangement
-    @State var eventData: EventData
     
-    @State var actionEvent: String = "new"
-    let eventDatas: [EKEvent]
+    var eventDatas: [EventData] = []
     
-    let point: CGPoint?
-
+    @State var eventData: EventData = EventData()
+    @State var actionEvent: Int = 0
+    
     var body: some View {
         NavigationStack {
             Form {
                 Section {
                     Picker("Event", selection: self.$actionEvent, content: {
-                        Text("New")
-                            .tag("new")
                         ForEach(Array(self.eventDatas.enumerated()), id: \.offset, content: {
                             offset, event in
-                            Text(event.title)
-                                .tag(String(offset))
+                            Text(event.eKEvent == nil ? "New" : event.title)
+                                .tag(offset)
                         })
                     })
                     .pickerStyle(.segmented)
+                    .onChange(of: self.actionEvent, { old, new in
+                        print(old)
+                        print(new)
+                        self.eventData = self.eventDatas[new]
+                    })
                 }
                 TextField("Title", text: self.$eventData.title)
                 TextField("Location", text: self.$eventData.location)
@@ -102,12 +104,14 @@ struct EventEditView: View {
             })
         }
         .onAppear() {
-            print("%%%%%\(self.point!)")
+            if self.eventDatas.isEmpty == false {
+                self.eventData = self.eventDatas[0]
+            }
         }
     }
 }
 
 #Preview {
-    EventEditView(eventData: EventData(), eventDatas: [EKEvent()], point: CGPointZero)
+    EventEditView(eventDatas: [EventData()])
         .environment(EventManagement())
 }
