@@ -80,6 +80,10 @@ struct MainView: View {
                     self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
+                    if let eventData = self.eventMangement.createEventData(point: self.longpressPoint,
+                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
+                    }
+                    
                     if let eventData = self.eventMangement.operationEventData {
                         EventEditView(eventData: eventData,
                                       eventDatas: self.eventMangement.operationEKEvents ?? [],

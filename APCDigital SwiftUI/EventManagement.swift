@@ -359,6 +359,36 @@ import SwiftUI
         return eventViewData
     }
     
+    func createMainAreaEventDatas(point: CGPoint) -> [EventData] {
+        var eventDatas: [EventData] = []
+        let events: [EKEvent] = self.checkMainAreaEvents(point: point)
+        for event in events {
+            var eventData: EventData = EventData()
+            eventData.eKEvent = event
+            eventData.title = event.title
+            if eventData.title.hasPrefix("□") == true {
+                eventData.todo = true
+                eventData.title.removeFirst()
+            }
+            eventData.location = event.location ?? ""
+            eventData.calendar = event.calendarItemIdentifier
+            eventData.allDay = event.isAllDay
+            if event.isAllDay {
+                eventData.notification = false
+            }
+            eventData.startDate = event.startDate
+            eventData.endDate = event.endDate
+            if let notes = event.notes {
+                eventData.memoText = notes
+                if eventData.memoText.hasPrefix("【memo on】\n") {
+                    eventData.memo = true
+                    eventData.memoText = eventData.memoText.replacingOccurrences(of: "【memo on】\n", with: "")
+                }
+            }
+        }
+        return eventDatas
+    }
+    
     func checkMainAreaEvents(point: CGPoint) -> [EKEvent] {
         var events: [EKEvent] = []
         for (_, value) in mainAreaEventViewDataMap {
