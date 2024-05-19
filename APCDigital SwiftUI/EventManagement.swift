@@ -487,6 +487,19 @@ import SwiftUI
         }
     }
     
+    func removeEventData(eventData: EventData) {
+        if let event = eventData.eKEvent {
+            do {
+                try self.eventStore.remove(self.eventStore.event(withIdentifier: event.eventIdentifier)!, span: .thisEvent)
+            }
+            catch {
+                let nserror = error as NSError
+                print(nserror)
+            }
+
+        }
+    }
+    
     func getCalendar(id: String) -> EKCalendar? {
         var resultCaledar: EKCalendar? = nil
         for calendar in self.calendars {

@@ -96,6 +96,14 @@ struct EventEditView: View {
                     })
                     .disabled(self.eventData.title.isEmpty ? true : false)
                 })
+                ToolbarItem(placement: .secondaryAction, content: {
+                    Button("Remove",
+                           action: {
+                        self.eventMangement.removeEventData(eventData: self.eventData)
+                        self.presentationMode.wrappedValue.dismiss()
+                    })
+                    .disabled(self.eventData.eKEvent == nil ? true : false)
+                })
             })
             .onChange(of: self.eventData.allDay, { old, new in
                 if new == true {
