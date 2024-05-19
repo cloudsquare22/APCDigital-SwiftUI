@@ -120,6 +120,9 @@ import SwiftUI
             }
             else {
                 if let startDate = event.startDate, let endDate = event.endDate {
+                    guard startDay.date! <= startDate else {
+                        continue
+                    }
                     let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
                     let endDateComponents = Calendar.current.dateComponents(in: .current, from: endDate)
                     if let startHour = startDateComponents.hour,
@@ -257,7 +260,7 @@ import SwiftUI
                     
                     // 期間外補正；終了
                     if (startDay == endDay && 23 == endHour && 31 <= endMinute) || (startDay != endDay) {
-                        var endDateComponentsLimit = endDateComponents
+                        var endDateComponentsLimit = startDateComponents
                         endDateComponentsLimit.hour = 23
                         endDateComponentsLimit.minute = 30
                         endDateComponentsLimit.day = startDay
