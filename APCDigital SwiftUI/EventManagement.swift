@@ -21,7 +21,10 @@ import SwiftUI
 
     @ObservationIgnored
     var mainAreaEventViewDataMap: [String: (eventViewData: EventViewData, event: EKEvent)] = [:]
-    
+
+    @ObservationIgnored
+    var allDaysAreaEventsMap: [WeekDay1stMonday : [EKEvent]] = [:]
+
     @ObservationIgnored
     var operationEventDatas: [EventData] = []
 
@@ -107,6 +110,7 @@ import SwiftUI
         self.allDayAreaEvents = []
         self.mainAreaEvents = []
         self.holidayEvents = []
+        self.allDaysAreaEventsMap = [:]
         self.mainAreaEventViewDataMap = [:]
         for event in events {
             if let calendar = event.calendar, calendar.title == "日本の祝日" {
@@ -306,6 +310,15 @@ import SwiftUI
                             attributedString[rangeDate].foregroundColor = Color(.basicGreen)
                         }
                         contents = contents + attributedString
+                        if event.calendar.type == .calDAV {
+                            if var targetAeaEvents = self.allDaysAreaEventsMap[weekDay1stMonday] {
+                                targetAeaEvents.append(event)
+                                self.allDaysAreaEventsMap[weekDay1stMonday] = targetAeaEvents
+                            }
+                            else {
+                                self.allDaysAreaEventsMap[weekDay1stMonday] = [event]
+                            }
+                        }
                     }
                 }
             }
@@ -358,32 +371,62 @@ import SwiftUI
         return eventViewData
     }
     
+    func createAllDayAreaEventDatas(point: CGPoint) -> [EventData] {
+        var pointWeekDay1stMonday: WeekDay1stMonday? = nil
+        for weekDay1stMonday in WeekDay1stMonday.allCases {
+            if let xywithAllDay = self.getPosition(positionsMap: self.EVENT_ALLDAY_POSITIONS_MAP, weekDay1stMonday: weekDay1stMonday),
+               let xywithMain = self.getPosition(positionsMap: self.EVENT_POSITIONS_MAP, weekDay1stMonday: weekDay1stMonday) {
+                if xywithAllDay.x <= point.x,
+                   point.x <= xywithAllDay.x + xywithAllDay.width,
+                   point.y < xywithMain.y {
+                    pointWeekDay1stMonday = weekDay1stMonday
+                    break
+                }
+            }
+        }
+        
+        var eventDatas: [EventData] = []
+        if let targetWeekDay1stMonday = pointWeekDay1stMonday,
+           let targetAllDayEvemts = self.allDaysAreaEventsMap[targetWeekDay1stMonday] {
+            for event in targetAllDayEvemts {
+                let eventData: EventData = self.eKEventToEventData(event: event)
+                eventDatas.append(eventData)
+            }
+        }
+        return eventDatas
+    }
+    
+    func eKEventToEventData(event: EKEvent) -> EventData {
+        let eventData: EventData = EventData()
+        eventData.eKEvent = event
+        eventData.title = event.title
+        if eventData.title.hasPrefix("□") == true {
+            eventData.todo = true
+            eventData.title.removeFirst()
+        }
+        eventData.location = event.location ?? ""
+        eventData.calendar = event.calendar.calendarIdentifier
+        eventData.allDay = event.isAllDay
+        if let alarms = event.alarms, alarms.count > 0 {
+            eventData.notification = true
+        }
+        eventData.startDate = event.startDate
+        eventData.endDate = event.endDate
+        if let notes = event.notes {
+            eventData.memoText = notes
+            if eventData.memoText.hasPrefix("【memo on】\n") {
+                eventData.memo = true
+                eventData.memoText = eventData.memoText.replacingOccurrences(of: "【memo on】\n", with: "")
+            }
+        }
+        return eventData
+    }
+    
     func createMainAreaEventDatas(point: CGPoint) -> [EventData] {
         var eventDatas: [EventData] = []
         let events: [EKEvent] = self.checkMainAreaEvents(point: point)
         for event in events {
-            let eventData: EventData = EventData()
-            eventData.eKEvent = event
-            eventData.title = event.title
-            if eventData.title.hasPrefix("□") == true {
-                eventData.todo = true
-                eventData.title.removeFirst()
-            }
-            eventData.location = event.location ?? ""
-            eventData.calendar = event.calendar.calendarIdentifier
-            eventData.allDay = event.isAllDay
-            if let alarms = event.alarms, alarms.count > 0 {
-                eventData.notification = true
-            }
-            eventData.startDate = event.startDate
-            eventData.endDate = event.endDate
-            if let notes = event.notes {
-                eventData.memoText = notes
-                if eventData.memoText.hasPrefix("【memo on】\n") {
-                    eventData.memo = true
-                    eventData.memoText = eventData.memoText.replacingOccurrences(of: "【memo on】\n", with: "")
-                }
-            }
+            let eventData: EventData = self.eKEventToEventData(event: event)
             eventDatas.append(eventData)
         }
         return eventDatas
@@ -474,7 +517,7 @@ import SwiftUI
             event.notes = eventData.memoText
         }
         event.isAllDay = eventData.allDay
-        event.alarms = []
+        event.alarms = nil
         if eventData.allDay == false && eventData.notification == true {
             let alarmEvent = EKAlarm(relativeOffset: 0)
             let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
