@@ -95,6 +95,7 @@ struct MainView: View {
                 }
                 .sheet(isPresented: self.$dispDaySelectView, 
                        onDismiss: {
+                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     DaySelectView()
