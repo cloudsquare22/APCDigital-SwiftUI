@@ -14,7 +14,7 @@ struct EventsView: View {
     fileprivate func createEventView(_ event: EKEvent) -> some View {
         let eventViewData = self.eventMangement.createEventViewData(event: event)
         return Text(eventViewData.contents)
-            .font(Font.system(size: 10.0, weight: .medium, design: .default))
+            .font(Font.system(size: 9.6, weight: .medium, design: .default))
             .padding(EdgeInsets(top: 0.0, leading: 6.0, bottom: 0.0, trailing: 0.0))
             .frame(width: eventViewData.width, 
                    height: eventViewData.height,

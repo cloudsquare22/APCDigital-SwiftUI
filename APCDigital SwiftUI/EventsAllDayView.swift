@@ -14,7 +14,7 @@ struct EventsAllDayView: View {
         let eventViewData = self.eventMangement.createAllDayEventViewData(weekDay1stMonday: weekDay1stMonday)
         return Text(eventViewData.contents)
             .lineLimit(5)
-            .font(Font.system(size: 10.0, weight: .medium, design: .default))
+            .font(Font.system(size: 9.6, weight: .medium, design: .default))
             .frame(width: eventViewData.width,
                    alignment: .topLeading)
             .offset(x: eventViewData.x,
