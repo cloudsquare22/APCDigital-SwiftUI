@@ -54,8 +54,8 @@ struct MainView: View {
                 )
                 .onChange(of: self.longpressPoint, { old, new in
                     print("#### \(new)")
-                    var allDayAreaEventDatas = self.eventMangement.createAllDayAreaEventDatas(point: self.longpressPoint)
-                    var mainAreaEventDatas = self.eventMangement.createMainAreaEventDatas(point: self.longpressPoint)
+                    let allDayAreaEventDatas = self.eventMangement.createAllDayAreaEventDatas(point: self.longpressPoint)
+                    let mainAreaEventDatas = self.eventMangement.createMainAreaEventDatas(point: self.longpressPoint)
                     if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
                                                                            daysDateComponents: self.dateManagement.daysDateComponents) {
                         var editEvantDatas: [EventData] = []
@@ -78,6 +78,10 @@ struct MainView: View {
                         EventEditView(eventDatas: self.eventMangement.operationEventDatas)
                     }
                 })
+                PencilCaseView(pkCanvasView: self.$pkCanvasView,
+                               pkToolPicker: self.$pkToolPicker)
+                    .offset(x: 720, y: 16)
+                
                 // Right Area at the very top
                 Group {
                     MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)

@@ -10,22 +10,21 @@ import PencilKit
 
 struct PencilCaseView: View {
     @Binding var pkCanvasView: PKCanvasView
+    @Binding var pkToolPicker: PKToolPicker
     
     @State var uiColor: UIColor = .black
-    @State var inkType: PKInkingTool.InkType = .monoline
-    @State var eraser: Bool = false
 
     func setPKTool() {
         print(#function)
-        if eraser == true {
-            print("set PKEraserTool:\(self.eraser)")
-            self.pkCanvasView.tool = PKEraserTool(.vector)
+        let pKTool = self.pkCanvasView.tool
+        if var pKInkingTool = pKTool as? PKInkingTool {
+            print("PKInkingTool")
+            pKInkingTool.color = uiColor
+            self.pkToolPicker.selectedTool = pKInkingTool
+            self.pkCanvasView.tool = pKInkingTool
         }
         else {
-            self.pkCanvasView.tool = PKInkingTool(self.inkType,
-                                                  color: self.uiColor,
-                                                  width: self.inkType.minWidth())
-            print("set PKInkingTool")
+            print("etc Tool")
         }
     }
     
@@ -41,37 +40,64 @@ struct PencilCaseView: View {
                             .foregroundStyle(.black)
                     })
                     Button(action: {
-                        self.uiColor = .red
+                        self.uiColor = UIColor(Color(hex: 0xD40000))
                     }, label: {
                         Image(systemName: "pencil.tip.crop.circle")
                             .font(Font.system(size: 32.0, weight: .regular))
-                            .foregroundStyle(.red)
+                            .foregroundStyle(Color(hex: 0xD40000))
                     })
                     Button(action: {
-                        self.eraser.toggle()
+                        self.uiColor = UIColor(Color(hex: 0x0000E5))
                     }, label: {
-                        Image(systemName: "eraser")
+                        Image(systemName: "pencil.tip.crop.circle")
                             .font(Font.system(size: 32.0, weight: .regular))
-                            .foregroundStyle(.black)
-                            .background(.white.opacity(0.1))
+                            .foregroundStyle(Color(hex: 0x0000E5))
+                    })
+                    Button(action: {
+                        self.uiColor = UIColor(Color("Basic Green", bundle: .main))
+                    }, label: {
+                        Image(systemName: "pencil.tip.crop.circle")
+                            .font(Font.system(size: 32.0, weight: .regular))
+                            .foregroundStyle(Color("Basic Green", bundle: .main))
+                    })
+                    Button(action: {
+                        self.uiColor = UIColor(Color(hex: 0x9900E7))
+                    }, label: {
+                        Image(systemName: "pencil.tip.crop.circle")
+                            .font(Font.system(size: 32.0, weight: .regular))
+                            .foregroundStyle(Color(hex: 0x9900E7))
+                    })
+                    Button(action: {
+                        self.uiColor = UIColor(Color(hex: 0xED732E))
+                    }, label: {
+                        Image(systemName: "pencil.tip.crop.circle")
+                            .font(Font.system(size: 32.0, weight: .regular))
+                            .foregroundStyle(Color(hex: 0xED732E))
+                    })
+                    Button(action: {
+                        self.uiColor = UIColor(Color(hex: 0x5AC4F7))
+                    }, label: {
+                        Image(systemName: "pencil.tip.crop.circle")
+                            .font(Font.system(size: 32.0, weight: .regular))
+                            .foregroundStyle(Color(hex: 0x5AC4F7))
+                    })
+                    Button(action: {
+                        self.uiColor = UIColor(Color(hex: 0xFF00FF))
+                    }, label: {
+                        Image(systemName: "pencil.tip.crop.circle")
+                            .font(Font.system(size: 32.0, weight: .regular))
+                            .foregroundStyle(Color(hex: 0xFF00FF))
                     })
                 }
                 .onChange(of: self.uiColor, { old, new in
                     self.setPKTool()
                 })
-                .onChange(of: self.inkType, { old, new in
-                    self.setPKTool()
-                })
-                .onChange(of: self.eraser, { old, new in
-                    self.setPKTool()
-                })
-                .offset(x: 550,
-                        y: 8)
             }
         }
     }
 }
 
 #Preview {
-    PencilCaseView(pkCanvasView: .constant(PKCanvasView(frame: .zero)))
+    PencilCaseView(pkCanvasView: .constant(PKCanvasView(frame: .zero)),
+                   pkToolPicker: .constant(PKToolPicker()))
 }

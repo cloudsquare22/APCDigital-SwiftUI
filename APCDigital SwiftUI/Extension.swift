@@ -7,6 +7,7 @@
 
 import Foundation
 import PencilKit
+import SwiftUI
 
 extension Date {
     func printStyleString(style: DateFormatter.Style) -> String {
@@ -47,5 +48,19 @@ extension Calendar {
         var calendar = self
         calendar.firstWeekday = 2 // 1: Sunday, 2: Monday, ...
         return calendar
+    }
+}
+
+extension Color {
+    init(hex: UInt, displayP3: Bool = true) {
+        let red = Double((hex & 0xFF0000) >> 16) / 255.0
+        let green = Double((hex & 0x00FF00) >> 8) / 255.0
+        let blue = Double(hex & 0x0000FF) / 255.0
+        
+        if displayP3 {
+            self.init(.displayP3, red: red, green: green, blue: blue, opacity: 1.0)
+        } else {
+            self.init(red: red, green: green, blue: blue, opacity: 1.0)
+        }
     }
 }
