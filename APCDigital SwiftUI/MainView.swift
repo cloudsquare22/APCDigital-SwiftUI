@@ -17,7 +17,7 @@ struct MainView: View {
     @Environment(EventManagement.self) private var eventMangement
     @Environment(DataOperation.self) private var dataOperation
     
-    @State var pkCanvasView: PKCanvasView = PKCanvasView(frame: .zero)
+    @State var pkCanvasView: PKCanvasView = RapPKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
 
     @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)

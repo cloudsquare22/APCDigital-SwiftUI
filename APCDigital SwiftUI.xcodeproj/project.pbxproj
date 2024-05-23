@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D117B612BFF71B2002A06AA /* RapPKCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */; };
 		8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */; };
 		8D692E722BDFD11700E616CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E712BDFD11700E616CF /* ContentView.swift */; };
 		8D692E742BDFD11700E616CF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E732BDFD11700E616CF /* Item.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapPKCanvasView.swift; sourceTree = "<group>"; };
 		8D692E6C2BDFD11700E616CF /* APCDigital SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "APCDigital SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCDigital_SwiftUIApp.swift; sourceTree = "<group>"; };
 		8D692E712BDFD11700E616CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				8D9F163C2BECFE6200B5A880 /* EventEditView.swift */,
 				8D9F163E2BF0DB9800B5A880 /* EventData.swift */,
 				8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */,
+				8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */,
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
+				8D117B612BFF71B2002A06AA /* RapPKCanvasView.swift in Sources */,
 				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,

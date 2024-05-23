@@ -11,6 +11,7 @@ import PencilKit
 struct PencilCaseView: View {
     @Binding var pkCanvasView: PKCanvasView
     @Binding var pkToolPicker: PKToolPicker
+    @State var taskboxColor: Color = .gray
     
     var body: some View {
         GeometryReader { geometry in
@@ -24,6 +25,21 @@ struct PencilCaseView: View {
                     PencilColorButtonView(uiColor: UIColor(Color(hex: 0xED732E)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
                     PencilColorButtonView(uiColor: UIColor(Color(hex: 0x5AC4F7)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
                     PencilColorButtonView(uiColor: UIColor(Color(hex: 0xFF00FF)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
+                    Button(action: {
+                        if let rapPKCanvasView = self.pkCanvasView as? RapPKCanvasView, let pKInkingTool = rapPKCanvasView.tool as? PKInkingTool {
+                            rapPKCanvasView.onTaskbox.toggle()
+                            if rapPKCanvasView.onTaskbox == true {
+                                self.taskboxColor = Color(uiColor: pKInkingTool.color)
+                            }
+                            else {
+                                self.taskboxColor = .gray
+                            }
+                        }
+                    }, label: {
+                        Image(systemName: "square.and.pencil")
+                            .font(Font.system(size: 30.0, weight: .regular))
+                            .foregroundStyle(self.taskboxColor)
+                    })
                 }
             }
         }
