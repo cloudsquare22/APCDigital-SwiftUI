@@ -51,7 +51,7 @@ class RapPKCanvasView: PKCanvasView {
 
             for points in pointArrays where points.count > 1 {
                 let strokePoints = points.enumerated().map { index, point in
-                    PKStrokePoint(location: point, timeOffset: 0.1 * TimeInterval(index), size: CGSize(width: 2.6, height: 2.6), opacity: 2, force: 1, azimuth: 0, altitude: 0)
+                    PKStrokePoint(location: point, timeOffset: 0.1 * TimeInterval(index), size: CGSize(width: 2.6, height: 2.6), opacity: 1, force: 1, azimuth: 0, altitude: 0)
                 }
 
                 var startStrokePoint = strokePoints.first!
