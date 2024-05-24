@@ -19,9 +19,6 @@ struct PencilKitViewRepresentable: UIViewRepresentable {
         self.pkCanvasView.isOpaque = false
         self.pkCanvasView.backgroundColor = .clear
         self.pkCanvasView.drawingPolicy = .pencilOnly
-        //        self.pkCanvasView.tool = PKInkingTool(.monoline,
-        //                                              color: .black,
-        //                                              width: PKInkingTool.InkType.monoline.minWidth())
         self.pkToolPicker.addObserver(self.pkCanvasView)
         self.pkToolPicker.setVisible(true, forFirstResponder: self.pkCanvasView)
         
