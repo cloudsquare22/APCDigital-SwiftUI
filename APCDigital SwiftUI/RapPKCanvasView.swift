@@ -33,7 +33,7 @@ class RapPKCanvasView: PKCanvasView {
     }
     
     func strokeRectangle(location: CGPoint) {
-        let size: CGFloat = 8
+        let size: CGFloat = 6
         let x = location.x - (size / 2)
         let y = location.y - (size / 2)
         let pointArrays = [
