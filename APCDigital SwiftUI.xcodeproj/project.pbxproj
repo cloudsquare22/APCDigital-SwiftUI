@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		8D117B612BFF71B2002A06AA /* RapPKCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */; };
 		8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */; };
-		8D692E722BDFD11700E616CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E712BDFD11700E616CF /* ContentView.swift */; };
-		8D692E742BDFD11700E616CF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E732BDFD11700E616CF /* Item.swift */; };
 		8D692E762BDFD11800E616CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E752BDFD11800E616CF /* Assets.xcassets */; };
 		8D692E792BDFD11800E616CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E782BDFD11800E616CF /* Preview Assets.xcassets */; };
 		8D692E802BE0749B00E616CF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E7F2BE0749B00E616CF /* MainView.swift */; };
@@ -46,8 +44,6 @@
 		8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapPKCanvasView.swift; sourceTree = "<group>"; };
 		8D692E6C2BDFD11700E616CF /* APCDigital SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "APCDigital SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCDigital_SwiftUIApp.swift; sourceTree = "<group>"; };
-		8D692E712BDFD11700E616CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8D692E732BDFD11700E616CF /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8D692E752BDFD11800E616CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D692E782BDFD11800E616CF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8D692E7F2BE0749B00E616CF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -112,8 +108,6 @@
 				8D692E772BDFD11800E616CF /* Preview Content */,
 				8D692E9B2BE79F7E00E616CF /* Model */,
 				8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */,
-				8D692E712BDFD11700E616CF /* ContentView.swift */,
-				8D692E732BDFD11700E616CF /* Item.swift */,
 				8D692E752BDFD11800E616CF /* Assets.xcassets */,
 				8D692E7F2BE0749B00E616CF /* MainView.swift */,
 				8D692E812BE07C5600E616CF /* DayTopAreaView.swift */,
@@ -244,7 +238,6 @@
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
 				8D117B612BFF71B2002A06AA /* RapPKCanvasView.swift in Sources */,
-				8D692E722BDFD11700E616CF /* ContentView.swift in Sources */,
 				8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */,
 				8D692E802BE0749B00E616CF /* MainView.swift in Sources */,
 				8D692E9A2BE75F7800E616CF /* HolidayLabelView.swift in Sources */,
@@ -257,7 +250,6 @@
 				8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */,
 				8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */,
 				8D692E8C2BE10DCC00E616CF /* Extension.swift in Sources */,
-				8D692E742BDFD11700E616CF /* Item.swift in Sources */,
 				8D692E8A2BE10B9700E616CF /* PencilKitViewRepresentable.swift in Sources */,
 				8D692E862BE0834C00E616CF /* Device.swift in Sources */,
 				8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */,
