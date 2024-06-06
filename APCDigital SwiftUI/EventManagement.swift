@@ -371,6 +371,15 @@ import SwiftUI
         return eventViewData
     }
     
+    func createAllAreaEventDatas(point: CGPoint) -> [EventData] {
+        var eventDatas: [EventData] = []
+        let allDayAreaEventDatas = self.createAllDayAreaEventDatas(point: point)
+        let mainAreaEventDatas = self.createMainAreaEventDatas(point: point)
+        eventDatas.append(contentsOf: allDayAreaEventDatas)
+        eventDatas.append(contentsOf: mainAreaEventDatas)
+        return eventDatas
+    }
+    
     func createAllDayAreaEventDatas(point: CGPoint) -> [EventData] {
         var pointWeekDay1stMonday: WeekDay1stMonday? = nil
         for weekDay1stMonday in WeekDay1stMonday.allCases {
