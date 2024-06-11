@@ -17,14 +17,14 @@ struct PencilCaseView: View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
                 HStack {
-                    PencilColorButtonView(uiColor: .black, pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0xD40000)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0x0000E5)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color("Basic Green", bundle: .main)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0x9900E7)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0xED732E)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0x5AC4F7)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
-                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0xFF00FF)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker)
+                    PencilColorButtonView(uiColor: .black, pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0xD40000)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0x0000E5)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color("Basic Green", bundle: .main)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0x9900E7)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0xED732E)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0x5AC4F7)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
+                    PencilColorButtonView(uiColor: UIColor(Color(hex: 0xFF00FF)), pkCanvasView: self.$pkCanvasView, pkToolPicker: self.$pkToolPicker, taskboxColor: self.$taskboxColor)
                     Button(action: {
                         if let rapPKCanvasView = self.pkCanvasView as? RapPKCanvasView, let pKInkingTool = rapPKCanvasView.tool as? PKInkingTool {
                             rapPKCanvasView.onTaskbox.toggle()
@@ -50,6 +50,7 @@ struct PencilColorButtonView: View {
     let uiColor: UIColor
     @Binding var pkCanvasView: PKCanvasView
     @Binding var pkToolPicker: PKToolPicker
+    @Binding var taskboxColor: Color
     
     func setPKTool() {
         print(#function)
@@ -62,6 +63,9 @@ struct PencilColorButtonView: View {
         }
         else {
             print("etc Tool")
+        }
+        if self.taskboxColor != .gray {
+            self.taskboxColor = Color(uiColor: self.uiColor)
         }
     }
 
