@@ -223,6 +223,7 @@ struct MainView: View {
             print("PKCanvasView error:\(error)")
             self.pkCanvasView.drawing = PKDrawing()
         }
+        self.pkCanvasView.isHidden = false
     }
 }
 
