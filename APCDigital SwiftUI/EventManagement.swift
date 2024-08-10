@@ -289,10 +289,13 @@ import SwiftUI
         // 内容
         var contents: AttributedString = ""
         for event in allDayAreaEvents {
-            if let startDate = event.startDate, let endDate = event.endDate {
+            if let startDate = event.startDate, var endDate = event.endDate {
                 let startDateComponents = Calendar.current.dateComponents(in: .current, from: startDate)
                 if let startHour = startDateComponents.hour,
                    let startMinute = startDateComponents.minute {
+                    if self.pageEndDate < endDate {
+                        endDate = self.pageEndDate
+                    }
                     if self.isWeekDayRange(startDate: startDate, endDate: endDate, weekDay1stMonday: weekDay1stMonday) == true {
 //                    if self.weekDayToWeekDay1stMonday(weekDay: startDateComponents.weekday) == weekDay1stMonday {
                         if contents.runs.isEmpty == false {
