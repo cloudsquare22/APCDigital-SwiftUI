@@ -18,6 +18,8 @@ import SwiftUI
     var endDate: Date = Date.now
     var todo: Bool = false
     var notification: Bool = false
+    var notification5Minutes: Bool = false
+    var notificationEventTime: Bool = false
     var memo: Bool = false
     var memoText: String = ""
     var eKEvent: EKEvent? = nil

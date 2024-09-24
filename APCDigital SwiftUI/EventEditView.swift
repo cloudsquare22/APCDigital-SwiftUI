@@ -76,6 +76,17 @@ struct EventEditView: View {
                            displayedComponents: self.eventData.allDay ? [.date] : [.date, .hourAndMinute])
                 Toggle("To Do", isOn: self.$eventData.todo)
                 Toggle("Notification", isOn: self.$eventData.notification)
+                if self.eventData.notification == true {
+                    HStack {
+                        Spacer()
+                        Text("5min before")
+                        Toggle("5minutes before", isOn: self.$eventData.notification5Minutes)
+                            .labelsHidden()
+                        Text("Event time")
+                        Toggle("Event Time", isOn: self.$eventData.notificationEventTime)
+                            .labelsHidden()
+                    }
+                }
                 Toggle("Memo", isOn: self.$eventData.memo)
                 TextEditor(text: self.$eventData.memoText)
             }

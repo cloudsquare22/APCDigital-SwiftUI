@@ -102,6 +102,7 @@ import SwiftUI
     ]
 
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
+        print(#function)
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
         self.pageStartDate = startDay.date!
         self.pageEndDate = endDay.date!
@@ -139,6 +140,7 @@ import SwiftUI
                                 self.allDayAreaEvents.append(event)
                             }
                             else {
+                                print("[MAINAREA] \(event.title ?? "")")
                                 self.mainAreaEvents.append(event)
                             }
                         }
@@ -147,6 +149,7 @@ import SwiftUI
                             self.allDayAreaEvents.append(event)
                         }
                         else {
+                            print("[MAINAREA] \(event.title ?? "")")
                             self.mainAreaEvents.append(event)
                         }
                     }
@@ -421,6 +424,14 @@ import SwiftUI
         eventData.allDay = event.isAllDay
         if let alarms = event.alarms, alarms.count > 0 {
             eventData.notification = true
+            for alarm in alarms {
+                if alarm.relativeOffset == (60 * -5) {
+                    eventData.notification5Minutes = true
+                }
+                else if alarm.relativeOffset == 0 {
+                    eventData.notificationEventTime = true
+                }
+            }
         }
         eventData.startDate = event.startDate
         eventData.endDate = event.endDate
@@ -529,11 +540,16 @@ import SwiftUI
             event.notes = eventData.memoText
         }
         event.isAllDay = eventData.allDay
-        event.alarms = nil
+        event.alarms =  []
         if eventData.allDay == false && eventData.notification == true {
-            let alarmEvent = EKAlarm(relativeOffset: 0)
-            let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
-            event.alarms = [alarmEvent, alarm5Minute]
+            if eventData.notification5Minutes == true {
+                let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
+                event.alarms!.append(alarm5Minute)
+            }
+            if eventData.notificationEventTime == true {
+                let alarmEvent = EKAlarm(relativeOffset: 0)
+                event.alarms!.append(alarmEvent)
+            }
         }
 
         do {
