@@ -12,6 +12,7 @@ struct EventsView: View {
     @Environment(EventManagement.self) private var eventMangement
 
     fileprivate func createEventView(_ event: EKEvent) -> some View {
+        print("\(#function)")
         let eventViewData = self.eventMangement.createEventViewData(event: event)
         return Text(eventViewData.contents)
             .font(Font.system(size: 9.6, weight: .medium, design: .default))
