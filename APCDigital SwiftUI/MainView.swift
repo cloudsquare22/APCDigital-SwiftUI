@@ -60,6 +60,10 @@ struct MainView: View {
                         editEvantDatas.append(newEventData)
                         editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: self.longpressPoint))
                         self.eventMangement.operationEventDatas = editEvantDatas
+                        print("mainAreaEvents:\(self.eventMangement.mainAreaEvents.count)")
+                        print("mainAreaEventViewDataMap:\(self.eventMangement.mainAreaEventViewDataMap.count)")
+                        print("editEvantDatas:\(editEvantDatas.count)")
+                        print("operationEventDatas:\(self.eventMangement.operationEventDatas.count)")
                         self.dispEventEditView.toggle()
                     }
                 })

@@ -102,12 +102,12 @@ import SwiftUI
     ]
 
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
-        print(#function)
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
         self.pageStartDate = startDay.date!
         self.pageEndDate = endDay.date!
         self.events = eventStore.events(matching: predicate)
 //        print(events)
+        print("\(#function):\(self.events.count)")
         self.allDayAreaEvents = []
         self.mainAreaEvents = []
         self.holidayEvents = []
@@ -136,26 +136,28 @@ import SwiftUI
                        let endMinute = endDateComponents.minute {
                         if 0 <= startHour, startHour < 6 {
                             if endHour < 6 || endHour == 6 && endMinute == 0 {
-                                print("[A] \(event.title ?? "")")
+//                                print("[A] \(event.title ?? "")")
                                 self.allDayAreaEvents.append(event)
                             }
                             else {
-                                print("[MAINAREA] \(event.title ?? "")")
+//                                print("[MAINAREA] \(event.title ?? "")")
                                 self.mainAreaEvents.append(event)
                             }
                         }
                         else if startHour == 23, 31 <= startMinute {
-                            print("[B] \(event.title ?? "")")
+//                            print("[B] \(event.title ?? "")")
                             self.allDayAreaEvents.append(event)
                         }
                         else {
-                            print("[MAINAREA] \(event.title ?? "")")
+//                            print("[MAINAREA] \(event.title ?? "")")
                             self.mainAreaEvents.append(event)
                         }
                     }
                 }
             }
         }
+        print("\(#function) mainAreaEvents:\(self.mainAreaEvents.count)")
+        print("\(#function) mainAreaEventViewDataMap:\(self.mainAreaEventViewDataMap.count)")
     }
     
     func updateCalendars() {
