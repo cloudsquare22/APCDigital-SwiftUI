@@ -543,14 +543,18 @@ import SwiftUI
         }
         event.isAllDay = eventData.allDay
         event.alarms =  []
+        var alarms: [EKAlarm] = []
         if eventData.allDay == false && eventData.notification == true {
             if eventData.notification5Minutes == true {
                 let alarm5Minute = EKAlarm(relativeOffset: 60 * -5)
-                event.alarms!.append(alarm5Minute)
+                alarms.append(alarm5Minute)
             }
             if eventData.notificationEventTime == true {
                 let alarmEvent = EKAlarm(relativeOffset: 0)
-                event.alarms!.append(alarmEvent)
+                alarms.append(alarmEvent)
+            }
+            if alarms.count > 0 {
+                event.alarms = alarms
             }
         }
 
