@@ -114,6 +114,7 @@ struct MainView: View {
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
+            self.pkCanvasView.becomeFirstResponder()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {
@@ -122,6 +123,7 @@ struct MainView: View {
                     self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
                 }
             }
+            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
             if let date = oldDate {
@@ -139,6 +141,7 @@ struct MainView: View {
             switch(newvalue) {
             case .active:
                 print("active")
+                self.pkCanvasView.becomeFirstResponder()
             case .background:
                 print("background")
             case .inactive:
@@ -148,9 +151,6 @@ struct MainView: View {
                         self.dataOperation.upsertPencilData(date: date,
                                                             pagedata: self.pkCanvasView.drawing.dataRepresentation())
                     }
-                }
-                else {
-                    self.pkCanvasView.becomeFirstResponder()
                 }
             @unknown default:
                 print("default")
