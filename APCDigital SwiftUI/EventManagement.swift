@@ -141,6 +141,8 @@ import SwiftUI
                             }
                             else {
 //                                print("[MAINAREA] \(event.title ?? "")")
+                                let eventViewData: EventViewData = self.createEventViewData(event: event)
+                                self.mainAreaEventViewDataMap[event.calendarItemIdentifier] = (eventViewData: eventViewData, event: event)
                                 self.mainAreaEvents.append(event)
                             }
                         }
@@ -150,6 +152,8 @@ import SwiftUI
                         }
                         else {
 //                            print("[MAINAREA] \(event.title ?? "")")
+                            let eventViewData: EventViewData = self.createEventViewData(event: event)
+                            self.mainAreaEventViewDataMap[event.calendarItemIdentifier] = (eventViewData: eventViewData, event: event)
                             self.mainAreaEvents.append(event)
                         }
                     }
@@ -284,7 +288,7 @@ import SwiftUI
                 }
             }
         }
-        self.mainAreaEventViewDataMap[event.calendarItemIdentifier] = (eventViewData: eventViewData, event: event)
+//        self.mainAreaEventViewDataMap[event.calendarItemIdentifier] = (eventViewData: eventViewData, event: event)
         return eventViewData
     }
     
