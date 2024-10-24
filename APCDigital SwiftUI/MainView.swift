@@ -72,7 +72,7 @@ struct MainView: View {
                     self.eventMangement.operationEventDatas = []
                     self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
-                    self.pkCanvasView.becomeFirstResponder()
+//                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     if self.eventMangement.operationEventDatas.isEmpty == false {
@@ -100,7 +100,7 @@ struct MainView: View {
                 }
                 .sheet(isPresented: self.$dispDaySelectView, 
                        onDismiss: {
-                    self.pkCanvasView.becomeFirstResponder()
+//                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     DaySelectView()
@@ -114,7 +114,7 @@ struct MainView: View {
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
-            self.pkCanvasView.becomeFirstResponder()
+//            self.pkCanvasView.becomeFirstResponder()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {
@@ -123,7 +123,7 @@ struct MainView: View {
                     self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
                 }
             }
-            self.pkCanvasView.becomeFirstResponder()
+//            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
             if let date = oldDate {
@@ -135,13 +135,13 @@ struct MainView: View {
                 print("onchange newdate:\(date.printStyleString(style: .medium))")
                 self.drawingPencilData(date: date)
             }
-            self.pkCanvasView.becomeFirstResponder()
+//            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: scenePhase) { oldvalue, newvalue in
             switch(newvalue) {
             case .active:
                 print("active")
-                self.pkCanvasView.becomeFirstResponder()
+//                self.pkCanvasView.becomeFirstResponder()
             case .background:
                 print("background")
             case .inactive:
@@ -151,6 +151,9 @@ struct MainView: View {
                         self.dataOperation.upsertPencilData(date: date,
                                                             pagedata: self.pkCanvasView.drawing.dataRepresentation())
                     }
+                }
+                else {
+                    self.pkCanvasView.becomeFirstResponder()
                 }
             @unknown default:
                 print("default")

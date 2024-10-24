@@ -28,7 +28,7 @@ struct PencilKitViewRepresentable: UIViewRepresentable {
         pkCanvasView.addGestureRecognizer(longpress)
         
         self.pkCanvasView.becomeFirstResponder()
-        return pkCanvasView
+        return self.pkCanvasView
     }
     
     func updateUIView(_ canvasView: PKCanvasView, context: Context) {
