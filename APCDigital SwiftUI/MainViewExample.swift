@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import PencilKit
 
 struct MainViewExample: View {
+    @State var pkCanvasView: PKCanvasView = RapPKCanvasView(frame: .zero)
+    @State var pkToolPicker: PKToolPicker = PKToolPicker()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        PencilKitViewRepresentableExample(pkCanvasView: self.$pkCanvasView,
+                                   pkToolPicker: self.$pkToolPicker)
     }
 }
 

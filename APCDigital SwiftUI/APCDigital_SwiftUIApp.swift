@@ -29,6 +29,7 @@ struct APCDigital_SwiftUIApp: App {
 
     var body: some Scene {
         WindowGroup {
+//            MainViewExample()
             MainView()
                 .environment(self.dateamanagement)
                 .environment(self.eventMangement)
