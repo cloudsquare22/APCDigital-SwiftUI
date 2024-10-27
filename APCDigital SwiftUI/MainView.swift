@@ -118,12 +118,13 @@ struct MainView: View {
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {
+                print("ページ日付更新")
                 self.monthlyCalendarView.update(day: day)
                 if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: day) {
                     self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
                 }
             }
-//            self.pkCanvasView.becomeFirstResponder()
+            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
             if let date = oldDate {
