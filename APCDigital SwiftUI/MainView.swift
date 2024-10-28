@@ -72,7 +72,7 @@ struct MainView: View {
                     self.eventMangement.operationEventDatas = []
                     self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
-//                    self.pkCanvasView.becomeFirstResponder()
+                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     if self.eventMangement.operationEventDatas.isEmpty == false {
@@ -114,7 +114,7 @@ struct MainView: View {
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
-//            self.pkCanvasView.becomeFirstResponder()
+            self.pkCanvasView.becomeFirstResponder()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {
@@ -136,7 +136,7 @@ struct MainView: View {
                 print("onchange newdate:\(date.printStyleString(style: .medium))")
                 self.drawingPencilData(date: date)
             }
-//            self.pkCanvasView.becomeFirstResponder()
+            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: scenePhase) { oldvalue, newvalue in
             switch(newvalue) {
