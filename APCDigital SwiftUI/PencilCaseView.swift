@@ -58,7 +58,8 @@ struct PencilColorButtonView: View {
         if var pKInkingTool = pKTool as? PKInkingTool {
             print("PKInkingTool")
             pKInkingTool.color = self.uiColor
-            self.pkToolPicker.selectedTool = pKInkingTool
+//            self.pkToolPicker.selectedTool = pKInkingTool
+            self.pkToolPicker.selectedToolItem = PKToolPickerInkingItem(type: pKInkingTool.inkType, color: self.uiColor)
             self.pkCanvasView.tool = pKInkingTool
         }
         else {
