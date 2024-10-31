@@ -53,17 +53,12 @@ struct MainView: View {
                     })
                 )
                 .onChange(of: self.longpressPoint, { old, new in
-                    print("#### \(new)")
                     if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
                                                                            daysDateComponents: self.dateManagement.daysDateComponents) {
                         var editEvantDatas: [EventData] = []
                         editEvantDatas.append(newEventData)
                         editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: self.longpressPoint))
                         self.eventMangement.operationEventDatas = editEvantDatas
-                        print("mainAreaEvents:\(self.eventMangement.mainAreaEvents.count)")
-                        print("mainAreaEventViewDataMap:\(self.eventMangement.mainAreaEventViewDataMap.count)")
-                        print("editEvantDatas:\(editEvantDatas.count)")
-                        print("operationEventDatas:\(self.eventMangement.operationEventDatas.count)")
                         self.dispEventEditView.toggle()
                     }
                 })
