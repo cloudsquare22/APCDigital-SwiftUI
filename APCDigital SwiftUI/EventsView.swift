@@ -27,10 +27,11 @@ struct EventsView: View {
                 sameTimeEventIndex = sameTimeEventIndex + 1
             }
         }
+        let sameTimeEventAdjust: CGFloat = CGFloat(5 * sameTimeEventIndex)
         return Text(eventViewData.contents)
             .font(Font.system(size: 9.6, weight: .medium, design: .default))
             .padding(EdgeInsets(top: 0.0, leading: 6.0, bottom: 0.0, trailing: 0.0))
-            .frame(width: eventViewData.width, 
+            .frame(width: eventViewData.width - sameTimeEventAdjust,
                    height: eventViewData.height,
                    alignment: .topLeading)
             .overlay(alignment: .topLeading, content: {
@@ -45,14 +46,14 @@ struct EventsView: View {
                 else {
                     Image(systemName: eventViewData.endSymbolName)
                         .fontWeight(.light)
-                        .position(x: eventViewData.width / 2, y: eventViewData.height + eventViewData.endSymbolYAdjust)
+                        .position(x: (eventViewData.width - sameTimeEventAdjust) / 2, y: eventViewData.height + eventViewData.endSymbolYAdjust)
                 }
                 // 上
                 if eventViewData.dispTopLine == true {
                     Path { path in
                             path.addLines([
                                 CGPoint(x: 6, y: 0),
-                                CGPoint(x: eventViewData.width, y: 0),
+                                CGPoint(x: eventViewData.width - sameTimeEventAdjust, y: 0),
                             ])
                          }
                     .stroke(lineWidth: 1)
@@ -61,8 +62,8 @@ struct EventsView: View {
                     // 左
                     Path { path in
                             path.addLines([
-                                CGPoint(x: 0 + CGFloat(10 * sameTimeEventIndex), y: 5),
-                                CGPoint(x: 0 + CGFloat(10 * sameTimeEventIndex), y: eventViewData.height),
+                                CGPoint(x: 0, y: 5),
+                                CGPoint(x: 0, y: eventViewData.height),
                             ])
                          }
                     .stroke(lineWidth: 1)
@@ -71,8 +72,8 @@ struct EventsView: View {
                     // 真ん中
                     Path { path in
                             path.addLines([
-                                CGPoint(x: eventViewData.width / 2, y: 0),
-                                CGPoint(x: eventViewData.width / 2, y: eventViewData.height),
+                                CGPoint(x: (eventViewData.width - sameTimeEventAdjust) / 2, y: 0),
+                                CGPoint(x: (eventViewData.width - sameTimeEventAdjust) / 2, y: eventViewData.height),
                             ])
                          }
                     .stroke(lineWidth: 1)
@@ -82,14 +83,14 @@ struct EventsView: View {
                     Path { path in
                             path.addLines([
                                 CGPoint(x: 0, y: eventViewData.height),
-                                CGPoint(x: eventViewData.width, y: eventViewData.height),
+                                CGPoint(x: eventViewData.width - CGFloat(5 * sameTimeEventIndex), y: eventViewData.height),
                             ])
                          }
                     .stroke(lineWidth: 1)
                 }
             })
             .background(eventViewData.color)
-            .offset(x: eventViewData.x,
+            .offset(x: eventViewData.x + CGFloat(5 * sameTimeEventIndex),
                     y: eventViewData.y)
     }
     
