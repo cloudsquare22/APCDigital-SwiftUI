@@ -474,6 +474,10 @@ import SwiftUI
                 events.append(value.event)
             }
         }
+        if events.count >= 2 {
+            events.sort(by: { $0.startDate < $1.startDate })
+        }
+        
         return events
     }
     

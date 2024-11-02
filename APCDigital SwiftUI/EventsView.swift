@@ -14,7 +14,7 @@ struct EventsView: View {
     fileprivate func createEventView(_ event: EKEvent) -> some View {
         print("\(#function)")
         let eventViewData = self.eventMangement.createEventViewData(event: event)
-        let ekevents = self.eventMangement.checkMainAreaEvents(point: CGPoint(x: eventViewData.x, y: eventViewData.y));
+        let ekevents = self.eventMangement.checkMainAreaEvents(point: CGPoint(x: eventViewData.x, y: eventViewData.y + 1));
         var sameTimeEventIndex = 0
         if ekevents.count >= 2 {
             print("*** ekevents: \(ekevents.count)")
@@ -61,8 +61,8 @@ struct EventsView: View {
                     // 左
                     Path { path in
                             path.addLines([
-                                CGPoint(x: 0, y: 5),
-                                CGPoint(x: 0, y: eventViewData.height),
+                                CGPoint(x: 0 + CGFloat(10 * sameTimeEventIndex), y: 5),
+                                CGPoint(x: 0 + CGFloat(10 * sameTimeEventIndex), y: eventViewData.height),
                             ])
                          }
                     .stroke(lineWidth: 1)
