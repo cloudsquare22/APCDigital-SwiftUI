@@ -470,7 +470,7 @@ import SwiftUI
             let eventViewData: EventViewData = value.eventViewData
             if eventViewData.x <= point.x && point.x <= eventViewData.x + eventViewData.width &&
                 eventViewData.y <= point.y && point.y <= eventViewData.y + eventViewData.height {
-                print(value.event.title!)
+//                print(value.event.title!)
                 events.append(value.event)
             }
         }

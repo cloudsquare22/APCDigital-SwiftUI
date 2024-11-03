@@ -12,22 +12,23 @@ struct EventsView: View {
     @Environment(EventManagement.self) private var eventMangement
 
     fileprivate func createEventView(_ event: EKEvent) -> some View {
-        print("\(#function)")
+        print("\(#function):\(self.eventMangement.mainAreaEvents.count):\(event.title!)")
         let eventViewData = self.eventMangement.createEventViewData(event: event)
         let ekevents = self.eventMangement.checkMainAreaEvents(point: CGPoint(x: eventViewData.x, y: eventViewData.y + 1));
         var sameTimeEventIndex = 0
         if ekevents.count >= 2 {
-            print("*** ekevents: \(ekevents.count)")
+//            print("*** ekevents: \(ekevents.count)")
             for ekevnet in ekevents {
                 if ekevnet.eventIdentifier == event.eventIdentifier {
-                    print("*** sameTimeEventIndex: \(sameTimeEventIndex)")
-                    print("\(ekevnet.title!)")
+//                    print("*** sameTimeEventIndex: \(sameTimeEventIndex)")
+//                    print("\(ekevnet.title!)")
                     break;
                 }
                 sameTimeEventIndex = sameTimeEventIndex + 1
             }
         }
         let sameTimeEventAdjust: CGFloat = CGFloat(5 * sameTimeEventIndex)
+        print("\(#function) - end")
         return Text(eventViewData.contents)
             .font(Font.system(size: 9.6, weight: .medium, design: .default))
             .padding(EdgeInsets(top: 0.0, leading: 6.0, bottom: 0.0, trailing: 0.0))
