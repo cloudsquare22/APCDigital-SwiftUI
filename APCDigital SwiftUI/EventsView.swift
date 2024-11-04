@@ -17,11 +17,8 @@ struct EventsView: View {
         let ekevents = self.eventMangement.checkMainAreaEvents(point: CGPoint(x: eventViewData.x, y: eventViewData.y + 1));
         var sameTimeEventIndex = 0
         if ekevents.count >= 2 {
-//            print("*** ekevents: \(ekevents.count)")
             for ekevnet in ekevents {
                 if ekevnet.eventIdentifier == event.eventIdentifier {
-//                    print("*** sameTimeEventIndex: \(sameTimeEventIndex)")
-//                    print("\(ekevnet.title!)")
                     break;
                 }
                 sameTimeEventIndex = sameTimeEventIndex + 1
