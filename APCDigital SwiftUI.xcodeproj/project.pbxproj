@@ -34,6 +34,7 @@
 		8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */; };
 		8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */; };
 		8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EB02BE9104400E616CF /* WeekOfYearView.swift */; };
+		8D8342992CDCEF9D00D1EF54 /* PencilKitViewStandardRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8342982CDCEF9D00D1EF54 /* PencilKitViewStandardRepresentable.swift */; };
 		8D9F163B2BEA43EB00B5A880 /* PencilCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */; };
 		8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163C2BECFE6200B5A880 /* EventEditView.swift */; };
 		8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163E2BF0DB9800B5A880 /* EventData.swift */; };
@@ -69,6 +70,7 @@
 		8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarView.swift; sourceTree = "<group>"; };
 		8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewRepresentable.swift; sourceTree = "<group>"; };
 		8D692EB02BE9104400E616CF /* WeekOfYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekOfYearView.swift; sourceTree = "<group>"; };
+		8D8342982CDCEF9D00D1EF54 /* PencilKitViewStandardRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilKitViewStandardRepresentable.swift; sourceTree = "<group>"; };
 		8D9F163A2BEA43EB00B5A880 /* PencilCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilCaseView.swift; sourceTree = "<group>"; };
 		8D9F163C2BECFE6200B5A880 /* EventEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
 		8D9F163E2BF0DB9800B5A880 /* EventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventData.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				8D9F163E2BF0DB9800B5A880 /* EventData.swift */,
 				8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */,
 				8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */,
+				8D8342982CDCEF9D00D1EF54 /* PencilKitViewStandardRepresentable.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
 				8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */,
 				8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */,
+				8D8342992CDCEF9D00D1EF54 /* PencilKitViewStandardRepresentable.swift in Sources */,
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
 				8D117B612BFF71B2002A06AA /* RapPKCanvasView.swift in Sources */,

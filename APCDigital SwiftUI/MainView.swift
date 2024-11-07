@@ -42,9 +42,11 @@ struct MainView: View {
                     WeekOfYearView()
                 }
                 EventsView()
-                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
-                                           pkToolPicker: self.$pkToolPicker,
-                                           point: self.$longpressPoint)
+                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
+                                                   pkToolPicker: self.$pkToolPicker)
+//                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
+//                                           pkToolPicker: self.$pkToolPicker,
+//                                           point: self.$longpressPoint)
                 .gesture(DragGesture(coordinateSpace: .global)
                     .onEnded({ value in
                         let swipeType = self.swipeType(startLocation: value.startLocation,
@@ -52,6 +54,17 @@ struct MainView: View {
                         self.changePage(swipeType: swipeType)
                     })
                 )
+                .onTapGesture(count: 2, perform: { point in
+                    print("Double Tap!! \(point)")
+                    if let newEventData = self.eventMangement.createEventData(point: point,
+                                                                              daysDateComponents: self.dateManagement.daysDateComponents) {
+                        var editEvantDatas: [EventData] = []
+                        editEvantDatas.append(newEventData)
+                        editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: point))
+                        self.eventMangement.operationEventDatas = editEvantDatas
+                        self.dispEventEditView.toggle()
+                    }
+                })
                 .onChange(of: self.longpressPoint, { old, new in
                     if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
                                                                            daysDateComponents: self.dateManagement.daysDateComponents) {
