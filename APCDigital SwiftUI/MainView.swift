@@ -23,7 +23,7 @@ struct MainView: View {
     @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)
     @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
 
-    @State var longpressPoint: CGPoint = .zero
+//    @State var longpressPoint: CGPoint = .zero
     @State var dispEventEditView: Bool = false
     @State var dispDaySelectView: Bool = false
     
@@ -65,16 +65,16 @@ struct MainView: View {
                         self.dispEventEditView.toggle()
                     }
                 })
-                .onChange(of: self.longpressPoint, { old, new in
-                    if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
-                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
-                        var editEvantDatas: [EventData] = []
-                        editEvantDatas.append(newEventData)
-                        editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: self.longpressPoint))
-                        self.eventMangement.operationEventDatas = editEvantDatas
-                        self.dispEventEditView.toggle()
-                    }
-                })
+//                .onChange(of: self.longpressPoint, { old, new in
+//                    if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
+//                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
+//                        var editEvantDatas: [EventData] = []
+//                        editEvantDatas.append(newEventData)
+//                        editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: self.longpressPoint))
+//                        self.eventMangement.operationEventDatas = editEvantDatas
+//                        self.dispEventEditView.toggle()
+//                    }
+//                })
                 .sheet(isPresented: self.$dispEventEditView,
                        onDismiss: {
                     self.eventMangement.operationEventDatas = []
