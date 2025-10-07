@@ -42,8 +42,9 @@ struct MainView: View {
                     WeekOfYearView()
                 }
                 EventsView()
-                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
-                                                   pkToolPicker: self.$pkToolPicker)
+                PaperMarkupViewControllerRepresentable(viewSize: geometry.size)
+//                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
+//                                                   pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
 //                                           pkToolPicker: self.$pkToolPicker,
 //                                           point: self.$longpressPoint)
