@@ -25,6 +25,12 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         paperViewController.pencilKitResponderState.toolPickerVisibility = .visible
         paperViewController.addButtonAction(toolPicker: toolPicker)
         paperViewController.delegate = context.coordinator
+        let contentView = UIView()
+        contentView.isOpaque = false
+        contentView.backgroundColor = .clear
+        paperViewController.contentView = contentView
+        paperViewController.view.backgroundColor = .clear
+        paperViewController.view.isOpaque = false
         return paperViewController
     }
     
@@ -93,3 +99,4 @@ extension PaperMarkupViewController {
 //    }
     
 }
+
