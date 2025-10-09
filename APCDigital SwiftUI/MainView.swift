@@ -42,7 +42,8 @@ struct MainView: View {
                     WeekOfYearView()
                 }
                 EventsView()
-                PaperMarkupViewControllerRepresentable(viewSize: geometry.size)
+                PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
+                                                       pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
 //                                                   pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,

@@ -13,17 +13,18 @@ import PencilKit
 
 struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
     let viewSize: CGSize
-    
+    @Binding var pkToolPicker: PKToolPicker
+
     func makeUIViewController(context: Context) -> PaperMarkupViewController {
         let markupModel = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.viewSize.width, height: self.self .viewSize.height))
         let paperViewController = PaperMarkupViewController(markup: markupModel, supportedFeatureSet: .latest)
         paperViewController.view.becomeFirstResponder()
         
-        let toolPicker = PKToolPicker()
-        toolPicker.addObserver(paperViewController)
-        paperViewController.pencilKitResponderState.activeToolPicker = toolPicker
+//        let toolPicker = PKToolPicker()
+        self.pkToolPicker.addObserver(paperViewController)
+        paperViewController.pencilKitResponderState.activeToolPicker = self.pkToolPicker
         paperViewController.pencilKitResponderState.toolPickerVisibility = .visible
-        paperViewController.addButtonAction(toolPicker: toolPicker)
+        paperViewController.addButtonAction(toolPicker: self.pkToolPicker)
         paperViewController.delegate = context.coordinator
         let contentView = UIView(frame: .zero)
         contentView.isOpaque = false
