@@ -20,7 +20,6 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         let paperViewController = PaperMarkupViewController(markup: markupModel, supportedFeatureSet: .latest)
         paperViewController.view.becomeFirstResponder()
         
-//        let toolPicker = PKToolPicker()
         self.pkToolPicker.addObserver(paperViewController)
         paperViewController.pencilKitResponderState.activeToolPicker = self.pkToolPicker
         paperViewController.pencilKitResponderState.toolPickerVisibility = .visible
