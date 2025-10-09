@@ -49,13 +49,6 @@ struct MainView: View {
 //                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
 //                                           pkToolPicker: self.$pkToolPicker,
 //                                           point: self.$longpressPoint)
-                .gesture(DragGesture(coordinateSpace: .global)
-                    .onEnded({ value in
-                        let swipeType = self.swipeType(startLocation: value.startLocation,
-                                                       location: value.location)
-                        self.changePage(swipeType: swipeType)
-                    })
-                )
                 .onTapGesture(count: 2, perform: { point in
                     print("Double Tap!! \(point)")
                     if let newEventData = self.eventMangement.createEventData(point: point,
@@ -108,7 +101,14 @@ struct MainView: View {
                     print("Monthly Calenar Tap")
                     self.dispDaySelectView.toggle()
                 }
-                .sheet(isPresented: self.$dispDaySelectView, 
+                .gesture(DragGesture(coordinateSpace: .global)
+                    .onEnded({ value in
+                        let swipeType = self.swipeType(startLocation: value.startLocation,
+                                                       location: value.location)
+                        self.changePage(swipeType: swipeType)
+                    })
+                )
+                .sheet(isPresented: self.$dispDaySelectView,
                        onDismiss: {
 //                    self.pkCanvasView.becomeFirstResponder()
                 },
