@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import PencilKit
+import PaperKit
 
 struct MainView: View {
     @Environment(\.modelContext) private var modelContext
@@ -19,6 +20,7 @@ struct MainView: View {
     
     @State var pkCanvasView: PKCanvasView = RapPKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
+    @State var paperViewController = PaperMarkupViewController(supportedFeatureSet: .latest)
 
     @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)
     @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
@@ -43,7 +45,8 @@ struct MainView: View {
                 }
                 EventsView()
                 PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
-                                                       pkToolPicker: self.$pkToolPicker)
+                                                       pkToolPicker: self.$pkToolPicker,
+                                                       paperViewController: self.$paperViewController)
 //                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
 //                                                   pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
@@ -116,6 +119,18 @@ struct MainView: View {
                     DaySelectView()
                 })
             }
+            .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
+                if let date = oldDate {
+                    print("onchange olddate:\(date.printStyleString(style: .medium))")
+                    self.dataOperation.upsertPencilData(date: oldDate,
+                                                        pagedata: self.pkCanvasView.drawing.dataRepresentation())
+                }
+                if let date = newDate {
+                    print("onchange newdate:\(date.printStyleString(style: .medium))")
+                    self.drawingPencilData(date: date, geometry: geometry)
+                }
+                self.pkCanvasView.becomeFirstResponder()
+            })
         }
         .edgesIgnoringSafeArea(.all)
         .onAppear() {
@@ -133,18 +148,6 @@ struct MainView: View {
                 if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: day) {
                     self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
                 }
-            }
-            self.pkCanvasView.becomeFirstResponder()
-        })
-        .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
-            if let date = oldDate {
-                print("onchange olddate:\(date.printStyleString(style: .medium))")
-                self.dataOperation.upsertPencilData(date: oldDate,
-                                                    pagedata: self.pkCanvasView.drawing.dataRepresentation())
-            }
-            if let date = newDate {
-                print("onchange newdate:\(date.printStyleString(style: .medium))")
-                self.drawingPencilData(date: date)
             }
             self.pkCanvasView.becomeFirstResponder()
         })
@@ -225,7 +228,7 @@ struct MainView: View {
         return swipeType
     }
     
-    func drawingPencilData(date: Date?) {
+    func drawingPencilData(date: Date?, geometry: GeometryProxy) {
         let pencilDatas: [PencilData] = self.dataOperation.selectPencilData(date: date)
         do {
             if pencilDatas.count > 0 {
@@ -242,6 +245,12 @@ struct MainView: View {
             self.pkCanvasView.drawing = PKDrawing()
         }
         self.pkCanvasView.isHidden = false
+        self.paperViewController.markup = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: geometry.size.width, height: geometry.size.height))
+        let contentView = UIView(frame: .zero)
+        contentView.isOpaque = false
+        contentView.backgroundColor = .clear
+        self.paperViewController.contentView = contentView
+        paperViewController.view.becomeFirstResponder()
     }
 }
 
