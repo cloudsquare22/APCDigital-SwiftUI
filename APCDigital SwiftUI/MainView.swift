@@ -20,6 +20,7 @@ struct MainView: View {
     
     @State var pkCanvasView: PKCanvasView = RapPKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
+    @State var paperMarkupViewController: PaperMarkupViewController?
 
     @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)
     @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
@@ -44,7 +45,12 @@ struct MainView: View {
                 }
                 EventsView()
                 PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
-                                                       pkToolPicker: self.$pkToolPicker)
+                                                       pkToolPicker: self.$pkToolPicker,
+                                                       onCreated: { paperMarkupViewController in
+                        DispatchQueue.main.async {
+                        self.paperMarkupViewController = paperMarkupViewController
+                    }
+                })
 //                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
 //                                                   pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
@@ -128,6 +134,18 @@ struct MainView: View {
                     self.drawingPencilData(date: date, geometry: geometry)
                 }
                 self.pkCanvasView.becomeFirstResponder()
+                if let pmvc = self.paperMarkupViewController {
+                    self.paperMarkupViewController!.markup = PaperMarkup(bounds: self.paperMarkupViewController!.view.bounds)
+                    self.paperMarkupViewController!.view.becomeFirstResponder()
+                    self.pkToolPicker.removeObserver(self.paperMarkupViewController!)
+                    self.pkToolPicker.addObserver(self.paperMarkupViewController!)
+                    self.paperMarkupViewController!.pencilKitResponderState.activeToolPicker = self.pkToolPicker
+                    self.paperMarkupViewController!.pencilKitResponderState.toolPickerVisibility = .visible
+                    let contentView = UIView(frame: .zero)
+                    contentView.isOpaque = false
+                    contentView.backgroundColor = .clear
+                    self.paperMarkupViewController!.contentView = contentView
+                }
             })
         }
         .edgesIgnoringSafeArea(.all)

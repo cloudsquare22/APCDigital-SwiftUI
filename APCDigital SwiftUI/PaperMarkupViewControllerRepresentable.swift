@@ -14,6 +14,7 @@ import PencilKit
 struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
     let viewSize: CGSize
     @Binding var pkToolPicker: PKToolPicker
+    var onCreated: ((PaperMarkupViewController) -> Void)? = nil
 
     func makeUIViewController(context: Context) -> PaperMarkupViewController {
         let markupModel = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.viewSize.width, height: self.viewSize.height))
@@ -32,6 +33,7 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         paperViewController.view.frame = .zero
         paperViewController.view.backgroundColor = .clear
         paperViewController.view.isOpaque = false
+        onCreated?(paperViewController)
         return paperViewController
     }
     
