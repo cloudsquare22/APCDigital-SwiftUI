@@ -20,7 +20,6 @@ struct MainView: View {
     
     @State var pkCanvasView: PKCanvasView = RapPKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
-    @State var paperViewController = PaperMarkupViewController(supportedFeatureSet: .latest)
 
     @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)
     @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
@@ -45,8 +44,7 @@ struct MainView: View {
                 }
                 EventsView()
                 PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
-                                                       pkToolPicker: self.$pkToolPicker,
-                                                       paperViewController: self.$paperViewController)
+                                                       pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
 //                                                   pkToolPicker: self.$pkToolPicker)
 //                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
@@ -245,12 +243,6 @@ struct MainView: View {
             self.pkCanvasView.drawing = PKDrawing()
         }
         self.pkCanvasView.isHidden = false
-        self.paperViewController.markup = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: geometry.size.width, height: geometry.size.height))
-        let contentView = UIView(frame: .zero)
-        contentView.isOpaque = false
-        contentView.backgroundColor = .clear
-        self.paperViewController.contentView = contentView
-        paperViewController.view.becomeFirstResponder()
     }
 }
 

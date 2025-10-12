@@ -14,12 +14,10 @@ import PencilKit
 struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
     let viewSize: CGSize
     @Binding var pkToolPicker: PKToolPicker
-    @Binding var paperViewController: PaperMarkupViewController
 
     func makeUIViewController(context: Context) -> PaperMarkupViewController {
         let markupModel = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.viewSize.width, height: self.viewSize.height))
-        self.paperViewController.markup = markupModel
-//        let paperViewController = PaperMarkupViewController(markup: markupModel, supportedFeatureSet: .latest)
+        let paperViewController = PaperMarkupViewController(markup: markupModel, supportedFeatureSet: .latest)
         paperViewController.view.becomeFirstResponder()
         
         self.pkToolPicker.addObserver(paperViewController)
