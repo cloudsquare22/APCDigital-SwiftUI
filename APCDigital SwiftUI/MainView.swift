@@ -134,17 +134,17 @@ struct MainView: View {
                     self.drawingPencilData(date: date, geometry: geometry)
                 }
                 self.pkCanvasView.becomeFirstResponder()
-                if let pmvc = self.paperMarkupViewController {
-                    self.paperMarkupViewController!.markup = PaperMarkup(bounds: self.paperMarkupViewController!.view.bounds)
-                    self.paperMarkupViewController!.view.becomeFirstResponder()
-                    self.pkToolPicker.removeObserver(self.paperMarkupViewController!)
-                    self.pkToolPicker.addObserver(self.paperMarkupViewController!)
-                    self.paperMarkupViewController!.pencilKitResponderState.activeToolPicker = self.pkToolPicker
-                    self.paperMarkupViewController!.pencilKitResponderState.toolPickerVisibility = .visible
+                if let controller = self.paperMarkupViewController {
+                    controller.markup = PaperMarkup(bounds: controller.view.bounds)
+                    controller.view.becomeFirstResponder()
+                    self.pkToolPicker.removeObserver(controller)
+                    self.pkToolPicker.addObserver(controller)
+                    controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
+                    controller.pencilKitResponderState.toolPickerVisibility = .visible
                     let contentView = UIView(frame: .zero)
                     contentView.isOpaque = false
                     contentView.backgroundColor = .clear
-                    self.paperMarkupViewController!.contentView = contentView
+                    controller.contentView = contentView
                 }
             })
         }
