@@ -24,6 +24,7 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         self.pkToolPicker.addObserver(paperViewController)
         paperViewController.pencilKitResponderState.activeToolPicker = self.pkToolPicker
         paperViewController.pencilKitResponderState.toolPickerVisibility = .visible
+        paperViewController.isEditable = true
         paperViewController.addButtonAction(toolPicker: self.pkToolPicker)
         paperViewController.delegate = context.coordinator
         let contentView = UIView(frame: .zero)
