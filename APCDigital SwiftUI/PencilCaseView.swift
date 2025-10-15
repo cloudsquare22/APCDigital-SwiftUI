@@ -67,6 +67,7 @@ struct PencilColorButtonView: View {
             self.paperMarkupViewController!.pencilKitResponderState.toolPickerVisibility = .visible
 
             self.paperMarkupViewController!.drawingTool = tool
+            self.paperMarkupViewController!.view.becomeFirstResponder()
         }
         
 //        if var pKInkingTool = pKTool as? PKInkingTool {

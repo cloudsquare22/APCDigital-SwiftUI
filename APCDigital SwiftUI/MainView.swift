@@ -89,10 +89,10 @@ struct MainView: View {
                         EventEditView(eventDatas: self.eventMangement.operationEventDatas)
                     }
                 })
-                PencilCaseView(pkCanvasView: self.$pkCanvasView,
-                               pkToolPicker: self.$pkToolPicker,
-                               paperMarkupViewController: self.$paperMarkupViewController)
-                    .offset(x: 720, y: 16)
+//                PencilCaseView(pkCanvasView: self.$pkCanvasView,
+//                               pkToolPicker: self.$pkToolPicker,
+//                               paperMarkupViewController: self.$paperMarkupViewController)
+//                    .offset(x: 720, y: 16)
                 
                 // Right Area at the very top
                 Group {
