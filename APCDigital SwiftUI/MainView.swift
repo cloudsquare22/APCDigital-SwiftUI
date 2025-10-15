@@ -90,7 +90,8 @@ struct MainView: View {
                     }
                 })
                 PencilCaseView(pkCanvasView: self.$pkCanvasView,
-                               pkToolPicker: self.$pkToolPicker)
+                               pkToolPicker: self.$pkToolPicker,
+                               paperMarkupViewController: self.$paperMarkupViewController)
                     .offset(x: 720, y: 16)
                 
                 // Right Area at the very top
