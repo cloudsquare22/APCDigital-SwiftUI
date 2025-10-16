@@ -127,26 +127,21 @@ struct MainView: View {
             .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
                 if let date = oldDate {
                     print("onchange olddate:\(date.printStyleString(style: .medium))")
-                    self.dataOperation.upsertPencilData(date: oldDate,
-                                                        pagedata: self.pkCanvasView.drawing.dataRepresentation())
+//                    self.dataOperation.upsertPencilData(date: oldDate,
+//                                                        pagedata: self.pkCanvasView.drawing.dataRepresentation())
+                    if let markup = self.paperMarkupViewController?.markup {
+                        Task {
+                            try! await self.dataOperation.upsertPencilData(date: oldDate,
+                                                                           pagedata: markup.dataRepresentation())
+                        }
+
+                    }
                 }
                 if let date = newDate {
                     print("onchange newdate:\(date.printStyleString(style: .medium))")
                     self.drawingPencilData(date: date, geometry: geometry)
                 }
                 self.pkCanvasView.becomeFirstResponder()
-                if let controller = self.paperMarkupViewController {
-                    controller.markup = PaperMarkup(bounds: controller.view.bounds)
-                    controller.view.becomeFirstResponder()
-                    self.pkToolPicker.removeObserver(controller)
-                    self.pkToolPicker.addObserver(controller)
-                    controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
-                    controller.pencilKitResponderState.toolPickerVisibility = .visible
-                    let contentView = UIView(frame: .zero)
-                    contentView.isOpaque = false
-                    contentView.backgroundColor = .clear
-                    controller.contentView = contentView
-                }
             })
         }
         .edgesIgnoringSafeArea(.all)
@@ -249,17 +244,55 @@ struct MainView: View {
         let pencilDatas: [PencilData] = self.dataOperation.selectPencilData(date: date)
         do {
             if pencilDatas.count > 0 {
-                self.pkCanvasView.drawing  = try PKDrawing(data: pencilDatas[0].data)
+                let markupModel = try PaperMarkup(dataRepresentation: pencilDatas[0].data)
+//                self.pkCanvasView.drawing  = try PKDrawing(data: pencilDatas[0].data)
+                if let controller = self.paperMarkupViewController {
+                    controller.markup = markupModel
+                    controller.view.becomeFirstResponder()
+                    self.pkToolPicker.removeObserver(controller)
+                    self.pkToolPicker.addObserver(controller)
+                    controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
+                    controller.pencilKitResponderState.toolPickerVisibility = .visible
+                    let contentView = UIView(frame: .zero)
+                    contentView.isOpaque = false
+                    contentView.backgroundColor = .clear
+                    controller.contentView = contentView
+                }
+
                 print("PKCanvasView select update")
             }
             else {
-                self.pkCanvasView.drawing = PKDrawing()
+//                self.pkCanvasView.drawing = PKDrawing()
+                if let controller = self.paperMarkupViewController {
+                    controller.markup = PaperMarkup(bounds: controller.view.bounds)
+                    controller.view.becomeFirstResponder()
+                    self.pkToolPicker.removeObserver(controller)
+                    self.pkToolPicker.addObserver(controller)
+                    controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
+                    controller.pencilKitResponderState.toolPickerVisibility = .visible
+                    let contentView = UIView(frame: .zero)
+                    contentView.isOpaque = false
+                    contentView.backgroundColor = .clear
+                    controller.contentView = contentView
+                }
                 print("PKCanvasView initial")
             }
         }
         catch {
             print("PKCanvasView error:\(error)")
-            self.pkCanvasView.drawing = PKDrawing()
+//            self.pkCanvasView.drawing = PKDrawing()
+            if let controller = self.paperMarkupViewController {
+                controller.markup = PaperMarkup(bounds: controller.view.bounds)
+                controller.view.becomeFirstResponder()
+                self.pkToolPicker.removeObserver(controller)
+                self.pkToolPicker.addObserver(controller)
+                controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
+                controller.pencilKitResponderState.toolPickerVisibility = .visible
+                let contentView = UIView(frame: .zero)
+                contentView.isOpaque = false
+                contentView.backgroundColor = .clear
+                controller.contentView = contentView
+            }
         }
         self.pkCanvasView.isHidden = false
     }
