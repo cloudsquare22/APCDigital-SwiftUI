@@ -101,6 +101,9 @@ struct MainView: View {
                        content: {
                     DaySelectView()
                 })
+                MenuView()
+                    .glassEffect()
+                    .offset(x: 1150, y: 10)
             }
             .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
                 if let date = oldDate {

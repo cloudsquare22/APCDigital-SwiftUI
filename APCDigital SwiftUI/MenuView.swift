@@ -9,7 +9,19 @@ import SwiftUI
 
 struct MenuView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Button(action: {
+            }, label: {
+                Image(systemName: "arrowkeys.up.filled")
+            })
+            .buttonStyle(.glass)
+            Button(action: {
+            }, label: {
+                Image(systemName: "plus")
+            })
+            .buttonStyle(.glass)
+        }
+        .padding(4)
     }
 }
 
