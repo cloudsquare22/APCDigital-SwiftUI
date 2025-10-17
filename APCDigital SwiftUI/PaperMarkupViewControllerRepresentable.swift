@@ -50,19 +50,19 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         
         // PaperMarkupViewController.Delegate
         func paperMarkupViewControllerDidChangeMarkup(_ paperMarkupViewController: PaperMarkupViewController) {
-            print("\(#function)")
+//            print("\(#function)")
         }
         
         func paperMarkupViewControllerDidChangeSelection(_ paperMarkupViewController: PaperMarkupViewController) {
-            print("\(#function)")
+//            print("\(#function)")
         }
         
         func paperMarkupViewControllerDidBeginDrawing(_ paperMarkupViewController: PaperMarkupViewController) {
-            print("\(#function)")
+//            print("\(#function)")
         }
         
         func paperMarkupViewControllerDidChangeContentVisibleFrame(_ paperMarkupViewController: PaperMarkupViewController) {
-            print("\(#function)")
+//            print("\(#function)")
         }
     }
     

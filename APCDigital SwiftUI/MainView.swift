@@ -18,14 +18,12 @@ struct MainView: View {
     @Environment(EventManagement.self) private var eventMangement
     @Environment(DataOperation.self) private var dataOperation
     
-    @State var pkCanvasView: PKCanvasView = RapPKCanvasView(frame: .zero)
     @State var pkToolPicker: PKToolPicker = PKToolPicker()
     @State var paperMarkupViewController: PaperMarkupViewController?
 
     @State var monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now)
     @State var nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 145, height: 105), day: Date.now, selectWeek: false)
 
-//    @State var longpressPoint: CGPoint = .zero
     @State var dispEventEditView: Bool = false
     @State var dispDaySelectView: Bool = false
     
@@ -47,15 +45,11 @@ struct MainView: View {
                 PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
                                                        pkToolPicker: self.$pkToolPicker,
                                                        onCreated: { paperMarkupViewController in
-                        DispatchQueue.main.async {
+                    DispatchQueue.main.async {
                         self.paperMarkupViewController = paperMarkupViewController
+                        self.drawingPencilData(date: self.dateManagement.pagestartday)
                     }
                 })
-//                PencilKitViewStandardRepresentable(pkCanvasView: self.$pkCanvasView,
-//                                                   pkToolPicker: self.$pkToolPicker)
-//                PencilKitViewRepresentable(pkCanvasView: self.$pkCanvasView,
-//                                           pkToolPicker: self.$pkToolPicker,
-//                                           point: self.$longpressPoint)
                 .onTapGesture(count: 2, perform: { point in
                     print("Double Tap!! \(point)")
                     if let newEventData = self.eventMangement.createEventData(point: point,
@@ -67,32 +61,17 @@ struct MainView: View {
                         self.dispEventEditView.toggle()
                     }
                 })
-//                .onChange(of: self.longpressPoint, { old, new in
-//                    if let newEventData = self.eventMangement.createEventData(point: self.longpressPoint,
-//                                                                           daysDateComponents: self.dateManagement.daysDateComponents) {
-//                        var editEvantDatas: [EventData] = []
-//                        editEvantDatas.append(newEventData)
-//                        editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: self.longpressPoint))
-//                        self.eventMangement.operationEventDatas = editEvantDatas
-//                        self.dispEventEditView.toggle()
-//                    }
-//                })
                 .sheet(isPresented: self.$dispEventEditView,
                        onDismiss: {
                     self.eventMangement.operationEventDatas = []
                     self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
-                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     if self.eventMangement.operationEventDatas.isEmpty == false {
                         EventEditView(eventDatas: self.eventMangement.operationEventDatas)
                     }
                 })
-//                PencilCaseView(pkCanvasView: self.$pkCanvasView,
-//                               pkToolPicker: self.$pkToolPicker,
-//                               paperMarkupViewController: self.$paperMarkupViewController)
-//                    .offset(x: 720, y: 16)
                 
                 // Right Area at the very top
                 Group {
@@ -118,7 +97,6 @@ struct MainView: View {
                 )
                 .sheet(isPresented: self.$dispDaySelectView,
                        onDismiss: {
-//                    self.pkCanvasView.becomeFirstResponder()
                 },
                        content: {
                     DaySelectView()
@@ -127,21 +105,17 @@ struct MainView: View {
             .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
                 if let date = oldDate {
                     print("onchange olddate:\(date.printStyleString(style: .medium))")
-//                    self.dataOperation.upsertPencilData(date: oldDate,
-//                                                        pagedata: self.pkCanvasView.drawing.dataRepresentation())
                     if let markup = self.paperMarkupViewController?.markup {
                         Task {
                             try! await self.dataOperation.upsertPencilData(date: oldDate,
                                                                            pagedata: markup.dataRepresentation())
                         }
-
                     }
                 }
                 if let date = newDate {
                     print("onchange newdate:\(date.printStyleString(style: .medium))")
-                    self.drawingPencilData(date: date, geometry: geometry)
+                    self.drawingPencilData(date: date)
                 }
-                self.pkCanvasView.becomeFirstResponder()
             })
         }
         .edgesIgnoringSafeArea(.all)
@@ -151,7 +125,6 @@ struct MainView: View {
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
-            self.pkCanvasView.becomeFirstResponder()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
             if let day = new {
@@ -161,25 +134,26 @@ struct MainView: View {
                     self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
                 }
             }
-            self.pkCanvasView.becomeFirstResponder()
         })
         .onChange(of: scenePhase) { oldvalue, newvalue in
             switch(newvalue) {
             case .active:
                 print("active")
-//                self.pkCanvasView.becomeFirstResponder()
             case .background:
                 print("background")
             case .inactive:
                 print("inactive")
                 if oldvalue != .background {
                     if let date = self.dateManagement.pagestartday {
-                        self.dataOperation.upsertPencilData(date: date,
-                                                            pagedata: self.pkCanvasView.drawing.dataRepresentation())
+                        if let markup = self.paperMarkupViewController?.markup {
+                            Task {
+                                try! await self.dataOperation.upsertPencilData(date: date,
+                                                                               pagedata: markup.dataRepresentation())
+                            }
+                        }
                     }
                 }
                 else {
-                    self.pkCanvasView.becomeFirstResponder()
                 }
             @unknown default:
                 print("default")
@@ -240,62 +214,44 @@ struct MainView: View {
         return swipeType
     }
     
-    func drawingPencilData(date: Date?, geometry: GeometryProxy) {
+    func drawingPencilData(date: Date?) {
         let pencilDatas: [PencilData] = self.dataOperation.selectPencilData(date: date)
-        do {
-            if pencilDatas.count > 0 {
-                let markupModel = try PaperMarkup(dataRepresentation: pencilDatas[0].data)
-//                self.pkCanvasView.drawing  = try PKDrawing(data: pencilDatas[0].data)
-                if let controller = self.paperMarkupViewController {
-                    controller.markup = markupModel
-                    controller.view.becomeFirstResponder()
-                    self.pkToolPicker.removeObserver(controller)
-                    self.pkToolPicker.addObserver(controller)
-                    controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
-                    controller.pencilKitResponderState.toolPickerVisibility = .visible
-                    let contentView = UIView(frame: .zero)
-                    contentView.isOpaque = false
-                    contentView.backgroundColor = .clear
-                    controller.contentView = contentView
-                }
-
-                print("PKCanvasView select update")
+        if pencilDatas.count > 0 {
+            print("Data size:\(pencilDatas[0].data.count)")
+            self.initializationPaperMarkupViewController(data: pencilDatas[0].data)
+        }
+        else {
+            self.initializationPaperMarkupViewController()
+        }
+    }
+    
+    func initializationPaperMarkupViewController(data: Data? = nil) {
+        print("*** \(#function)")
+        if let controller = self.paperMarkupViewController {
+            if data == nil {
+                controller.markup = PaperMarkup(bounds: controller.view.bounds)
+                print("PaperMarkup initial")
             }
             else {
-//                self.pkCanvasView.drawing = PKDrawing()
-                if let controller = self.paperMarkupViewController {
-                    controller.markup = PaperMarkup(bounds: controller.view.bounds)
-                    controller.view.becomeFirstResponder()
-                    self.pkToolPicker.removeObserver(controller)
-                    self.pkToolPicker.addObserver(controller)
-                    controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
-                    controller.pencilKitResponderState.toolPickerVisibility = .visible
-                    let contentView = UIView(frame: .zero)
-                    contentView.isOpaque = false
-                    contentView.backgroundColor = .clear
-                    controller.contentView = contentView
-                }
-                print("PKCanvasView initial")
+                let paperMarkup = try! PaperMarkup(dataRepresentation: data!)
+                controller.markup = paperMarkup
+                print("PaperMarkup select update")
             }
+            controller.view.becomeFirstResponder()
+            self.pkToolPicker.removeObserver(controller)
+            self.pkToolPicker.addObserver(controller)
+            controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
+            controller.pencilKitResponderState.toolPickerVisibility = .visible
+            let contentView = UIView(frame: .zero)
+            contentView.isOpaque = false
+            contentView.backgroundColor = .clear
+            controller.contentView = contentView
         }
-        catch {
-            print("PKCanvasView error:\(error)")
-//            self.pkCanvasView.drawing = PKDrawing()
-            if let controller = self.paperMarkupViewController {
-                controller.markup = PaperMarkup(bounds: controller.view.bounds)
-                controller.view.becomeFirstResponder()
-                self.pkToolPicker.removeObserver(controller)
-                self.pkToolPicker.addObserver(controller)
-                controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
-                controller.pencilKitResponderState.toolPickerVisibility = .visible
-                let contentView = UIView(frame: .zero)
-                contentView.isOpaque = false
-                contentView.backgroundColor = .clear
-                controller.contentView = contentView
-            }
+        else {
+            print("paperMarkupViewController is nil")
         }
-        self.pkCanvasView.isHidden = false
     }
+    
 }
 
 #Preview {
