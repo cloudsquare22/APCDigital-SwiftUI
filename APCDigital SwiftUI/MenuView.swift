@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MenuView: View {
+    @Environment(EventManagement.self) private var eventMangement
     @Binding var dispEventEditView: Bool
     @Binding var dispEventListView: Bool
     
@@ -20,6 +21,9 @@ struct MenuView: View {
             })
             .buttonStyle(.glass)
             Button(action: {
+                self.eventMangement.operationEventDatas = []
+                let eventData = self.eventMangement.createEventDataNew()
+                self.eventMangement.operationEventDatas.append(eventData)
                 self.dispEventEditView.toggle()
             }, label: {
                 Image(systemName: "calendar.badge.plus")

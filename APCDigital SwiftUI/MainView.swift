@@ -58,8 +58,7 @@ struct MainView: View {
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
                 },
                        content: {
-                    let eventData = self.eventMangement.createEventDataNew()
-                    EventEditView(eventDatas: [eventData])
+                    EventEditView(eventDatas: self.eventMangement.operationEventDatas)
                 })
                 
                 // Right Area at the very top
@@ -92,7 +91,7 @@ struct MainView: View {
                 })
                 .sheet(isPresented: self.$dispEventListView, onDismiss: {
                 }, content: {
-                    EventListView()
+                    EventListView(dispEventEditView: self.$dispEventEditView)
                 })
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView)
