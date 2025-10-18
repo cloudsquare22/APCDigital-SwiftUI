@@ -17,7 +17,8 @@ struct MenuView: View {
             Button(action: {
                 self.dispEventListView.toggle()
             }, label: {
-                Image(systemName: "square.and.arrow.up")
+                Image(systemName: "list.bullet")
+                    .font(.title2)
             })
             .buttonStyle(.glass)
             Button(action: {

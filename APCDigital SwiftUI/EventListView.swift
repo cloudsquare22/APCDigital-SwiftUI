@@ -43,7 +43,7 @@ struct EventListView: View {
                                     self.dispEventEditView.toggle()
                                 }
                             }, label: {
-                                Image(systemName: "calendar.day.timeline.right")
+                                Image(systemName: "slider.horizontal.3")
                                     .font(.title2)
                             })
                             .buttonStyle(.glass)
