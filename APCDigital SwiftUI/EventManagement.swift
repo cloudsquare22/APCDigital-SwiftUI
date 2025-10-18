@@ -532,6 +532,15 @@ import SwiftUI
         return (startH, startM)
     }
     
+    func createEventDataNew() -> EventData {
+        let eventData: EventData = EventData()
+        eventData.calendar = self.calendars[0].calendarIdentifier
+        eventData.startDate = Date()
+        eventData.endDate = Date().addingTimeInterval(60 * 60)
+        return eventData
+    }
+    
+    
     func saveEventData(eventData: EventData) {
         guard let calendar = self.getCalendar(id: eventData.calendar) else {
             return

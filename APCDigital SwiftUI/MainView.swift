@@ -50,17 +50,6 @@ struct MainView: View {
                         self.drawingPencilData(date: self.dateManagement.pagestartday)
                     }
                 })
-                .onTapGesture(count: 2, perform: { point in
-                    print("Double Tap!! \(point)")
-                    if let newEventData = self.eventMangement.createEventData(point: point,
-                                                                              daysDateComponents: self.dateManagement.daysDateComponents) {
-                        var editEvantDatas: [EventData] = []
-                        editEvantDatas.append(newEventData)
-                        editEvantDatas.append(contentsOf: self.eventMangement.createAllAreaEventDatas(point: point))
-                        self.eventMangement.operationEventDatas = editEvantDatas
-                        self.dispEventEditView.toggle()
-                    }
-                })
                 .sheet(isPresented: self.$dispEventEditView,
                        onDismiss: {
                     self.eventMangement.operationEventDatas = []
@@ -68,9 +57,8 @@ struct MainView: View {
                                                      endDay: self.dateManagement.daysDateComponents[.sunday]!)
                 },
                        content: {
-                    if self.eventMangement.operationEventDatas.isEmpty == false {
-                        EventEditView(eventDatas: self.eventMangement.operationEventDatas)
-                    }
+                    let eventData = self.eventMangement.createEventDataNew()
+                    EventEditView(eventDatas: [eventData])
                 })
                 
                 // Right Area at the very top
@@ -101,9 +89,9 @@ struct MainView: View {
                        content: {
                     DaySelectView()
                 })
-                MenuView()
+                MenuView(dispEventEditView: self.$dispEventEditView)
                     .glassEffect()
-                    .offset(x: 1150, y: 10)
+                    .offset(x: geometry.size.width / 2 - 50, y: 10)
             }
             .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
                 if let date = oldDate {
