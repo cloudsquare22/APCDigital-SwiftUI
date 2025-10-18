@@ -90,6 +90,9 @@ struct MainView: View {
                     DaySelectView()
                 })
                 .sheet(isPresented: self.$dispEventListView, onDismiss: {
+                    self.eventMangement.operationEventDatas = []
+                    self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                     endDay: self.dateManagement.daysDateComponents[.sunday]!)
                 }, content: {
                     EventListView(dispEventEditView: self.$dispEventEditView)
                 })

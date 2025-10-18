@@ -50,6 +50,7 @@ struct EventListView: View {
                         }
                     }
                 }
+                .onDelete(perform: rowRemove)
             }
             .navigationTitle("Event List")
             .toolbarTitleDisplayMode(.inline)
@@ -57,6 +58,11 @@ struct EventListView: View {
     }
     
     func rowRemove(offsets: IndexSet) {
+        offsets.forEach { index in
+            let ekEvent = self.eventMangement.events[index]
+            let eventData = self.eventMangement.eKEventToEventData(event: ekEvent)
+            self.eventMangement.removeEventData(eventData: eventData)
+        }
     }
     
     func isDisp(event: EKEvent) -> Bool {
