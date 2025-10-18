@@ -26,6 +26,7 @@ struct MainView: View {
 
     @State var dispEventEditView: Bool = false
     @State var dispDaySelectView: Bool = false
+    @State var dispEventListView: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -89,7 +90,12 @@ struct MainView: View {
                        content: {
                     DaySelectView()
                 })
-                MenuView(dispEventEditView: self.$dispEventEditView)
+                .sheet(isPresented: self.$dispEventListView, onDismiss: {
+                }, content: {
+                    EventListView()
+                })
+                MenuView(dispEventEditView: self.$dispEventEditView,
+                         dispEventListView: self.$dispEventListView)
                     .glassEffect()
                     .offset(x: geometry.size.width / 2 - 50, y: 10)
             }

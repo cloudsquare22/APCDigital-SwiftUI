@@ -9,10 +9,12 @@ import SwiftUI
 
 struct MenuView: View {
     @Binding var dispEventEditView: Bool
+    @Binding var dispEventListView: Bool
     
     var body: some View {
         HStack {
             Button(action: {
+                self.dispEventListView.toggle()
             }, label: {
                 Image(systemName: "square.and.arrow.up")
             })
@@ -30,5 +32,6 @@ struct MenuView: View {
 }
 
 #Preview {
-    MenuView(dispEventEditView: .constant(false))
+    MenuView(dispEventEditView: .constant(false),
+             dispEventListView: .constant(false))
 }

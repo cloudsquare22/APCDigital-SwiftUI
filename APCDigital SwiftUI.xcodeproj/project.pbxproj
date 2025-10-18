@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D05C7AA2E93F35F00252469 /* PaperMarkupViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D05C7A92E93F35900252469 /* PaperMarkupViewControllerRepresentable.swift */; };
 		8D05C7AC2EA2775C00252469 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D05C7AB2EA2775C00252469 /* MenuView.swift */; };
+		8D05C7AE2EA358EB00252469 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D05C7AD2EA358EB00252469 /* EventListView.swift */; };
 		8D117B612BFF71B2002A06AA /* RapPKCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */; };
 		8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */; };
 		8D692E762BDFD11800E616CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E752BDFD11800E616CF /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		8D05C7A92E93F35900252469 /* PaperMarkupViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperMarkupViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		8D05C7AB2EA2775C00252469 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		8D05C7AD2EA358EB00252469 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
 		8D117B602BFF71B2002A06AA /* RapPKCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapPKCanvasView.swift; sourceTree = "<group>"; };
 		8D692E6C2BDFD11700E616CF /* APCDigital SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "APCDigital SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCDigital_SwiftUIApp.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				8D8342982CDCEF9D00D1EF54 /* PencilKitViewStandardRepresentable.swift */,
 				8D05C7A92E93F35900252469 /* PaperMarkupViewControllerRepresentable.swift */,
 				8D05C7AB2EA2775C00252469 /* MenuView.swift */,
+				8D05C7AD2EA358EB00252469 /* EventListView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				8D692E982BE71E5600E616CF /* EventsAllDayView.swift in Sources */,
 				8D692E9F2BE7A0B400E616CF /* DataOperation.swift in Sources */,
 				8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */,
+				8D05C7AE2EA358EB00252469 /* EventListView.swift in Sources */,
 				8D692E8E2BE1116400E616CF /* MonthLabelView.swift in Sources */,
 				8D05C7AA2E93F35F00252469 /* PaperMarkupViewControllerRepresentable.swift in Sources */,
 				8D692E8C2BE10DCC00E616CF /* Extension.swift in Sources */,
