@@ -480,58 +480,7 @@ import SwiftUI
         
         return events
     }
-    
-    func createEventData(point: CGPoint, daysDateComponents: [WeekDay1stMonday : DateComponents]) -> EventData? {
-        var eventData: EventData? = nil
-        for weekDay1stMonday in WeekDay1stMonday.allCases {
-            if let xywith = self.getPosition(positionsMap: self.EVENT_POSITIONS_MAP, weekDay1stMonday: weekDay1stMonday) {
-                if xywith.x <= point.x, point.x <= xywith.x + xywith.width {
-                    if let dateComponents = daysDateComponents[weekDay1stMonday] {
-                        var startDateComponents = dateComponents
-                        print("\(#function):\(weekDay1stMonday)")
-                        let (startH, startM) = self.pointToHM(point: point, xywith: xywith)
-                        if 24 <= startH || (startH == 23 && startM == 30) {
-                            break
-                        }
-                        if self.calendars.count <= 0 {
-                            break
-                        }
-                        let createEventData = EventData()
-                        createEventData.calendar = self.calendars[0].calendarIdentifier
-                        startDateComponents.hour = startH
-                        startDateComponents.minute = startM
-                        createEventData.startDate = startDateComponents.date!
-                        createEventData.endDate = startDateComponents.date! + (60 * 60)
-                        // All Day
-                        if point.y < xywith.y {
-                            createEventData.allDay = true
-                        }
-                        else {
-                            createEventData.notification = true
-                        }
-                        eventData = createEventData
-                        break
-                    }
-                }
-            }
-        }
-        return eventData
-    }
-    
-    func pointToHM(point: CGPoint, xywith: XYWidth) -> (startH: Int, startM: Int) {
-        let pointH = ((point.y - xywith.y) / self.ONE_HOUR_HEIGHT) + 6
-        var startH = Int(pointH)
-        if point.y < xywith.y {
-            startH = 0
-        }
-        var startM = 0
-        if pointH > CGFloat(startH) + 0.5 {
-            startM = 30
-        }
-        print("\(startH):\(startM)")
-        return (startH, startM)
-    }
-    
+        
     func createEventDataNew() -> EventData {
         let eventData: EventData = EventData()
         eventData.calendar = self.calendars[0].calendarIdentifier
