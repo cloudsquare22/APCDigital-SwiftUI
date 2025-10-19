@@ -89,6 +89,7 @@ struct EventEditView: View {
                 }
                 Toggle("Memo", isOn: self.$eventData.memo)
                 TextEditor(text: self.$eventData.memoText)
+                    .frame(height: 100)
             }
             .navigationTitle("Event")
             .toolbarTitleDisplayMode(.inline)
