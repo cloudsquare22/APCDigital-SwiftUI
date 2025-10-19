@@ -31,8 +31,14 @@ struct MenuView: View {
                     .font(.title2)
             })
             .buttonStyle(.glass)
+            Button(action: {
+            }, label: {
+                Image(systemName: "square.and.arrow.up.on.square")
+                    .font(.title2)
+            })
+            .buttonStyle(.glass)
         }
-        .padding(4)
+        .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
     }
 }
 

@@ -77,7 +77,7 @@ struct MainView: View {
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView)
                     .glassEffect()
-                    .offset(x: geometry.size.width / 2 - 50, y: 10)
+                    .offset(x: geometry.size.width / 2 - 90, y: 8)
             }
             .sheet(isPresented: self.$dispEventEditView,
                    onDismiss: {
