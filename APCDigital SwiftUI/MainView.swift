@@ -51,15 +51,6 @@ struct MainView: View {
                         self.drawingPencilData(date: self.dateManagement.pagestartday)
                     }
                 })
-                .sheet(isPresented: self.$dispEventEditView,
-                       onDismiss: {
-                    self.eventMangement.operationEventDatas = []
-                    self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
-                                                     endDay: self.dateManagement.daysDateComponents[.sunday]!)
-                },
-                       content: {
-                    EventEditView(eventDatas: self.eventMangement.operationEventDatas)
-                })
                 
                 // Right Area at the very top
                 Group {
@@ -83,38 +74,32 @@ struct MainView: View {
                         self.changePage(swipeType: swipeType)
                     })
                 )
-                .sheet(isPresented: self.$dispDaySelectView,
-                       onDismiss: {
-                },
-                       content: {
-                    DaySelectView()
-                })
-                .sheet(isPresented: self.$dispEventListView, onDismiss: {
-                    self.eventMangement.operationEventDatas = []
-                    self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
-                                                     endDay: self.dateManagement.daysDateComponents[.sunday]!)
-                }, content: {
-                    EventListView(dispEventEditView: self.$dispEventEditView)
-                })
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView)
                     .glassEffect()
                     .offset(x: geometry.size.width / 2 - 50, y: 10)
             }
-            .onChange(of: self.dateManagement.pagestartday, { oldDate, newDate in
-                if let date = oldDate {
-                    print("onchange olddate:\(date.printStyleString(style: .medium))")
-                    if let markup = self.paperMarkupViewController?.markup {
-                        Task {
-                            try! await self.dataOperation.upsertPencilData(date: oldDate,
-                                                                           pagedata: markup.dataRepresentation())
-                        }
-                    }
-                }
-                if let date = newDate {
-                    print("onchange newdate:\(date.printStyleString(style: .medium))")
-                    self.drawingPencilData(date: date)
-                }
+            .sheet(isPresented: self.$dispEventEditView,
+                   onDismiss: {
+                self.eventMangement.operationEventDatas = []
+                self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                 endDay: self.dateManagement.daysDateComponents[.sunday]!)
+            },
+                   content: {
+                EventEditView(eventDatas: self.eventMangement.operationEventDatas)
+            })
+            .sheet(isPresented: self.$dispEventListView, onDismiss: {
+                self.eventMangement.operationEventDatas = []
+                self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                 endDay: self.dateManagement.daysDateComponents[.sunday]!)
+            }, content: {
+                EventListView(dispEventEditView: self.$dispEventEditView)
+            })
+            .sheet(isPresented: self.$dispDaySelectView,
+                   onDismiss: {
+            },
+                   content: {
+                DaySelectView()
             })
         }
         .edgesIgnoringSafeArea(.all)
@@ -126,10 +111,20 @@ struct MainView: View {
             self.eventMangement.updateCalendars()
         }
         .onChange(of: self.dateManagement.pagestartday, { old, new in
-            if let day = new {
-                print("ページ日付更新")
-                self.monthlyCalendarView.update(day: day)
-                if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: day) {
+            if let date = old {
+                print("onchange olddate:\(date.printStyleString(style: .medium))")
+                if let markup = self.paperMarkupViewController?.markup {
+                    Task {
+                        try! await self.dataOperation.upsertPencilData(date: old,
+                                                                       pagedata: markup.dataRepresentation())
+                    }
+                }
+            }
+            if let date = new {
+                print("onchange newdate:\(date.printStyleString(style: .medium))")
+                self.drawingPencilData(date: date)
+                self.monthlyCalendarView.update(day: date)
+                if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: date) {
                     self.nextMonthlyCalendarView.update(day: nextMonth, selectWeek: false)
                 }
             }
@@ -225,7 +220,7 @@ struct MainView: View {
     }
     
     func initializationPaperMarkupViewController(data: Data? = nil) {
-        print("*** \(#function)")
+        print("MainView.\(#function)")
         if let controller = self.paperMarkupViewController {
             if data == nil {
                 controller.markup = PaperMarkup(bounds: controller.view.bounds)
