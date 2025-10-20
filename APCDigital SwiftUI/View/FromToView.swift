@@ -1,20 +1,21 @@
 //
-//  MonthLabelView.swift
+//  FromToView.swift
 //  APCDigital SwiftUI
 //
-//  Created by Shin Inaba on 2024/04/30.
+//  Created by Shin Inaba on 2024/05/06.
 //
 
 import SwiftUI
 
-struct MonthLabelView: View {
+struct FromToView: View {
     @Environment(DateManagement.self) private var dateManagement
 
-    fileprivate func createMonthLebelView() -> some View {
-        let labelViewData = self.dateManagement.createMonthLebelViewData()
+    fileprivate func createFromToView() -> some View {
+        let labelViewData = self.dateManagement.createFromToLebelViewData()
         return Text(labelViewData.contents)
+            .multilineTextAlignment(.center)
             .foregroundStyle(Color("Basic Green", bundle: .main))
-            .font(Font.system(size: 48.0, weight: .semibold))
+            .font(Font.system(size: 15.0, weight: .regular))
             .position(x: labelViewData.x,
                       y: labelViewData.y)
     }
@@ -22,13 +23,13 @@ struct MonthLabelView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
-                self.createMonthLebelView()
+                self.createFromToView()
             }
         }
     }
 }
 
 #Preview {
-    MonthLabelView()
+    FromToView()
         .environment(DateManagement())
 }
