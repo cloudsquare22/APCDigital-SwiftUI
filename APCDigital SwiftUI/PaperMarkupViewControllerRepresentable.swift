@@ -31,7 +31,6 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         contentView.isOpaque = false
         contentView.backgroundColor = .clear
         paperViewController.contentView = contentView
-        paperViewController.view.frame = .zero
         paperViewController.view.backgroundColor = .clear
         paperViewController.view.isOpaque = false
         onCreated?(paperViewController)
