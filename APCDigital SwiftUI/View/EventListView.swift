@@ -10,7 +10,7 @@ import EventKit
 
 struct EventListView: View {
     @Environment(EventManagement.self) private var eventMangement
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @Binding var dispEventEditView: Bool
 
     var body: some View {
@@ -38,7 +38,7 @@ struct EventListView: View {
                                 self.eventMangement.operationEventDatas = []
                                 let eventData = self.eventMangement.eKEventToEventData(event: event)
                                 self.eventMangement.operationEventDatas.append(eventData)
-                                self.presentationMode.wrappedValue.dismiss()
+                                dismiss()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                                     self.dispEventEditView.toggle()
                                 }

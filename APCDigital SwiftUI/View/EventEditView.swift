@@ -9,7 +9,7 @@ import SwiftUI
 import EventKit
 
 struct EventEditView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @Environment(EventManagement.self) private var eventMangement
     
     var eventDatas: [EventData] = []
@@ -97,14 +97,14 @@ struct EventEditView: View {
                 ToolbarItem(placement: .cancellationAction, content: {
                     Button("Cancel", 
                            action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     })
                 })
                 ToolbarItem(placement: .confirmationAction, content: {
                     Button(self.eventData.eKEvent == nil ? "Create" : "Save",
                            action: {
                         self.eventMangement.saveEventData(eventData: self.eventData)
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     })
                     .disabled(self.eventData.title.isEmpty ? true : false)
                 })
@@ -112,7 +112,7 @@ struct EventEditView: View {
                     Button("Remove",
                            action: {
                         self.eventMangement.removeEventData(eventData: self.eventData)
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     })
                     .disabled(self.eventData.eKEvent == nil ? true : false)
                 })
