@@ -70,7 +70,6 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
     }
 }
 
-//extension PaperMarkupViewController: @retroactive MarkupEditViewController.Delegate {
 extension PaperMarkupViewController {
     func addButtonAction(toolPicker: PKToolPicker) {
         toolPicker.accessoryItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusButtonPressed(_:)))
@@ -80,7 +79,6 @@ extension PaperMarkupViewController {
         let markupEditViewController = MarkupEditViewController(supportedFeatureSet: .latest)
         markupEditViewController.modalPresentationStyle = .popover
         markupEditViewController.popoverPresentationController?.barButtonItem = button
-//        markupEditViewController.delegate = self
         markupEditViewController.delegate = self as? any MarkupEditViewController.Delegate
         self.present(markupEditViewController, animated: true)
     }
