@@ -11,6 +11,7 @@ struct MenuView: View {
     @Environment(EventManagement.self) private var eventMangement
     @Binding var dispEventEditView: Bool
     @Binding var dispEventListView: Bool
+    @Binding var dispExportView: Bool
     
     var body: some View {
         HStack {
@@ -32,6 +33,7 @@ struct MenuView: View {
             })
             .buttonStyle(.glass)
             Button(action: {
+                self.dispExportView.toggle()
             }, label: {
                 Image(systemName: "square.and.arrow.up.on.square")
                     .font(.title2)
@@ -44,5 +46,6 @@ struct MenuView: View {
 
 #Preview {
     MenuView(dispEventEditView: .constant(false),
-             dispEventListView: .constant(false))
+             dispEventListView: .constant(false),
+             dispExportView: .constant(false))
 }

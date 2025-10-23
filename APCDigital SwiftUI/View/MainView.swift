@@ -27,7 +27,8 @@ struct MainView: View {
     @State var dispEventEditView: Bool = false
     @State var dispDaySelectView: Bool = false
     @State var dispEventListView: Bool = false
-    
+    @State var dispExportView: Bool = false
+
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .topLeading) {
@@ -75,7 +76,8 @@ struct MainView: View {
                     })
                 )
                 MenuView(dispEventEditView: self.$dispEventEditView,
-                         dispEventListView: self.$dispEventListView)
+                         dispEventListView: self.$dispEventListView,
+                         dispExportView: self.$dispExportView)
                     .glassEffect()
                     .offset(x: geometry.size.width / 2 - 90, y: 8)
             }
@@ -100,6 +102,12 @@ struct MainView: View {
             },
                    content: {
                 DaySelectView()
+            })
+            .sheet(isPresented: self.$dispExportView,
+                   onDismiss: {
+            },
+                   content: {
+                ExportView()
             })
         }
         .edgesIgnoringSafeArea(.all)
