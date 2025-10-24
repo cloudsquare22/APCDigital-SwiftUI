@@ -107,7 +107,7 @@ struct MainView: View {
                    onDismiss: {
             },
                    content: {
-                ExportView()
+                ExportView(size: geometry.size)
             })
         }
         .edgesIgnoringSafeArea(.all)

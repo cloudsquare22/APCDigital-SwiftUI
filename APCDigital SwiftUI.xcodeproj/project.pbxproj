@@ -40,6 +40,7 @@
 		8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F163E2BF0DB9800B5A880 /* EventData.swift */; };
 		8DAC133B2BF63FD8009590D5 /* DaySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */; };
 		8DBF4E532EAA6481006FDBD8 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4E522EAA6481006FDBD8 /* ExportView.swift */; };
+		8DBF4E552EABA404006FDBD8 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4E542EABA404006FDBD8 /* CaptureView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		8D9F163E2BF0DB9800B5A880 /* EventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventData.swift; sourceTree = "<group>"; };
 		8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectView.swift; sourceTree = "<group>"; };
 		8DBF4E522EAA6481006FDBD8 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		8DBF4E542EABA404006FDBD8 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */,
 				8D9F163E2BF0DB9800B5A880 /* EventData.swift */,
 				8D05C7A92E93F35900252469 /* PaperMarkupViewControllerRepresentable.swift */,
+				8DBF4E542EABA404006FDBD8 /* CaptureView.swift */,
 			);
 			path = "APCDigital SwiftUI";
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				8D05C7AC2EA2775C00252469 /* MenuView.swift in Sources */,
 				8D692E8A2BE10B9700E616CF /* PencilKitViewRepresentable.swift in Sources */,
 				8D692E862BE0834C00E616CF /* Device.swift in Sources */,
+				8DBF4E552EABA404006FDBD8 /* CaptureView.swift in Sources */,
 				8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */,
 				8D692E9D2BE79FBC00E616CF /* PencilData.swift in Sources */,
 				8D692EA32BE8ED0800E616CF /* RemainingLebelView.swift in Sources */,
@@ -420,6 +424,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,6 +461,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (

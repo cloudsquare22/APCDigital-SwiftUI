@@ -18,6 +18,42 @@ extension Date {
         let dateString = dateFormatter.string(from: self)
         return dateString
     }
+    
+    func isPast(compare: Date) -> Bool {
+        var isPast = false
+        var selfdc = Calendar.current.dateComponents(in: .current, from: self)
+        var comparedc = Calendar.current.dateComponents(in: .current, from: compare)
+        selfdc.hour = 0
+        selfdc.minute = 0
+        selfdc.second = 0
+        selfdc.nanosecond = 0
+        comparedc.hour = 0
+        comparedc.minute = 0
+        comparedc.second = 0
+        comparedc.nanosecond = 0
+        if selfdc.date! < comparedc.date! {
+            isPast = true
+        }
+        return isPast
+    }
+    
+    func isPastClose(compare: Date) -> Bool {
+        var isPast = false
+        var selfdc = Calendar.current.dateComponents(in: .current, from: self)
+        var comparedc = Calendar.current.dateComponents(in: .current, from: compare)
+        selfdc.hour = 0
+        selfdc.minute = 0
+        selfdc.second = 0
+        selfdc.nanosecond = 0
+        comparedc.hour = 0
+        comparedc.minute = 0
+        comparedc.second = 0
+        comparedc.nanosecond = 0
+        if selfdc.date! <= comparedc.date! {
+            isPast = true
+        }
+        return isPast
+    }
 }
 
 extension DateComponents {
@@ -61,6 +97,19 @@ extension Color {
             self.init(.displayP3, red: red, green: green, blue: blue, opacity: 1.0)
         } else {
             self.init(red: red, green: green, blue: blue, opacity: 1.0)
+        }
+    }
+}
+
+extension UIView {
+    func asImage() -> UIImage {
+//        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+//        return renderer.image { context in
+//            layer.render(in: context.cgContext)
+//        }
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { _ in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
         }
     }
 }
