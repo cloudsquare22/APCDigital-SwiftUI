@@ -35,7 +35,7 @@ struct CaptureView: View {
                 }
 
                 CaptureEventsView(eventMangement: self.eventManagement)
-
+                
                 // Right Area at the very top
                 Group {
                     Image(uiImage: self.monthlyCalendarViewImage)

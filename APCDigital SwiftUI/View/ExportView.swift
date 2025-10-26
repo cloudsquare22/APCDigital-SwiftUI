@@ -110,6 +110,13 @@ struct ExportView: View {
             paperMarkup = try! PaperMarkup(dataRepresentation: pencilData.data)
             print("\(#function) PaperMarkupデータあり")
         }
+
+        // PaperMarkupをどうやって画像にするか？
+        // Contextエラーになるし
+//        Task {
+//            await paperMarkup.draw(in: pdfContext, frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+//        }
+
         let monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 146, height: 106), day: targetDay)
         let monthlyCalendarViewImage = monthlyCalendarView.view.asImage()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: targetDay)!
@@ -124,6 +131,7 @@ struct ExportView: View {
                                                                nextMonthlyCalendarView: nextMonthlyCalendarView,
                                                                nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage)
         )
+
         imageRenderer.render { size, render in
             UIGraphicsBeginPDFPage()
 
@@ -157,3 +165,4 @@ struct ExportView: View {
 #Preview {
     ExportView(size: CGSize())
 }
+
