@@ -123,13 +123,15 @@ struct ExportView: View {
         let nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 146, height: 106), day: nextMonth, selectWeek: false)
         let nextMonthlyCalendarViewImage = nextMonthlyCalendarView.view.asImage()
 
+        let image = UIImage()
         let imageRenderer = ImageRenderer(content: CaptureView(dateManagement: dateManagement,
                                                                eventManagement: eventManagement,
                                                                size: size,
                                                                monthlyCalendarView: monthlyCalendarView,
                                                                monthlyCalendarViewImage: monthlyCalendarViewImage,
                                                                nextMonthlyCalendarView: nextMonthlyCalendarView,
-                                                               nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage)
+                                                               nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage,
+                                                               paperMarkupImage: image)
         )
 
         imageRenderer.render { size, render in
