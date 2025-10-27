@@ -54,6 +54,20 @@ struct EventListView: View {
             }
             .navigationTitle("Event List")
             .toolbarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .confirmationAction, content: {
+                    Button("Add",
+                           action: {
+                        self.eventMangement.operationEventDatas = []
+                        let eventData = self.eventMangement.createEventDataNew()
+                        self.eventMangement.operationEventDatas.append(eventData)
+                        dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            self.dispEventEditView.toggle()
+                        }
+                    })
+                })
+            })
         }
     }
     
