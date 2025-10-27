@@ -484,8 +484,13 @@ import SwiftUI
     func createEventDataNew() -> EventData {
         let eventData: EventData = EventData()
         eventData.calendar = self.calendars[0].calendarIdentifier
-        eventData.startDate = Date()
-        eventData.endDate = Date().addingTimeInterval(60 * 60)
+        if self.pageStartDate < Date() {
+            eventData.startDate = Date()
+        }
+        else {
+            eventData.startDate = self.pageStartDate
+        }
+        eventData.endDate = eventData.startDate.addingTimeInterval(60 * 60)
         return eventData
     }
     
