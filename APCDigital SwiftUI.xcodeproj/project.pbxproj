@@ -41,6 +41,7 @@
 		8DAC133B2BF63FD8009590D5 /* DaySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */; };
 		8DBF4E532EAA6481006FDBD8 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4E522EAA6481006FDBD8 /* ExportView.swift */; };
 		8DBF4E552EABA404006FDBD8 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4E542EABA404006FDBD8 /* CaptureView.swift */; };
+		8DBF4ECD2EB0EED5006FDBD8 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		8DAC133A2BF63FD8009590D5 /* DaySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectView.swift; sourceTree = "<group>"; };
 		8DBF4E522EAA6481006FDBD8 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		8DBF4E542EABA404006FDBD8 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				8D05C7AB2EA2775C00252469 /* MenuView.swift */,
 				8D05C7AD2EA358EB00252469 /* EventListView.swift */,
 				8DBF4E522EAA6481006FDBD8 /* ExportView.swift */,
+				8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
 				8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */,
 				8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */,
+				8DBF4ECD2EB0EED5006FDBD8 /* ThumbnailView.swift in Sources */,
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
 				8D9F163D2BECFE6200B5A880 /* EventEditView.swift in Sources */,

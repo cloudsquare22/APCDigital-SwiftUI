@@ -107,7 +107,9 @@ struct MainView: View {
                    onDismiss: {
             },
                    content: {
-                ExportView(size: geometry.size)
+//                ExportView(size: geometry.size)
+                ThumbnailView(markupModel: self.paperMarkupViewController!.markup,
+                              size: geometry.size)
             })
         }
         .edgesIgnoringSafeArea(.all)

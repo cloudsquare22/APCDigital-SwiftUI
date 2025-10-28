@@ -7,6 +7,7 @@
 
 import SwiftUI
 import EventKit
+import PaperKit
 
 struct CaptureView: View {
     let dateManagement: DateManagement
@@ -17,6 +18,7 @@ struct CaptureView: View {
     let nextMonthlyCalendarView: MonthlyCalendarView
     let nextMonthlyCalendarViewImage: UIImage
     let paperMarkupImage: UIImage
+    let markupModel: PaperMarkup
 
     var body: some View {
 //        GeometryReader { geometry in
@@ -37,7 +39,7 @@ struct CaptureView: View {
 
                 CaptureEventsView(eventMangement: self.eventManagement)
                 
-//                Image(uiImage: self.paperMarkupImage)
+                Image(uiImage: self.paperMarkupImage)
 
                 // Right Area at the very top
                 Group {

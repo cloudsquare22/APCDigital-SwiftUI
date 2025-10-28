@@ -13,7 +13,7 @@ struct ExportView: View {
     @State var startDay: Date = Date()
     @State var endDay: Date = Date()
     @Environment(\.modelContext) private var modelContext
-
+    
     static var exportFileURL: URL? = nil
 
     var body: some View {
@@ -104,11 +104,18 @@ struct ExportView: View {
                          dataOperation: DataOperation,
                          eventManagement: EventManagement,
                          pdfContext: CGContext) {
+        var image = UIImage()
         let pencilDatas = dataOperation.selectPencilData(date: targetDay)
         var paperMarkup: PaperMarkup = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
         if let pencilData = pencilDatas.first {
             paperMarkup = try! PaperMarkup(dataRepresentation: pencilData.data)
             print("\(#function) PaperMarkupデータあり")
+            Task {
+                if let cgimage = try! await self.updateThumbnail(paperMarkup) {
+                    image = UIImage(cgImage: cgimage)
+                    print("******")
+                }
+            }
         }
 
         // PaperMarkupをどうやって画像にするか？
@@ -123,7 +130,6 @@ struct ExportView: View {
         let nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 146, height: 106), day: nextMonth, selectWeek: false)
         let nextMonthlyCalendarViewImage = nextMonthlyCalendarView.view.asImage()
 
-        let image = UIImage()
         let imageRenderer = ImageRenderer(content: CaptureView(dateManagement: dateManagement,
                                                                eventManagement: eventManagement,
                                                                size: size,
@@ -131,7 +137,8 @@ struct ExportView: View {
                                                                monthlyCalendarViewImage: monthlyCalendarViewImage,
                                                                nextMonthlyCalendarView: nextMonthlyCalendarView,
                                                                nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage,
-                                                               paperMarkupImage: image)
+                                                               paperMarkupImage: image,
+                                                               markupModel: paperMarkup)
         )
 
         imageRenderer.render { size, render in
@@ -161,6 +168,50 @@ struct ExportView: View {
             print(error)
         }
     }
+
+    func updateThumbnail(_ markupModel: PaperMarkup) async throws -> CGImage? {
+        let thumbnailSize = CGSize(width: self.size.width, height: self.size.height)
+        let scale = UIScreen.main.scale
+        guard let context = makeCGContext(size: thumbnailSize, scale: scale) else {
+            throw NSError(domain: "ThumbnailView", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to create CGContext"])
+        }
+
+        // Fill background white
+        context.setFillColor(gray: 1, alpha: 1)
+        context.fill(CGRect(origin: .zero, size: CGSize(width: thumbnailSize.width * scale, height: thumbnailSize.height * scale)))
+
+        // Render the PaperKit markup into the context's user space (points)
+        context.saveGState()
+
+        // UIKit(上が0)とCoreGraphics(下が0)の座標系差を吸収
+        context.translateBy(x: 0, y: thumbnailSize.height * scale)
+        context.scaleBy(x: 1, y: -1)
+        
+        context.scaleBy(x: scale, y: scale)
+        await markupModel.draw(in: context, frame: CGRect(origin: .zero, size: thumbnailSize))
+        context.restoreGState()
+        var thumbnail: CGImage? = nil
+        
+        if let image = context.makeImage() {
+            thumbnail = image
+        }
+        return thumbnail
+    }
+    
+    private func makeCGContext(size: CGSize, scale: CGFloat) -> CGContext? {
+        let width = Int(size.width * scale)
+        let height = Int(size.height * scale)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue
+        return CGContext(data: nil,
+                         width: width,
+                         height: height,
+                         bitsPerComponent: 8,
+                         bytesPerRow: 0,
+                         space: colorSpace,
+                         bitmapInfo: bitmapInfo)
+    }
+
     
 }
 
