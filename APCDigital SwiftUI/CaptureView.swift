@@ -18,7 +18,6 @@ struct CaptureView: View {
     let nextMonthlyCalendarView: MonthlyCalendarView
     let nextMonthlyCalendarViewImage: UIImage
     let paperMarkupImage: UIImage
-    let markupModel: PaperMarkup
 
     var body: some View {
 //        GeometryReader { geometry in
@@ -40,6 +39,9 @@ struct CaptureView: View {
                 CaptureEventsView(eventMangement: self.eventManagement)
                 
                 Image(uiImage: self.paperMarkupImage)
+                    .resizable()
+                    .scaledToFit()
+                    .position(x: self.size.width / 2, y: self.size.height / 2)
 
                 // Right Area at the very top
                 Group {

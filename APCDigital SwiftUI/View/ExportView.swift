@@ -65,8 +65,20 @@ struct ExportView: View {
                                      endDay: dateManagement.daysDateComponents[.sunday]!)
         var targetDay: Date? = nil
         while targetDay != dateManagement.pagestartday && dateManagement.pagestartday!.isPastClose(compare: endDay) == true {
+            targetDay = dateManagement.pagestartday!
+
+            var image = UIImage()
+            let pencilDatas = dataOperation.selectPencilData(date: targetDay)
+            var paperMarkup: PaperMarkup = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+            if let pencilData = pencilDatas.first {
+                paperMarkup = try! PaperMarkup(dataRepresentation: pencilData.data)
+                print("\(#function) PaperMarkupデータあり")
+                if let cgimage = try! await self.updateThumbnail(paperMarkup) {
+                    image = UIImage(cgImage: cgimage)
+                    print("******")
+                }
+            }
             autoreleasepool {
-                targetDay = dateManagement.pagestartday!
 
                 print("PDF:\(targetDay!)")
                 self.createPageImage(targetDay: targetDay!,
@@ -74,7 +86,8 @@ struct ExportView: View {
                                      dateManagement: dateManagement,
                                      dataOperation: dataOperation,
                                      eventManagement: eventManagement,
-                                     pdfContext: pdfContext)
+                                     pdfContext: pdfContext,
+                                     paperMarkupImage: image)
                 dateManagement.setPageStartday(direction: .next)
                 eventManagement.updateEvents(startDay: dateManagement.daysDateComponents[.monday]!,
                                              endDay: dateManagement.daysDateComponents[.sunday]!)
@@ -103,26 +116,8 @@ struct ExportView: View {
                          dateManagement: DateManagement,
                          dataOperation: DataOperation,
                          eventManagement: EventManagement,
-                         pdfContext: CGContext) {
-        var image = UIImage()
-        let pencilDatas = dataOperation.selectPencilData(date: targetDay)
-        var paperMarkup: PaperMarkup = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-        if let pencilData = pencilDatas.first {
-            paperMarkup = try! PaperMarkup(dataRepresentation: pencilData.data)
-            print("\(#function) PaperMarkupデータあり")
-            Task {
-                if let cgimage = try! await self.updateThumbnail(paperMarkup) {
-                    image = UIImage(cgImage: cgimage)
-                    print("******")
-                }
-            }
-        }
-
-        // PaperMarkupをどうやって画像にするか？
-        // Contextエラーになるし
-//        Task {
-//            await paperMarkup.draw(in: pdfContext, frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-//        }
+                         pdfContext: CGContext,
+                         paperMarkupImage: UIImage) {
 
         let monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 146, height: 106), day: targetDay)
         let monthlyCalendarViewImage = monthlyCalendarView.view.asImage()
@@ -137,8 +132,7 @@ struct ExportView: View {
                                                                monthlyCalendarViewImage: monthlyCalendarViewImage,
                                                                nextMonthlyCalendarView: nextMonthlyCalendarView,
                                                                nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage,
-                                                               paperMarkupImage: image,
-                                                               markupModel: paperMarkup)
+                                                               paperMarkupImage: paperMarkupImage)
         )
 
         imageRenderer.render { size, render in
@@ -171,16 +165,15 @@ struct ExportView: View {
 
     func updateThumbnail(_ markupModel: PaperMarkup) async throws -> CGImage? {
         let thumbnailSize = CGSize(width: self.size.width, height: self.size.height)
-        let scale = UIScreen.main.scale
+        let scale = Device.screenScale()
         guard let context = makeCGContext(size: thumbnailSize, scale: scale) else {
             throw NSError(domain: "ThumbnailView", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to create CGContext"])
         }
 
-        // Fill background white
-        context.setFillColor(gray: 1, alpha: 1)
-        context.fill(CGRect(origin: .zero, size: CGSize(width: thumbnailSize.width * scale, height: thumbnailSize.height * scale)))
+        // 背景を指定する場合、指定なしで透過
+//        context.setFillColor(gray: 1, alpha: 1)
+//        context.fill(CGRect(origin: .zero, size: CGSize(width: thumbnailSize.width * scale, height: thumbnailSize.height * scale)))
 
-        // Render the PaperKit markup into the context's user space (points)
         context.saveGState()
 
         // UIKit(上が0)とCoreGraphics(下が0)の座標系差を吸収
@@ -190,12 +183,8 @@ struct ExportView: View {
         context.scaleBy(x: scale, y: scale)
         await markupModel.draw(in: context, frame: CGRect(origin: .zero, size: thumbnailSize))
         context.restoreGState()
-        var thumbnail: CGImage? = nil
-        
-        if let image = context.makeImage() {
-            thumbnail = image
-        }
-        return thumbnail
+
+        return context.makeImage()
     }
     
     private func makeCGContext(size: CGSize, scale: CGFloat) -> CGContext? {
