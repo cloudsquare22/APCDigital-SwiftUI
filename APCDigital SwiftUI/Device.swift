@@ -51,4 +51,16 @@ class Device {
         }
         return dtype
     }
+
+    static func screenScale() -> CGFloat {
+        var scale: CGFloat = 1.0
+        if let windowScene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive }) {
+            scale = windowScene.screen.scale
+            print("\(#function) scale:\(scale)")
+        }
+        return scale
+    }
+    
 }
