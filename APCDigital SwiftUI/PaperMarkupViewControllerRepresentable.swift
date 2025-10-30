@@ -34,6 +34,11 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         paperViewController.view.backgroundColor = .clear
         paperViewController.view.isOpaque = false
         onCreated?(paperViewController)
+        
+        print("UIView tree")
+        paperViewController.view.printHierarchy()
+        paperViewController.view.disableScrollViewBounce()
+        
         return paperViewController
     }
     

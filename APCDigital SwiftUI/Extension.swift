@@ -103,13 +103,35 @@ extension Color {
 
 extension UIView {
     func asImage() -> UIImage {
-//        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-//        return renderer.image { context in
-//            layer.render(in: context.cgContext)
-//        }
+        //        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        //        return renderer.image { context in
+        //            layer.render(in: context.cgContext)
+        //        }
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
         return renderer.image { _ in
             drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+    }
+    
+    func printHierarchy(level: Int = 0) {
+        let indent = String(repeating: "  ", count: level)
+        print("\(indent)\(type(of: self)) - frame: \(frame)")
+        for subview in subviews {
+            subview.printHierarchy(level: level + 1)
+        }
+    }
+    
+    func disableScrollViewBounce() {
+        for subview in subviews {
+            if let scrollView = subview as? UIScrollView {
+                print("**** found scroll view, disabling bounce ****")
+                scrollView.bounces = false
+                scrollView.alwaysBounceVertical = false
+                scrollView.alwaysBounceHorizontal = false
+                scrollView.isScrollEnabled = false
+            }
+            // 再帰的に探索
+            subview.disableScrollViewBounce()
         }
     }
 }

@@ -250,6 +250,7 @@ struct MainView: View {
             contentView.isOpaque = false
             contentView.backgroundColor = .clear
             controller.contentView = contentView
+            controller.view.disableScrollViewBounce()
         }
         else {
             print("paperMarkupViewController is nil")
