@@ -27,15 +27,11 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         paperViewController.isEditable = true
         paperViewController.addButtonAction(toolPicker: self.pkToolPicker)
         paperViewController.delegate = context.coordinator
-        let contentView = UIView(frame: .zero)
-        contentView.isOpaque = false
-        contentView.backgroundColor = .clear
-        paperViewController.contentView = contentView
-        paperViewController.view.backgroundColor = .clear
-        paperViewController.view.isOpaque = false
+        
+        paperViewController.setClearBackground()
+        
         onCreated?(paperViewController)
         
-        print("UIView tree")
         paperViewController.view.printHierarchy()
         paperViewController.view.disableScrollViewBounce()
         
@@ -103,6 +99,15 @@ extension PaperMarkupViewController {
 //    public func markupEditViewController(_ markupEditViewController: MarkupEditViewController, insertNewContents toInsert: PaperMarkup) {
 //        print("\(#function)")
 //    }
+    
+    func setClearBackground() {
+        let contentView = UIView(frame: .zero)
+        contentView.isOpaque = false
+        contentView.backgroundColor = .clear
+        self.contentView = contentView
+        self.view.backgroundColor = .clear
+        self.view.isOpaque = false
+    }
     
 }
 

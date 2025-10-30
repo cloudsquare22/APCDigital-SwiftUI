@@ -246,10 +246,8 @@ struct MainView: View {
             self.pkToolPicker.addObserver(controller)
             controller.pencilKitResponderState.activeToolPicker = self.pkToolPicker
             controller.pencilKitResponderState.toolPickerVisibility = .visible
-            let contentView = UIView(frame: .zero)
-            contentView.isOpaque = false
-            contentView.backgroundColor = .clear
-            controller.contentView = contentView
+            
+            controller.setClearBackground()
             controller.view.disableScrollViewBounce()
         }
         else {
