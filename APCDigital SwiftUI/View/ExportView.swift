@@ -17,29 +17,33 @@ struct ExportView: View {
     static var exportFileURL: URL? = nil
 
     var body: some View {
-        HStack {
-            Label("Start", systemImage: "calendar")
-            DatePicker("Start",
-                       selection: self.$startDay,
-                       displayedComponents: [.date])
-            .datePickerStyle(.automatic)
-            .labelsHidden()
-            Text("〜")
-            Label("End", systemImage: "calendar")
-            DatePicker("End",
-                       selection: self.$endDay,
-                       displayedComponents: [.date])
-            .datePickerStyle(.automatic)
-            .labelsHidden()
-        }
-        Button(action: {
-            Task {
-                await self.exportPDF(startDay: self.startDay, endDay: self.endDay)
+        NavigationStack {
+            HStack {
+                Label("Start", systemImage: "calendar")
+                DatePicker("Start",
+                           selection: self.$startDay,
+                           displayedComponents: [.date])
+                .datePickerStyle(.automatic)
+                .labelsHidden()
+                Text("〜")
+                Label("End", systemImage: "calendar")
+                DatePicker("End",
+                           selection: self.$endDay,
+                           displayedComponents: [.date])
+                .datePickerStyle(.automatic)
+                .labelsHidden()
             }
-        }, label: {
-            Label("Execute", systemImage: "square.and.arrow.up.on.square")
-        })
-        .buttonStyle(.glass)
+            Button(action: {
+                Task {
+                    await self.exportPDF(startDay: self.startDay, endDay: self.endDay)
+                }
+            }, label: {
+                Label("Execute", systemImage: "square.and.arrow.up.on.square")
+            })
+            .buttonStyle(.glass)
+            .navigationTitle("Export")
+            .navigationBarTitleDisplayMode(.inline)
+        }
         .onAppear {
             let calendar = Calendar.current
             let startOfYear = calendar.date(from: calendar.dateComponents([.year], from: Date()))!
