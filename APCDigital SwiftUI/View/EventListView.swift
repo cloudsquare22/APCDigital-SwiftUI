@@ -14,6 +14,39 @@ struct EventListView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var dispEventEditView: Bool
 
+    fileprivate func viewEvent(_ event: EKEvent) -> HStack<TupleView<(VStack<TupleView<(HStack<TupleView<(some View, _ConditionalContent<Text, Text>)>>, Text)>>, Spacer, some View)>> {
+        return HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(systemName: "calendar")
+                        .foregroundStyle(self.eventMangement.cgToUIColor(cgColor: event.calendar.cgColor,
+                                                                         alpha: 1.0))
+                    if event.isAllDay == true {
+                        Text("\(event.startDate.formatted(.dateTime.year().month().day()))")
+                    }
+                    else {
+                        Text("\(event.startDate.formatted(.dateTime.year().month().day().hour().minute()))〜\(event.endDate.formatted(.dateTime.hour().minute()))")
+                    }
+                }
+                Text(event.title)
+            }
+            Spacer()
+            Button(action: {
+                self.eventMangement.operationEventDatas = []
+                let eventData = self.eventMangement.eKEventToEventData(event: event)
+                self.eventMangement.operationEventDatas.append(eventData)
+                dismiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    self.dispEventEditView.toggle()
+                }
+            }, label: {
+                Image(systemName: "slider.horizontal.3")
+                    .font(.title2)
+            })
+            .buttonStyle(.glass)
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             TabView {
@@ -22,36 +55,7 @@ struct EventListView: View {
                         List {
                             ForEach(eventMangement.events, id: \.eventIdentifier) { event in
                                 if self.isDisp(event: event, targetDay: self.dateManagement.days[weekDay1stMonday]!) == true {
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            HStack {
-                                                Image(systemName: "calendar")
-                                                    .foregroundStyle(self.eventMangement.cgToUIColor(cgColor: event.calendar.cgColor,
-                                                                                                     alpha: 1.0))
-                                                if event.isAllDay == true {
-                                                    Text("\(event.startDate.formatted(.dateTime.year().month().day()))")
-                                                }
-                                                else {
-                                                    Text("\(event.startDate.formatted(.dateTime.year().month().day().hour().minute()))〜\(event.endDate.formatted(.dateTime.hour().minute()))")
-                                                }
-                                            }
-                                            Text(event.title)
-                                        }
-                                        Spacer()
-                                        Button(action: {
-                                            self.eventMangement.operationEventDatas = []
-                                            let eventData = self.eventMangement.eKEventToEventData(event: event)
-                                            self.eventMangement.operationEventDatas.append(eventData)
-                                            dismiss()
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                                                self.dispEventEditView.toggle()
-                                            }
-                                        }, label: {
-                                            Image(systemName: "slider.horizontal.3")
-                                                .font(.title2)
-                                        })
-                                        .buttonStyle(.glass)
-                                    }
+                                    viewEvent(event)
                                 }
                             }
                             .onDelete(perform: rowRemove)
