@@ -10,48 +10,56 @@ import EventKit
 
 struct EventListView: View {
     @Environment(EventManagement.self) private var eventMangement
+    @Environment(DateManagement.self) private var dateManagement
     @Environment(\.dismiss) var dismiss
     @Binding var dispEventEditView: Bool
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(eventMangement.events, id: \.eventIdentifier) { event in
-                    if self.isDisp(event: event) == true {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Image(systemName: "calendar")
-                                        .foregroundStyle(self.eventMangement.cgToUIColor(cgColor: event.calendar.cgColor,
-                                                                                         alpha: 1.0))
-                                    if event.isAllDay == true {
-                                        Text("\(event.startDate.formatted(.dateTime.year().month().day()))")
-                                    }
-                                    else {
-                                        Text("\(event.startDate.formatted(.dateTime.year().month().day().hour().minute()))〜\(event.endDate.formatted(.dateTime.hour().minute()))")
+            TabView {
+                ForEach(WeekDay1stMonday.allCases, id: \.self) { weekDay1stMonday in
+                    Tab("\(self.dateManagement.days[weekDay1stMonday]!)", systemImage: "calendar") {
+                        List {
+                            ForEach(eventMangement.events, id: \.eventIdentifier) { event in
+                                if self.isDisp(event: event, targetDay: self.dateManagement.days[weekDay1stMonday]!) == true {
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            HStack {
+                                                Image(systemName: "calendar")
+                                                    .foregroundStyle(self.eventMangement.cgToUIColor(cgColor: event.calendar.cgColor,
+                                                                                                     alpha: 1.0))
+                                                if event.isAllDay == true {
+                                                    Text("\(event.startDate.formatted(.dateTime.year().month().day()))")
+                                                }
+                                                else {
+                                                    Text("\(event.startDate.formatted(.dateTime.year().month().day().hour().minute()))〜\(event.endDate.formatted(.dateTime.hour().minute()))")
+                                                }
+                                            }
+                                            Text(event.title)
+                                        }
+                                        Spacer()
+                                        Button(action: {
+                                            self.eventMangement.operationEventDatas = []
+                                            let eventData = self.eventMangement.eKEventToEventData(event: event)
+                                            self.eventMangement.operationEventDatas.append(eventData)
+                                            dismiss()
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                                self.dispEventEditView.toggle()
+                                            }
+                                        }, label: {
+                                            Image(systemName: "slider.horizontal.3")
+                                                .font(.title2)
+                                        })
+                                        .buttonStyle(.glass)
                                     }
                                 }
-                                Text(event.title)
                             }
-                            Spacer()
-                            Button(action: {
-                                self.eventMangement.operationEventDatas = []
-                                let eventData = self.eventMangement.eKEventToEventData(event: event)
-                                self.eventMangement.operationEventDatas.append(eventData)
-                                dismiss()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                                    self.dispEventEditView.toggle()
-                                }
-                            }, label: {
-                                Image(systemName: "slider.horizontal.3")
-                                    .font(.title2)
-                            })
-                            .buttonStyle(.glass)
+                            .onDelete(perform: rowRemove)
                         }
                     }
                 }
-                .onDelete(perform: rowRemove)
             }
+            .tabViewStyle(.tabBarOnly)
             .navigationTitle("Event List")
             .toolbarTitleDisplayMode(.inline)
             .toolbar(content: {
@@ -79,8 +87,8 @@ struct EventListView: View {
         }
     }
     
-    func isDisp(event: EKEvent) -> Bool {
-        var disp = true
+    func isDisp(event: EKEvent, targetDay: Int) -> Bool {
+        var disp = false
         if let calendar = event.calendar, calendar.title == "日本の祝日" {
             disp = false
         }
@@ -89,6 +97,12 @@ struct EventListView: View {
         }
         else if let calendar = event.calendar, calendar.type != .calDAV {
             disp = false
+        }
+        else {
+            let components = Calendar.current.dateComponents([.year, .month, .day], from: event.startDate)
+            if let day = components.day, targetDay == day {
+                disp = true
+            }
         }
         return disp
     }

@@ -96,6 +96,7 @@ struct MainView: View {
                                                  endDay: self.dateManagement.daysDateComponents[.sunday]!)
             }, content: {
                 EventListView(dispEventEditView: self.$dispEventEditView)
+                    .frame(width: 800, height: 800)
             })
             .sheet(isPresented: self.$dispDaySelectView,
                    onDismiss: {
