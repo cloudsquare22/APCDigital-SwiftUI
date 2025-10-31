@@ -109,6 +109,15 @@ struct EventEditView: View {
                     .disabled(self.eventData.title.isEmpty ? true : false)
                 })
                 ToolbarItem(placement: .secondaryAction, content: {
+                    Button("Copy",
+                           action: {
+                        self.eventData.eKEvent = nil
+                        self.eventMangement.saveEventData(eventData: self.eventData)
+                        dismiss()
+                    })
+                    .disabled(self.eventData.eKEvent == nil ? true : false)
+                })
+                ToolbarItem(placement: .secondaryAction, content: {
                     Button("Remove",
                            action: {
                         self.eventMangement.removeEventData(eventData: self.eventData)
