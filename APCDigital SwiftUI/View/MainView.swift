@@ -150,12 +150,11 @@ struct MainView: View {
             case .inactive:
                 print("inactive")
                 if oldvalue != .background {
-                    if let date = self.dateManagement.pagestartday {
-                        if let markup = self.paperMarkupViewController?.markup {
-                            Task {
-                                try! await self.dataOperation.upsertPencilData(date: date,
-                                                                               pagedata: markup.dataRepresentation())
-                            }
+                    if let date = self.dateManagement.pagestartday,
+                        let markup = self.paperMarkupViewController?.markup {
+                        Task {
+                            try! await self.dataOperation.upsertPencilData(date: date,
+                                                                           pagedata: markup.dataRepresentation())
                         }
                     }
                 }
