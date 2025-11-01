@@ -20,45 +20,42 @@ struct CaptureView: View {
     let paperMarkupImage: UIImage
 
     var body: some View {
-//        GeometryReader { geometry in
-            ZStack(alignment: .topLeading) {
-                Image("aptemplate", bundle: .main)
-                    .resizable()
-                    .scaledToFit()
-                    .position(x: self.size.width / 2, y: self.size.height / 2)
-                CaptureDDayTopAreaView(dateManagement: self.dateManagement,
-                                       eventManagement: self.eventManagement,
-                                       size: self.size)
-                // Right Area
-                Group {
-                    CaptureMonthLabelView(dateManagement: self.dateManagement)
-                    CaptureFromToView(dateManagement: self.dateManagement)
-                    CaptureWeekOfYearView(dateManagement: self.dateManagement)
-                }
-
-                CaptureEventsView(eventMangement: self.eventManagement)
-                
-                Image(uiImage: self.paperMarkupImage)
-                    .resizable()
-                    .scaledToFit()
-                    .position(x: self.size.width / 2, y: self.size.height / 2)
-
-                // Right Area at the very top
-                Group {
-                    Image(uiImage: self.monthlyCalendarViewImage)
-                        .frame(width: 145, height: 105)
-                        .offset(x: self.monthlyCalendarView.getOffset().x,
-                                y: self.monthlyCalendarView.getOffset().y)
-                    Image(uiImage: self.nextMonthlyCalendarViewImage)
-                        .frame(width: 145, height: 105)
-                        .offset(x: self.nextMonthlyCalendarView.getOffset().x,
-                                y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
-                }
+        ZStack(alignment: .topLeading) {
+            Image("aptemplate", bundle: .main)
+                .resizable()
+                .scaledToFit()
+                .position(x: self.size.width / 2, y: self.size.height / 2)
+            CaptureDDayTopAreaView(dateManagement: self.dateManagement,
+                                   eventManagement: self.eventManagement,
+                                   size: self.size)
+            // Right Area
+            Group {
+                CaptureMonthLabelView(dateManagement: self.dateManagement)
+                CaptureFromToView(dateManagement: self.dateManagement)
+                CaptureWeekOfYearView(dateManagement: self.dateManagement)
             }
-            .background(.white)
-            .frame(width: self.size.width, height: self.size.height)
 
-//        }
+            CaptureEventsView(eventMangement: self.eventManagement)
+            
+            Image(uiImage: self.paperMarkupImage)
+                .resizable()
+                .scaledToFit()
+                .position(x: self.size.width / 2, y: self.size.height / 2)
+
+            // Right Area at the very top
+            Group {
+                Image(uiImage: self.monthlyCalendarViewImage)
+                    .frame(width: 145, height: 105)
+                    .offset(x: self.monthlyCalendarView.getOffset().x,
+                            y: self.monthlyCalendarView.getOffset().y)
+                Image(uiImage: self.nextMonthlyCalendarViewImage)
+                    .frame(width: 145, height: 105)
+                    .offset(x: self.nextMonthlyCalendarView.getOffset().x,
+                            y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
+            }
+        }
+        .background(.white)
+        .frame(width: self.size.width, height: self.size.height)
     }
 }
 
