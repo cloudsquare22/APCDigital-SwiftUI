@@ -89,6 +89,7 @@ struct MainView: View {
             },
                    content: {
                 EventEditView(eventDatas: self.eventMangement.operationEventDatas)
+                    .frame(height: 800)
             })
             .sheet(isPresented: self.$dispEventListView, onDismiss: {
                 self.eventMangement.operationEventDatas = []
