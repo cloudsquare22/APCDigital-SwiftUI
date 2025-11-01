@@ -31,7 +31,6 @@
 		8D692E9F2BE7A0B400E616CF /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E9E2BE7A0B400E616CF /* DataOperation.swift */; };
 		8D692EA12BE8E9F700E616CF /* DayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA02BE8E9F700E616CF /* DayLabelView.swift */; };
 		8D692EA32BE8ED0800E616CF /* RemainingLebelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA22BE8ED0800E616CF /* RemainingLebelView.swift */; };
-		8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA62BE8F63D00E616CF /* RightAreaView.swift */; };
 		8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EA82BE8F65E00E616CF /* FromToView.swift */; };
 		8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */; };
 		8D692EAF2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */; };
@@ -70,7 +69,6 @@
 		8D692E9E2BE7A0B400E616CF /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
 		8D692EA02BE8E9F700E616CF /* DayLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelView.swift; sourceTree = "<group>"; };
 		8D692EA22BE8ED0800E616CF /* RemainingLebelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingLebelView.swift; sourceTree = "<group>"; };
-		8D692EA62BE8F63D00E616CF /* RightAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAreaView.swift; sourceTree = "<group>"; };
 		8D692EA82BE8F65E00E616CF /* FromToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromToView.swift; sourceTree = "<group>"; };
 		8D692EAA2BE8FB8300E616CF /* MonthlyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarView.swift; sourceTree = "<group>"; };
 		8D692EAE2BE8FD1600E616CF /* MonthlyCalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 				8D692EA22BE8ED0800E616CF /* RemainingLebelView.swift */,
 				8D692E992BE75F7800E616CF /* HolidayLabelView.swift */,
 				8D692E972BE71E5600E616CF /* EventsAllDayView.swift */,
-				8D692EA62BE8F63D00E616CF /* RightAreaView.swift */,
 				8D692E8D2BE1116400E616CF /* MonthLabelView.swift */,
 				8D692EA82BE8F65E00E616CF /* FromToView.swift */,
 				8D692E932BE3773A00E616CF /* EventsView.swift */,
@@ -255,7 +252,6 @@
 				8D692EA12BE8E9F700E616CF /* DayLabelView.swift in Sources */,
 				8D692E922BE3733500E616CF /* EventManagement.swift in Sources */,
 				8D9F163F2BF0DB9800B5A880 /* EventData.swift in Sources */,
-				8D692EA72BE8F63D00E616CF /* RightAreaView.swift in Sources */,
 				8DBF4ECD2EB0EED5006FDBD8 /* ThumbnailView.swift in Sources */,
 				8D692EB12BE9104400E616CF /* WeekOfYearView.swift in Sources */,
 				8D692EA92BE8F65E00E616CF /* FromToView.swift in Sources */,
