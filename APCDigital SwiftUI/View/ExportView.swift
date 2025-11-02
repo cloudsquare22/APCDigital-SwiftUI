@@ -14,8 +14,6 @@ struct ExportView: View {
     @State var endDay: Date = Date()
     @Environment(\.modelContext) private var modelContext
     
-    static var exportFileURL: URL? = nil
-
     var body: some View {
         NavigationStack {
             HStack {
@@ -106,7 +104,6 @@ struct ExportView: View {
             let result = pdfData.write(toFile: documentFileName, atomically: true)
             if result == true {
                 print("write:\(documentFileName)")
-//                ExportView.exportFileURL = URL(fileURLWithPath: documentFileName)
 //                self.dispActivityView.toggle()
             }
             else {
