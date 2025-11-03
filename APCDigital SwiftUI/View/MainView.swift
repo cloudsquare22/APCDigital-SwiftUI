@@ -158,8 +158,6 @@ struct MainView: View {
                         }
                     }
                 }
-                else {
-                }
             @unknown default:
                 print("default")
             }
