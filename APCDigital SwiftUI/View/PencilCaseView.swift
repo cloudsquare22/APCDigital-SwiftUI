@@ -29,7 +29,6 @@ struct PencilCaseView: View {
                             .onTapGesture {
                                 if let controller = self.paperMarkupViewController,
                                    let item = self.pkToolPicker.selectedToolItem.tool as? PKInkingTool {
-                                    print("taptaptap")
                                     self.pkToolPicker.removeObserver(controller)
                                     self.pkToolPicker.selectedToolItem = PKToolPickerInkingItem(type: item.inkType,
                                                                                                 color: UIColor(Color("Basic Green", bundle: .main)),
