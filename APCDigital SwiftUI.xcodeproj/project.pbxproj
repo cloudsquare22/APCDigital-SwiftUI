@@ -41,6 +41,7 @@
 		8DBF4E532EAA6481006FDBD8 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4E522EAA6481006FDBD8 /* ExportView.swift */; };
 		8DBF4E552EABA404006FDBD8 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4E542EABA404006FDBD8 /* CaptureView.swift */; };
 		8DBF4ECD2EB0EED5006FDBD8 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */; };
+		8DBF4EF02EB8D9B7006FDBD8 /* PencilCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF4EEF2EB8D9B7006FDBD8 /* PencilCaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		8DBF4E522EAA6481006FDBD8 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		8DBF4E542EABA404006FDBD8 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
+		8DBF4EEF2EB8D9B7006FDBD8 /* PencilCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilCaseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				8D05C7AD2EA358EB00252469 /* EventListView.swift */,
 				8DBF4E522EAA6481006FDBD8 /* ExportView.swift */,
 				8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */,
+				8DBF4EEF2EB8D9B7006FDBD8 /* PencilCaseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				8D692E862BE0834C00E616CF /* Device.swift in Sources */,
 				8DBF4E552EABA404006FDBD8 /* CaptureView.swift in Sources */,
 				8D692E962BE4BDE300E616CF /* EventViewData.swift in Sources */,
+				8DBF4EF02EB8D9B7006FDBD8 /* PencilCaseView.swift in Sources */,
 				8D692E9D2BE79FBC00E616CF /* PencilData.swift in Sources */,
 				8D692EA32BE8ED0800E616CF /* RemainingLebelView.swift in Sources */,
 				8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */,

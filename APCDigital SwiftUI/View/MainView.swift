@@ -80,6 +80,10 @@ struct MainView: View {
                          dispExportView: self.$dispExportView)
                     .glassEffect()
                     .offset(x: geometry.size.width / 2 - 90, y: 8)
+//                PencilCaseView(pkToolPicker: self.$pkToolPicker,
+//                               paperMarkupViewController: self.$paperMarkupViewController)
+//                    .glassEffect()
+//                    .offset(x: geometry.size.width - 300, y: 8)
             }
             .sheet(isPresented: self.$dispEventEditView,
                    onDismiss: {
