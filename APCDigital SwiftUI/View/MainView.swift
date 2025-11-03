@@ -178,15 +178,12 @@ struct MainView: View {
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
-        case .up:
-            break;
         case .down:
             self.dateManagement.setPageStartday(direction: .today, selectday: Date.now)
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
-        case .none:
-            print("none")
+        case .up, .none:
             break;
         }
     }
