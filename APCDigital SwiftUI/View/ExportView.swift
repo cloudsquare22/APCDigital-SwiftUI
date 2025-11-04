@@ -97,7 +97,13 @@ struct ExportView: View {
         }
         UIGraphicsEndPDFContext()
         
-        let filename = "APCDigital.pdf"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        formatter.locale = Locale(identifier: "ja_JP")
+        let stringStartDay = formatter.string(from: startDay)
+        let stringEndDay = formatter.string(from: endDay)
+
+        let filename = "APCDigital_\(stringStartDay)-\(stringEndDay).pdf"
         if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
             let documentFileName = documentDirectories + "/" + filename
             self.removeFile(documentDirectories: documentDirectories, removefilename: filename)
