@@ -104,7 +104,6 @@ struct ExportView: View {
             let result = pdfData.write(toFile: documentFileName, atomically: true)
             if result == true {
                 print("write:\(documentFileName)")
-//                self.dispActivityView.toggle()
             }
             else {
                 print("PDF write error")
