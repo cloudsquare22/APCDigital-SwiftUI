@@ -131,6 +131,15 @@ struct EventEditView: View {
                     self.eventData.notification = false
                 }
             })
+//            .onChange(of: self.eventData.startDate, { old, new in
+//                if self.eventData.allDay == true {
+//                    self.eventData.endDate = new
+//                }
+//                else {
+//                    let diff = self.eventData.endDate.timeIntervalSince(old)
+//                    self.eventData.endDate = Calendar.current.date(byAdding: .second, value: Int(diff), to: new)!
+//                }
+//            })
         }
         .onAppear() {
             if self.eventDatas.isEmpty == false {
