@@ -113,7 +113,9 @@ struct MainView: View {
                    onDismiss: {
             },
                    content: {
-                ExportView(size: geometry.size)
+                ExportView(size: geometry.size,
+                           thisWeekStarDay: self.eventMangement.pageStartDate,
+                           thisWeekEndDay: self.eventMangement.pageEndDate)
 //                ThumbnailView(markupModel: self.paperMarkupViewController!.markup,
 //                              size: geometry.size)
             })

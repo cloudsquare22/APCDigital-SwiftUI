@@ -10,12 +10,25 @@ import PaperKit
 
 struct ExportView: View {
     let size: CGSize
+    let thisWeekStarDay: Date
+    let thisWeekEndDay: Date
     @State var startDay: Date = Date()
     @State var endDay: Date = Date()
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         NavigationStack {
+            HStack {
+                Button(action: {
+                    Task {
+                        await self.exportThisWeekToImage(startDay: self.thisWeekStarDay, endDay: self.thisWeekEndDay)
+                    }
+                }, label: {
+                    Label("This Week to Image", systemImage: "square.and.arrow.up.badge.clock")
+                })
+                .buttonStyle(.glass)
+            }
+            .padding(.bottom, 32)
             HStack {
                 Label("Start", systemImage: "calendar")
                 DatePicker("Start",
@@ -51,7 +64,57 @@ struct ExportView: View {
             self.endDay = endOfYear
         }
     }
-    
+
+    func exportThisWeekToImage(startDay: Date, endDay: Date) async {
+        // 開始日から終了日までExportしていく
+        print("size: \(self.size)")
+        let dateManagement = DateManagement()
+        let dataOperation = DataOperation(modelContext: self.modelContext)
+        let eventManagement = EventManagement()
+
+        dateManagement.setPageStartday(direction: .today, selectday: startDay)
+        eventManagement.updateEvents(startDay: dateManagement.daysDateComponents[.monday]!,
+                                     endDay: dateManagement.daysDateComponents[.sunday]!)
+        let targetDay: Date = dateManagement.pagestartday!
+
+        var image = UIImage()
+        let pencilDatas = dataOperation.selectPencilData(date: targetDay)
+        var paperMarkup: PaperMarkup = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        if let pencilData = pencilDatas.first {
+            paperMarkup = try! PaperMarkup(dataRepresentation: pencilData.data)
+            print("\(#function) PaperMarkupデータあり")
+            if let cgimage = try! await self.updateThumbnail(paperMarkup) {
+                image = UIImage(cgImage: cgimage)
+                print("******")
+            }
+        }
+        let uiimage = self.createPageImage(targetDay: targetDay,
+                                           size: size,
+                                           dateManagement: dateManagement,
+                                           dataOperation: dataOperation,
+                                           eventManagement: eventManagement,
+                                           paperMarkupImage: image)
+        if uiimage != nil, let data = uiimage?.jpegData(compressionQuality: 1.0) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyyMMdd"
+            formatter.locale = Locale(identifier: "ja_JP")
+            let stringStartDay = formatter.string(from: startDay)
+            let stringEndDay = formatter.string(from: endDay)
+
+            let filename = "APCDigital_\(stringStartDay)-\(stringEndDay).jpg"
+            if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+                let documentFileName = documentDirectories + "/" + filename
+                self.removeFile(documentDirectories: documentDirectories, removefilename: filename)
+                do {
+                    try data.write(to: URL(fileURLWithPath: documentFileName))
+                }
+                catch {
+                    print("Image write error")
+                }
+            }
+        }
+    }
+
     func exportPDF(startDay: Date, endDay: Date) async {
         // 開始日から終了日までExportしていく
         print("size: \(self.size)")
@@ -140,7 +203,6 @@ struct ExportView: View {
                                                                nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage,
                                                                paperMarkupImage: paperMarkupImage)
         )
-
         imageRenderer.render { size, render in
             UIGraphicsBeginPDFPage()
 
@@ -153,7 +215,34 @@ struct ExportView: View {
             pdfContext.restoreGState()
         }
     }
-    
+
+    func createPageImage(targetDay: Date,
+                         size: CGSize,
+                         dateManagement: DateManagement,
+                         dataOperation: DataOperation,
+                         eventManagement: EventManagement,
+                         paperMarkupImage: UIImage) -> UIImage? {
+
+        let monthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 146, height: 106), day: targetDay)
+        let monthlyCalendarViewImage = monthlyCalendarView.view.asImage()
+        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: targetDay)!
+        let nextMonthlyCalendarView: MonthlyCalendarView = MonthlyCalendarView(frame: CGRect(x: 0, y: 0, width: 146, height: 106), day: nextMonth, selectWeek: false)
+        let nextMonthlyCalendarViewImage = nextMonthlyCalendarView.view.asImage()
+
+        let imageRenderer = ImageRenderer(content: CaptureView(dateManagement: dateManagement,
+                                                               eventManagement: eventManagement,
+                                                               size: size,
+                                                               monthlyCalendarView: monthlyCalendarView,
+                                                               monthlyCalendarViewImage: monthlyCalendarViewImage,
+                                                               nextMonthlyCalendarView: nextMonthlyCalendarView,
+                                                               nextMonthlyCalendarViewImage: nextMonthlyCalendarViewImage,
+                                                               paperMarkupImage: paperMarkupImage)
+        )
+        imageRenderer.scale = 2.0
+        imageRenderer.isOpaque = true
+        return imageRenderer.uiImage
+    }
+
     func removeFile(documentDirectories: String, removefilename: String) {
         do {
             let files = try FileManager.default.contentsOfDirectory(atPath: documentDirectories)
@@ -211,6 +300,8 @@ struct ExportView: View {
 }
 
 #Preview {
-    ExportView(size: CGSize())
+    ExportView(size: CGSize(),
+               thisWeekStarDay: Date(),
+               thisWeekEndDay:Date())
 }
 
