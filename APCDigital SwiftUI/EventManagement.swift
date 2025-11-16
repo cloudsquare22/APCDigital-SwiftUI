@@ -503,6 +503,7 @@ import SwiftUI
         event.title = eventData.todo == true ? "□" : ""
         event.title = event.title + eventData.title
         event.location = eventData.location
+        event.isAllDay = eventData.allDay
         event.startDate = eventData.startDate
         event.endDate = eventData.endDate
         event.calendar = calendar
@@ -512,7 +513,6 @@ import SwiftUI
         else {
             event.notes = eventData.memoText
         }
-        event.isAllDay = eventData.allDay
         event.alarms =  []
         var alarms: [EKAlarm] = []
         if eventData.allDay == false && eventData.notification == true {
