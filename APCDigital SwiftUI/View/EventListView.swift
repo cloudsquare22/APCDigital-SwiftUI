@@ -13,6 +13,8 @@ struct EventListView: View {
     @Environment(DateManagement.self) private var dateManagement
     @Environment(\.dismiss) var dismiss
     @Binding var dispEventEditView: Bool
+    
+    @State private var selectedTab: Int = 0
 
     fileprivate func viewEvent(_ event: EKEvent) -> HStack<TupleView<(VStack<TupleView<(HStack<TupleView<(some View, _ConditionalContent<Text, Text>)>>, Text)>>, Spacer, some View)>> {
         return HStack {
@@ -49,9 +51,9 @@ struct EventListView: View {
     
     var body: some View {
         NavigationStack {
-            TabView {
+            TabView(selection: self.$selectedTab) {
                 ForEach(WeekDay1stMonday.allCases, id: \.self) { weekDay1stMonday in
-                    Tab("\(self.dateManagement.days[weekDay1stMonday]!)", systemImage: "calendar") {
+                    Tab("\(self.dateManagement.days[weekDay1stMonday]!)", systemImage: "calendar", value: self.dateManagement.days[weekDay1stMonday]!) {
                         List {
                             ForEach(eventMangement.events, id: \.eventIdentifier) { event in
                                 if self.isDisp(event: event, targetDay: self.dateManagement.days[weekDay1stMonday]!) == true {
@@ -80,6 +82,11 @@ struct EventListView: View {
                     })
                 })
             })
+        }
+        .onAppear {
+            let now = Date.now
+            let components = Calendar.current.dateComponents([.year, .month, .day], from: now)
+            self.selectedTab = components.day!
         }
     }
     
