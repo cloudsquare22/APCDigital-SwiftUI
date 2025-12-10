@@ -11,7 +11,8 @@ import EventKit
 struct EventEditView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(EventManagement.self) private var eventMangement
-    
+    @Environment(DateManagement.self) private var dateManagement
+
     var eventDatas: [EventData] = []
     
     @State var eventData: EventData = EventData()
@@ -21,20 +22,49 @@ struct EventEditView: View {
         NavigationStack {
             Form {
                 Section {
-                    Picker("Event", selection: self.$actionEvent, content: {
-                        ForEach(Array(self.eventDatas.enumerated()), id: \.offset, content: {
-                            offset, event in
-                            Text(event.eKEvent == nil ? "New" : event.title)
-                        })
-                    })
-                    .pickerStyle(.segmented)
-                    .onChange(of: self.actionEvent, { old, new in
-                        print(old)
-                        print(new)
-                        print(self.eventDatas[new].title)
-                        self.eventData = self.eventDatas[new]
-                    })
+                    HStack {
+                        Spacer()
+                        Label("Set day", systemImage: "ellipsis.calendar")
+                        ForEach(WeekDay1stMonday.allCases, id: \.self) { weekDay1stMonday in
+                            Button("\(self.dateManagement.days[weekDay1stMonday]!)") {
+                                let calendar = Calendar.current
+                                var componentsStart = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                                              from: self.eventData.startDate)
+                                componentsStart.year = self.dateManagement.daysDateComponents[weekDay1stMonday]!.year
+                                componentsStart.month = self.dateManagement.daysDateComponents[weekDay1stMonday]!.month
+                                componentsStart.day = self.dateManagement.daysDateComponents[weekDay1stMonday]!.day
+                                if let updated = calendar.date(from: componentsStart) {
+                                    self.eventData.startDate = updated
+                                }
+                                var componentsEnd = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                                            from: self.eventData.endDate)
+                                componentsEnd.year = self.dateManagement.daysDateComponents[weekDay1stMonday]!.year
+                                componentsEnd.month = self.dateManagement.daysDateComponents[weekDay1stMonday]!.month
+                                componentsEnd.day = self.dateManagement.daysDateComponents[weekDay1stMonday]!.day
+                                if let updated = calendar.date(from: componentsEnd) {
+                                    self.eventData.endDate = updated
+                                }
+                            }
+                            .buttonStyle(.glass)
+                        }
+                        Spacer()
+                    }
                 }
+//                Section {
+//                    Picker("Event", selection: self.$actionEvent, content: {
+//                        ForEach(Array(self.eventDatas.enumerated()), id: \.offset, content: {
+//                            offset, event in
+//                            Text(event.eKEvent == nil ? "New" : event.title)
+//                        })
+//                    })
+//                    .pickerStyle(.segmented)
+//                    .onChange(of: self.actionEvent, { old, new in
+//                        print(old)
+//                        print(new)
+//                        print(self.eventDatas[new].title)
+//                        self.eventData = self.eventDatas[new]
+//                    })
+//                }
                 TextField("Title", text: self.$eventData.title)
                 TextField("Location", text: self.$eventData.location)
                 Picker("Calendar", selection: self.$eventData.calendar, content: {
