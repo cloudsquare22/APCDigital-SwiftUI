@@ -99,7 +99,7 @@ struct EventEditView: View {
                             self.eventData.endDate = self.eventData.startDate + (60 * 180)
                         })
                     }
-                    .buttonStyle(BorderedProminentButtonStyle())
+                    .buttonStyle(.glass)
                 }
                 DatePicker("End Date",
                            selection: self.$eventData.endDate,
