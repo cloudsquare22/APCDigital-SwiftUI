@@ -79,7 +79,8 @@ struct MainView: View {
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView)
                     .glassEffect()
-                    .offset(x: geometry.size.width / 2 - 90, y: 8)
+                    .position(x: geometry.size.width / 2, y: 30)
+//                    .offset(x: geometry.size.width / 2 - 90, y: 8)
 //                PencilCaseView(pkToolPicker: self.$pkToolPicker,
 //                               paperMarkupViewController: self.$paperMarkupViewController)
 //                    .glassEffect()
@@ -178,7 +179,6 @@ struct MainView: View {
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
                                              endDay: self.dateManagement.daysDateComponents[.sunday]!)
             self.eventMangement.updateCalendars()
-            
         case .right:
             self.dateManagement.setPageStartday(direction: .back)
             self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,

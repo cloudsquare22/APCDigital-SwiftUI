@@ -9,12 +9,23 @@ import SwiftUI
 
 struct MenuView: View {
     @Environment(EventManagement.self) private var eventMangement
+    @Environment(DateManagement.self) private var dateManagement
     @Binding var dispEventEditView: Bool
     @Binding var dispEventListView: Bool
     @Binding var dispExportView: Bool
     
     var body: some View {
         HStack {
+            Button(action: {
+                self.dateManagement.setPageStartday(direction: .back)
+                self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                 endDay: self.dateManagement.daysDateComponents[.sunday]!)
+                self.eventMangement.updateCalendars()
+            }, label: {
+                Image(systemName: "arrowtriangle.backward")
+                    .font(.title2)
+            })
+            .buttonStyle(.glass)
             Button(action: {
                 self.dispEventListView.toggle()
             }, label: {
@@ -36,6 +47,16 @@ struct MenuView: View {
                 self.dispExportView.toggle()
             }, label: {
                 Image(systemName: "square.and.arrow.up.on.square")
+                    .font(.title2)
+            })
+            .buttonStyle(.glass)
+            Button(action: {
+                self.dateManagement.setPageStartday(direction: .next)
+                self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                 endDay: self.dateManagement.daysDateComponents[.sunday]!)
+                self.eventMangement.updateCalendars()
+            }, label: {
+                Image(systemName: "arrowtriangle.forward")
                     .font(.title2)
             })
             .buttonStyle(.glass)
