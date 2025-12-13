@@ -24,6 +24,7 @@ struct MenuView: View {
             }, label: {
                 Image(systemName: "arrowtriangle.backward")
                     .font(.title2)
+                    .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
             Button(action: {
@@ -31,6 +32,7 @@ struct MenuView: View {
             }, label: {
                 Image(systemName: "list.bullet")
                     .font(.title2)
+                    .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
             Button(action: {
@@ -41,6 +43,7 @@ struct MenuView: View {
             }, label: {
                 Image(systemName: "calendar.badge.plus")
                     .font(.title2)
+                    .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
             Button(action: {
@@ -48,6 +51,7 @@ struct MenuView: View {
             }, label: {
                 Image(systemName: "square.and.arrow.up.on.square")
                     .font(.title2)
+                    .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
             Button(action: {
@@ -58,10 +62,11 @@ struct MenuView: View {
             }, label: {
                 Image(systemName: "arrowtriangle.forward")
                     .font(.title2)
+                    .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
         }
-        .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+        .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
     }
 }
 
