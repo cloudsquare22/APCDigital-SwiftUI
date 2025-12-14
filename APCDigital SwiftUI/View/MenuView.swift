@@ -46,14 +46,24 @@ struct MenuView: View {
                     .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
-            Button(action: {
-                self.dispExportView.toggle()
-            }, label: {
-                Image(systemName: "square.and.arrow.up.on.square")
+            Menu {
+                Button(action: {
+                    self.dispExportView.toggle()
+                }, label: {
+                    Label("Export", systemImage: "square.and.arrow.up.on.square")
+                })
+                .buttonStyle(.glass)
+                Button(action: {
+                }, label: {
+                    Label("Setting", systemImage: "gearshape")
+                })
+                .buttonStyle(.glass)
+            } label: {
+                Image(systemName: "ellipsis")
                     .font(.title2)
                     .frame(width: 24, height: 24, alignment: .center)
-            })
-            .buttonStyle(.glass)
+            }
+              .buttonStyle(.glass)
             Button(action: {
                 self.dateManagement.setPageStartday(direction: .next)
                 self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
