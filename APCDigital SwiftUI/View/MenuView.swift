@@ -58,6 +58,11 @@ struct MenuView: View {
                     Label("Setting", systemImage: "gearshape")
                 })
                 .buttonStyle(.glass)
+                Button(action: {
+                }, label: {
+                    Label("About", systemImage: "info")
+                })
+                .buttonStyle(.glass)
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.title2)
