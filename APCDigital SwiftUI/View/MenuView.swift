@@ -27,21 +27,36 @@ struct MenuView: View {
                     .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
-            Button(action: {
-                self.dispEventListView.toggle()
-            }, label: {
-                Image(systemName: "list.bullet")
+            Menu {
+                Button(action: {
+                    self.dispEventListView.toggle()
+                }, label: {
+                    Label("Event List", systemImage: "list.bullet")
+                })
+                .buttonStyle(.glass)
+                Button(action: {
+                    self.eventMangement.operationEventDatas = []
+                    let eventData = self.eventMangement.createEventDataNew()
+                    self.eventMangement.operationEventDatas.append(eventData)
+                    self.dispEventEditView.toggle()
+                }, label: {
+                    Label("add Evnet", systemImage: "calendar.badge.plus")
+                })
+                .buttonStyle(.glass)
+
+            } label: {
+                Image(systemName: "calendar")
                     .font(.title2)
                     .frame(width: 24, height: 24, alignment: .center)
-            })
+            }
             .buttonStyle(.glass)
             Button(action: {
-                self.eventMangement.operationEventDatas = []
-                let eventData = self.eventMangement.createEventDataNew()
-                self.eventMangement.operationEventDatas.append(eventData)
-                self.dispEventEditView.toggle()
+                self.dateManagement.setPageStartday(direction: .today)
+                self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
+                                                 endDay: self.dateManagement.daysDateComponents[.sunday]!)
+                self.eventMangement.updateCalendars()
             }, label: {
-                Image(systemName: "calendar.badge.plus")
+                Image(systemName: "house")
                     .font(.title2)
                     .frame(width: 24, height: 24, alignment: .center)
             })
@@ -68,7 +83,7 @@ struct MenuView: View {
                     .font(.title2)
                     .frame(width: 24, height: 24, alignment: .center)
             }
-              .buttonStyle(.glass)
+            .buttonStyle(.glass)
             Button(action: {
                 self.dateManagement.setPageStartday(direction: .next)
                 self.eventMangement.updateEvents(startDay: self.dateManagement.daysDateComponents[.monday]!,
