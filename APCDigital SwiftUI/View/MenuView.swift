@@ -56,7 +56,7 @@ struct MenuView: View {
                                                  endDay: self.dateManagement.daysDateComponents[.sunday]!)
                 self.eventMangement.updateCalendars()
             }, label: {
-                Image(systemName: "house")
+                Image(systemName: "return")
                     .font(.title2)
                     .frame(width: 24, height: 24, alignment: .center)
             })
