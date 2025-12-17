@@ -13,6 +13,7 @@ struct MenuView: View {
     @Binding var dispEventEditView: Bool
     @Binding var dispEventListView: Bool
     @Binding var dispExportView: Bool
+    @Binding var dispDaySelectView: Bool
     
     var body: some View {
         HStack {
@@ -28,6 +29,12 @@ struct MenuView: View {
             })
             .buttonStyle(.glass)
             Menu {
+                Button(action: {
+                    self.dispDaySelectView.toggle()
+                }, label: {
+                    Label("Select day", systemImage: "calendar.day.timeline.leading")
+                })
+                .buttonStyle(.glass)
                 Button(action: {
                     self.dispEventListView.toggle()
                 }, label: {
@@ -103,5 +110,6 @@ struct MenuView: View {
 #Preview {
     MenuView(dispEventEditView: .constant(false),
              dispEventListView: .constant(false),
-             dispExportView: .constant(false))
+             dispExportView: .constant(false),
+             dispDaySelectView: .constant(false))
 }

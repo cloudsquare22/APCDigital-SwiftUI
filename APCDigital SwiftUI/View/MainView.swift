@@ -77,7 +77,8 @@ struct MainView: View {
                 )
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
-                         dispExportView: self.$dispExportView)
+                         dispExportView: self.$dispExportView,
+                         dispDaySelectView: self.$dispDaySelectView)
                     .glassEffect()
                     .position(x: geometry.size.width / 2, y: 30)
 //                    .offset(x: geometry.size.width / 2 - 90, y: 8)
