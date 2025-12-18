@@ -44,15 +44,6 @@ struct MainView: View {
                     WeekOfYearView()
                 }
                 EventsView()
-                PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
-                                                       pkToolPicker: self.$pkToolPicker,
-                                                       onCreated: { paperMarkupViewController in
-                    DispatchQueue.main.async {
-                        self.paperMarkupViewController = paperMarkupViewController
-                        self.drawingPencilData(date: self.dateManagement.pagestartday)
-                    }
-                })
-                
                 // Right Area at the very top
                 Group {
                     MonthlyCalendarViewRepresentable(monthlyCarendarView: self.$monthlyCalendarView)
@@ -64,17 +55,26 @@ struct MainView: View {
                         .offset(x: self.nextMonthlyCalendarView.getOffset().x,
                                 y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
                 }
-                .onTapGesture {
-                    print("Monthly Calenar Tap")
-                    self.dispDaySelectView.toggle()
-                }
-                .gesture(DragGesture(coordinateSpace: .global)
-                    .onEnded({ value in
-                        let swipeType = self.swipeType(startLocation: value.startLocation,
-                                                       location: value.location)
-                        self.changePage(swipeType: swipeType)
-                    })
-                )
+//                .onTapGesture {
+//                    print("Monthly Calenar Tap")
+//                    self.dispDaySelectView.toggle()
+//                }
+//                .gesture(DragGesture(coordinateSpace: .global)
+//                    .onEnded({ value in
+//                        let swipeType = self.swipeType(startLocation: value.startLocation,
+//                                                       location: value.location)
+//                        self.changePage(swipeType: swipeType)
+//                    })
+//                )
+                PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
+                                                       pkToolPicker: self.$pkToolPicker,
+                                                       onCreated: { paperMarkupViewController in
+                    DispatchQueue.main.async {
+                        self.paperMarkupViewController = paperMarkupViewController
+                        self.drawingPencilData(date: self.dateManagement.pagestartday)
+                    }
+                })
+                
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView,
