@@ -170,6 +170,7 @@ struct MainView: View {
                 print("default")
             }
         }
+        .statusBarHidden(true)
     }
     
     func changePage(swipeType: SwipeType) {
