@@ -112,6 +112,7 @@ struct MainView: View {
             },
                    content: {
                 DaySelectView()
+                    .interactiveDismissDisabled(true)
             })
             .sheet(isPresented: self.$dispExportView,
                    onDismiss: {
@@ -120,6 +121,7 @@ struct MainView: View {
                 ExportView(size: geometry.size,
                            thisWeekStarDay: self.eventMangement.pageStartDate,
                            thisWeekEndDay: self.eventMangement.pageEndDate)
+                .interactiveDismissDisabled(true)
 //                ThumbnailView(markupModel: self.paperMarkupViewController!.markup,
 //                              size: geometry.size)
             })
