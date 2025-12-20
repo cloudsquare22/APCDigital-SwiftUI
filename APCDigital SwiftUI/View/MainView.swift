@@ -96,6 +96,7 @@ struct MainView: View {
                    content: {
                 EventEditView(eventDatas: self.eventMangement.operationEventDatas)
                     .frame(height: 800)
+                    .interactiveDismissDisabled(true)
             })
             .sheet(isPresented: self.$dispEventListView, onDismiss: {
                 self.eventMangement.operationEventDatas = []
@@ -104,6 +105,7 @@ struct MainView: View {
             }, content: {
                 EventListView(dispEventEditView: self.$dispEventEditView)
                     .frame(width: 800, height: 800)
+                    .interactiveDismissDisabled(true)
             })
             .sheet(isPresented: self.$dispDaySelectView,
                    onDismiss: {

@@ -69,6 +69,12 @@ struct EventListView: View {
             .navigationTitle("Event List")
             .toolbarTitleDisplayMode(.inline)
             .toolbar(content: {
+                ToolbarItem(placement: .cancellationAction, content: {
+                    Button("Cancel",
+                           action: {
+                        dismiss()
+                    })
+                })
                 ToolbarItem(placement: .confirmationAction, content: {
                     Button("Add",
                            action: {
