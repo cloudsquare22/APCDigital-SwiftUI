@@ -15,7 +15,8 @@ struct ExportView: View {
     @State var startDay: Date = Date()
     @State var endDay: Date = Date()
     @Environment(\.modelContext) private var modelContext
-    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         NavigationStack {
             HStack {
@@ -54,6 +55,14 @@ struct ExportView: View {
             .buttonStyle(.glass)
             .navigationTitle("Export")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .cancellationAction, content: {
+                    Button("Cancel",
+                           action: {
+                        dismiss()
+                    })
+                })
+            })
         }
         .onAppear {
             let calendar = Calendar.current
