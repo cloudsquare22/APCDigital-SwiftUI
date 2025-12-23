@@ -10,6 +10,7 @@
 		8D05C7AA2E93F35F00252469 /* PaperMarkupViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D05C7A92E93F35900252469 /* PaperMarkupViewControllerRepresentable.swift */; };
 		8D05C7AC2EA2775C00252469 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D05C7AB2EA2775C00252469 /* MenuView.swift */; };
 		8D05C7AE2EA358EB00252469 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D05C7AD2EA358EB00252469 /* EventListView.swift */; };
+		8D36ECB82EFACF4E00908D82 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D36ECB72EFACF4E00908D82 /* AboutView.swift */; };
 		8D692E702BDFD11700E616CF /* APCDigital_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */; };
 		8D692E762BDFD11800E616CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E752BDFD11800E616CF /* Assets.xcassets */; };
 		8D692E792BDFD11800E616CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D692E782BDFD11800E616CF /* Preview Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		8D05C7A92E93F35900252469 /* PaperMarkupViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperMarkupViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		8D05C7AB2EA2775C00252469 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		8D05C7AD2EA358EB00252469 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
+		8D36ECB72EFACF4E00908D82 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		8D692E6C2BDFD11700E616CF /* APCDigital SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "APCDigital SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D692E6F2BDFD11700E616CF /* APCDigital_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCDigital_SwiftUIApp.swift; sourceTree = "<group>"; };
 		8D692E752BDFD11800E616CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				8DBF4E522EAA6481006FDBD8 /* ExportView.swift */,
 				8DBF4ECC2EB0EED5006FDBD8 /* ThumbnailView.swift */,
 				8DBF4EEF2EB8D9B7006FDBD8 /* PencilCaseView.swift */,
+				8D36ECB72EFACF4E00908D82 /* AboutView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 			files = (
 				8D692E902BE11A4100E616CF /* AppDelegate.swift in Sources */,
 				8DBF4E532EAA6481006FDBD8 /* ExportView.swift in Sources */,
+				8D36ECB82EFACF4E00908D82 /* AboutView.swift in Sources */,
 				8DAC133B2BF63FD8009590D5 /* DaySelectView.swift in Sources */,
 				8D692E942BE3773A00E616CF /* EventsView.swift in Sources */,
 				8D692EAB2BE8FB8300E616CF /* MonthlyCalendarView.swift in Sources */,
