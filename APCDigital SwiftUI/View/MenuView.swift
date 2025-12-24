@@ -14,7 +14,8 @@ struct MenuView: View {
     @Binding var dispEventListView: Bool
     @Binding var dispExportView: Bool
     @Binding var dispDaySelectView: Bool
-    
+    @Binding var dispAboutView: Bool
+
     var body: some View {
         HStack {
             Button(action: {
@@ -81,6 +82,7 @@ struct MenuView: View {
                 })
                 .buttonStyle(.glass)
                 Button(action: {
+                    self.dispAboutView.toggle()
                 }, label: {
                     Label("About", systemImage: "info")
                 })
@@ -111,5 +113,6 @@ struct MenuView: View {
     MenuView(dispEventEditView: .constant(false),
              dispEventListView: .constant(false),
              dispExportView: .constant(false),
-             dispDaySelectView: .constant(false))
+             dispDaySelectView: .constant(false),
+             dispAboutView: .constant(false))
 }

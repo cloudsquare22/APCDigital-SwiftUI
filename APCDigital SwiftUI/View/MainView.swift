@@ -28,6 +28,7 @@ struct MainView: View {
     @State var dispDaySelectView: Bool = false
     @State var dispEventListView: Bool = false
     @State var dispExportView: Bool = false
+    @State var dispAboutView: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -78,7 +79,8 @@ struct MainView: View {
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView,
-                         dispDaySelectView: self.$dispDaySelectView)
+                         dispDaySelectView: self.$dispDaySelectView,
+                         dispAboutView: self.$dispAboutView)
                     .glassEffect()
                     .position(x: geometry.size.width / 2, y: 30)
 //                    .offset(x: geometry.size.width / 2 - 90, y: 8)
@@ -124,6 +126,13 @@ struct MainView: View {
                 .interactiveDismissDisabled(true)
 //                ThumbnailView(markupModel: self.paperMarkupViewController!.markup,
 //                              size: geometry.size)
+            })
+            .sheet(isPresented: self.$dispAboutView,
+                   onDismiss: {
+            },
+                   content: {
+                AboutView()
+                    .interactiveDismissDisabled(true)
             })
         }
         .edgesIgnoringSafeArea(.all)
