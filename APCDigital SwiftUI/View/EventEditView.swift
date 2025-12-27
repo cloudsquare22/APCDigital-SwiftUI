@@ -138,7 +138,7 @@ struct EventEditView: View {
                     })
                     .disabled(self.eventData.title.isEmpty ? true : false)
                 })
-                ToolbarItem(placement: .secondaryAction, content: {
+                ToolbarItem(placement: self.eventData.eKEvent == nil ? .secondaryAction : .confirmationAction, content: {
                     Button("Copy",
                            action: {
                         self.eventData.eKEvent = nil
