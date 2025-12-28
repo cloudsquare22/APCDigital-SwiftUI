@@ -76,6 +76,16 @@ struct MainView: View {
                     }
                 })
                 
+                // タップ操作用Viewはこれで出来る、ボタンで切り替えるか
+                if false {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            print("taptaptap")
+                        }
+                }
+                
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView,
