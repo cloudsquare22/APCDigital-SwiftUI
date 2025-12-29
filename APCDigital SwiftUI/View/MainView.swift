@@ -84,6 +84,13 @@ struct MainView: View {
                         .onTapGesture {
                             print("taptaptap")
                         }
+                        .gesture(DragGesture(coordinateSpace: .global)
+                            .onEnded({ value in
+                                let swipeType = self.swipeType(startLocation: value.startLocation,
+                                                               location: value.location)
+                                self.changePage(swipeType: swipeType)
+                            })
+                        )
                 }
                 
                 MenuView(dispEventEditView: self.$dispEventEditView,
