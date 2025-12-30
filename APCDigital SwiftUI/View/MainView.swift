@@ -201,6 +201,15 @@ struct MainView: View {
                 print("default")
             }
         }
+        .onChange(of: self.touchMode) { old, new in
+            print("touchMode:\(new)")
+            if let controller = self.paperMarkupViewController {
+                if new == true {
+                }
+                else {
+                }
+            }
+        }
         .statusBarHidden(true)
     }
     
