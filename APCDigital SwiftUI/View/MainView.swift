@@ -29,6 +29,7 @@ struct MainView: View {
     @State var dispEventListView: Bool = false
     @State var dispExportView: Bool = false
     @State var dispAboutView: Bool = false
+    @State var touchMode: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -76,8 +77,7 @@ struct MainView: View {
                     }
                 })
                 
-                // タップ操作用Viewはこれで出来る、ボタンで切り替えるか
-                if false {
+                if self.touchMode == true {
                     Color.clear
                         .contentShape(Rectangle())
                         .ignoresSafeArea()
@@ -97,7 +97,8 @@ struct MainView: View {
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView,
                          dispDaySelectView: self.$dispDaySelectView,
-                         dispAboutView: self.$dispAboutView)
+                         dispAboutView: self.$dispAboutView,
+                         touchMode: self.$touchMode)
                     .glassEffect()
                     .position(x: geometry.size.width / 2, y: 30)
 //                    .offset(x: geometry.size.width / 2 - 90, y: 8)

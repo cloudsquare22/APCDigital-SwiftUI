@@ -15,6 +15,7 @@ struct MenuView: View {
     @Binding var dispExportView: Bool
     @Binding var dispDaySelectView: Bool
     @Binding var dispAboutView: Bool
+    @Binding var touchMode: Bool
 
     var body: some View {
         HStack {
@@ -104,6 +105,23 @@ struct MenuView: View {
                     .frame(width: 24, height: 24, alignment: .center)
             })
             .buttonStyle(.glass)
+            Button(action: {
+                self.touchMode.toggle()
+            }, label: {
+                if self.touchMode == true {
+                    Image(systemName: "pencil.slash")
+                        .font(.title2)
+                        .frame(width: 24, height: 24, alignment: .center)
+                        .foregroundStyle(.gray)
+                }
+                else {
+                    Image(systemName: "pencil")
+                        .font(.title2)
+                        .frame(width: 24, height: 24, alignment: .center)
+                        .foregroundStyle(.black)
+                }
+            })
+            .buttonStyle(.glass)
         }
         .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
     }
@@ -114,5 +132,6 @@ struct MenuView: View {
              dispEventListView: .constant(false),
              dispExportView: .constant(false),
              dispDaySelectView: .constant(false),
-             dispAboutView: .constant(false))
+             dispAboutView: .constant(false),
+             touchMode: .constant(false))
 }
