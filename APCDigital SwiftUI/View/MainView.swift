@@ -77,21 +77,21 @@ struct MainView: View {
                     }
                 })
                 
-                if self.touchMode == true {
-                    Color.clear
-                        .contentShape(Rectangle())
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            print("taptaptap")
-                        }
-                        .gesture(DragGesture(coordinateSpace: .global)
-                            .onEnded({ value in
-                                let swipeType = self.swipeType(startLocation: value.startLocation,
-                                                               location: value.location)
-                                self.changePage(swipeType: swipeType)
-                            })
-                        )
-                }
+//                if self.touchMode == true {
+//                    Color.clear
+//                        .contentShape(Rectangle())
+//                        .ignoresSafeArea()
+//                        .onTapGesture {
+//                            print("taptaptap")
+//                        }
+//                        .gesture(DragGesture(coordinateSpace: .global)
+//                            .onEnded({ value in
+//                                let swipeType = self.swipeType(startLocation: value.startLocation,
+//                                                               location: value.location)
+//                                self.changePage(swipeType: swipeType)
+//                            })
+//                        )
+//                }
                 
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
@@ -201,15 +201,15 @@ struct MainView: View {
                 print("default")
             }
         }
-        .onChange(of: self.touchMode) { old, new in
-            print("touchMode:\(new)")
-            if let controller = self.paperMarkupViewController {
-                if new == true {
-                }
-                else {
-                }
-            }
-        }
+//        .onChange(of: self.touchMode) { old, new in
+//            print("touchMode:\(new)")
+//            if let controller = self.paperMarkupViewController {
+//                if new == true {
+//                }
+//                else {
+//                }
+//            }
+//        }
         .statusBarHidden(true)
     }
     
