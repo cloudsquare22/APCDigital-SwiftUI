@@ -29,6 +29,7 @@ struct MainView: View {
     @State var dispEventListView: Bool = false
     @State var dispExportView: Bool = false
     @State var dispAboutView: Bool = false
+    @State var dispSettingView: Bool = false
     @State var touchMode: Bool = false
 
     var body: some View {
@@ -98,7 +99,7 @@ struct MainView: View {
                          dispExportView: self.$dispExportView,
                          dispDaySelectView: self.$dispDaySelectView,
                          dispAboutView: self.$dispAboutView,
-                         touchMode: self.$touchMode)
+                         dispSettingView: self.$dispSettingView)
                     .glassEffect()
                     .position(x: geometry.size.width / 2, y: 30)
 //                    .offset(x: geometry.size.width / 2 - 90, y: 8)
@@ -150,6 +151,13 @@ struct MainView: View {
             },
                    content: {
                 AboutView()
+                    .interactiveDismissDisabled(true)
+            })
+            .sheet(isPresented: self.$dispSettingView,
+                   onDismiss: {
+            },
+                   content: {
+                SettingView()
                     .interactiveDismissDisabled(true)
             })
         }
