@@ -9,20 +9,33 @@ import SwiftUI
 
 struct AboutView: View {
     @Environment(\.dismiss) var dismiss
+    let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
     var body: some View {
         NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .navigationTitle("About")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItem(placement: .cancellationAction, content: {
-                        Button("Cancel",
-                               action: {
-                            dismiss()
-                        })
+            VStack {
+                Spacer()
+                Image("AboutIcon", bundle: .main)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .clipShape(Rectangle())
+                    .cornerRadius(12)
+                Text("Version \(version)")
+                Text("©️ 2026 cloudsquare.jp")
+                .font(.footnote)
+                Spacer()
+            }
+            .navigationTitle("About")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .cancellationAction, content: {
+                    Button("Cancel",
+                           action: {
+                        dismiss()
                     })
                 })
+            })
         }
     }
 }
