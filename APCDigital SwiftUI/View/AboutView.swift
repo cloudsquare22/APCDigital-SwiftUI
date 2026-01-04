@@ -20,7 +20,7 @@ struct AboutView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 200)
                     .clipShape(Rectangle())
-                    .cornerRadius(12)
+                    .cornerRadius(48)
                 Text("Version \(version)")
                 Text("©️ 2026 cloudsquare.jp")
                 .font(.footnote)
