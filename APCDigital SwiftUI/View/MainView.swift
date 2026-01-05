@@ -58,17 +58,6 @@ struct MainView: View {
                         .offset(x: self.nextMonthlyCalendarView.getOffset().x,
                                 y: self.nextMonthlyCalendarView.getOffset().y + self.nextMonthlyCalendarView.MONTHLY_CALENDAR_HEIGHTMAX)
                 }
-//                .onTapGesture {
-//                    print("Monthly Calenar Tap")
-//                    self.dispDaySelectView.toggle()
-//                }
-//                .gesture(DragGesture(coordinateSpace: .global)
-//                    .onEnded({ value in
-//                        let swipeType = self.swipeType(startLocation: value.startLocation,
-//                                                       location: value.location)
-//                        self.changePage(swipeType: swipeType)
-//                    })
-//                )
                 PaperMarkupViewControllerRepresentable(viewSize: geometry.size,
                                                        pkToolPicker: self.$pkToolPicker,
                                                        onCreated: { paperMarkupViewController in
@@ -78,22 +67,6 @@ struct MainView: View {
                     }
                 })
                 
-//                if self.touchMode == true {
-//                    Color.clear
-//                        .contentShape(Rectangle())
-//                        .ignoresSafeArea()
-//                        .onTapGesture {
-//                            print("taptaptap")
-//                        }
-//                        .gesture(DragGesture(coordinateSpace: .global)
-//                            .onEnded({ value in
-//                                let swipeType = self.swipeType(startLocation: value.startLocation,
-//                                                               location: value.location)
-//                                self.changePage(swipeType: swipeType)
-//                            })
-//                        )
-//                }
-                
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView,
@@ -102,11 +75,6 @@ struct MainView: View {
                          dispSettingView: self.$dispSettingView)
                     .glassEffect()
                     .position(x: geometry.size.width / 2, y: 30)
-//                    .offset(x: geometry.size.width / 2 - 90, y: 8)
-//                PencilCaseView(pkToolPicker: self.$pkToolPicker,
-//                               paperMarkupViewController: self.$paperMarkupViewController)
-//                    .glassEffect()
-//                    .offset(x: geometry.size.width - 300, y: 8)
             }
             .sheet(isPresented: self.$dispEventEditView,
                    onDismiss: {
@@ -143,8 +111,6 @@ struct MainView: View {
                            thisWeekStarDay: self.eventMangement.pageStartDate,
                            thisWeekEndDay: self.eventMangement.pageEndDate)
                 .interactiveDismissDisabled(true)
-//                ThumbnailView(markupModel: self.paperMarkupViewController!.markup,
-//                              size: geometry.size)
             })
             .sheet(isPresented: self.$dispAboutView,
                    onDismiss: {
@@ -209,15 +175,6 @@ struct MainView: View {
                 print("default")
             }
         }
-//        .onChange(of: self.touchMode) { old, new in
-//            print("touchMode:\(new)")
-//            if let controller = self.paperMarkupViewController {
-//                if new == true {
-//                }
-//                else {
-//                }
-//            }
-//        }
         .statusBarHidden(true)
     }
     
