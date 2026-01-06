@@ -124,7 +124,7 @@ extension UIView {
     func disableScrollViewBounce() {
         for subview in subviews {
             if let scrollView = subview as? UIScrollView {
-                print("**** found scroll view, disabling bounce ****")
+//                print("**** found scroll view, disabling bounce ****")
                 scrollView.bounces = false
                 scrollView.alwaysBounceVertical = false
                 scrollView.alwaysBounceHorizontal = false

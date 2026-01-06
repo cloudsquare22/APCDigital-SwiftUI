@@ -32,7 +32,7 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         
         onCreated?(paperViewController)
         
-        paperViewController.view.printHierarchy()
+//        paperViewController.view.printHierarchy()
         paperViewController.view.disableScrollViewBounce()
         
         return paperViewController
