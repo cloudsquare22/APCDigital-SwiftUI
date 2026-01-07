@@ -9,20 +9,28 @@ import SwiftUI
 
 struct SettingView: View {
     @Environment(\.dismiss) var dismiss
+    @State var moveSymbols: String = ""
 
     var body: some View {
         NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .navigationTitle("Setting")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItem(placement: .cancellationAction, content: {
-                        Button("Cancel",
-                               action: {
-                            dismiss()
-                        })
+            Form {
+                HStack {
+                    Text("Move Symbols")
+                    Spacer()
+                    TextField("Move symbols", text: self.$moveSymbols)
+                        .textFieldStyle(.roundedBorder)
+                }
+            }
+            .navigationTitle("Setting")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .cancellationAction, content: {
+                    Button("Cancel",
+                           action: {
+                        dismiss()
                     })
                 })
+            })
         }
     }
 }
