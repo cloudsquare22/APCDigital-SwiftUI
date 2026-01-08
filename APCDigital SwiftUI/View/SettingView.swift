@@ -32,8 +32,10 @@ struct SettingView: View {
                 .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
                         0
                     })
+                Section("Calendar") {
+                    Text("別画面で選択させる、AlbumSuffleのプレイリストみたいに")
+                }
             }
-            
             .navigationTitle("Setting")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
