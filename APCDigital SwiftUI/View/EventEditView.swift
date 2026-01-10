@@ -50,21 +50,6 @@ struct EventEditView: View {
                         Spacer()
                     }
                 }
-//                Section {
-//                    Picker("Event", selection: self.$actionEvent, content: {
-//                        ForEach(Array(self.eventDatas.enumerated()), id: \.offset, content: {
-//                            offset, event in
-//                            Text(event.eKEvent == nil ? "New" : event.title)
-//                        })
-//                    })
-//                    .pickerStyle(.segmented)
-//                    .onChange(of: self.actionEvent, { old, new in
-//                        print(old)
-//                        print(new)
-//                        print(self.eventDatas[new].title)
-//                        self.eventData = self.eventDatas[new]
-//                    })
-//                }
                 TextField("Title", text: self.$eventData.title)
                 TextField("Location", text: self.$eventData.location)
                 Picker("Calendar", selection: self.$eventData.calendar, content: {
@@ -161,15 +146,6 @@ struct EventEditView: View {
                     self.eventData.notification = false
                 }
             })
-//            .onChange(of: self.eventData.startDate, { old, new in
-//                if self.eventData.allDay == true {
-//                    self.eventData.endDate = new
-//                }
-//                else {
-//                    let diff = self.eventData.endDate.timeIntervalSince(old)
-//                    self.eventData.endDate = Calendar.current.date(byAdding: .second, value: Int(diff), to: new)!
-//                }
-//            })
         }
         .onAppear() {
             if self.eventDatas.isEmpty == false {
