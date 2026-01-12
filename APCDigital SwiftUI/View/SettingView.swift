@@ -33,9 +33,11 @@ struct SettingView: View {
                         0
                     })
                 Section("Calendar") {
-                    Text("別画面で選択させる、AlbumSuffleのプレイリストみたいに")
                     NavigationLink(destination: CalendarSelectView(), label: {
                         Label("n Calendar Selects", systemImage: "calendar.badge.checkmark")
+                    })
+                    NavigationLink(destination: CalendarSelectView(), label: {
+                        Label("Holiday Calendar Selects", systemImage: "calendar.badge")
                     })
                 }
             }
