@@ -189,6 +189,10 @@ import SwiftUI
 //        print(calendars)
     }
     
+    func allCalendars() -> [EKCalendar] {
+        return self.calendars + self.subscriptionCalendars
+    }
+    
     func getPosition(positionsMap: [Device.DType : [WeekDay1stMonday : XYWidth]], weekDay: Int?) -> XYWidth? {
         self.getPosition(positionsMap: positionsMap, weekDay1stMonday: self.weekDayToWeekDay1stMonday(weekDay: weekDay))
     }

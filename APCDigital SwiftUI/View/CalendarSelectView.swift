@@ -12,10 +12,7 @@ struct CalendarSelectView: View {
 
     var body: some View {
         NavigationStack {
-            List(self.eventMangement.calendars, id: \.calendarIdentifier) { calendar in
-                Text(calendar.title)
-            }
-            List(self.eventMangement.subscriptionCalendars, id: \.calendarIdentifier) { calendar in
+            List(self.eventMangement.allCalendars(), id: \.calendarIdentifier) { calendar in
                 Text(calendar.title)
             }
         }
