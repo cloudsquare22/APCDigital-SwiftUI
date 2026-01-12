@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct CalendarSelectView: View {
+    @Environment(EventManagement.self) private var eventMangement
+
     var body: some View {
         NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            List(self.eventMangement.calendars, id: \.calendarIdentifier) { calendar in
+                Text(calendar.title)
+            }
         }
     }
 }
