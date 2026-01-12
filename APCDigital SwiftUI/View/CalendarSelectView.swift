@@ -15,6 +15,9 @@ struct CalendarSelectView: View {
             List(self.eventMangement.calendars, id: \.calendarIdentifier) { calendar in
                 Text(calendar.title)
             }
+            List(self.eventMangement.subscriptionCalendars, id: \.calendarIdentifier) { calendar in
+                Text(calendar.title)
+            }
         }
     }
 }

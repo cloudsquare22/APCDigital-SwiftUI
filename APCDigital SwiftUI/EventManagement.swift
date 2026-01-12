@@ -16,6 +16,7 @@ import SwiftUI
     var allDayAreaEvents: [EKEvent] = []
     var holidayEvents: [EKEvent] = []
     var calendars: [EKCalendar] = []
+    var subscriptionCalendars: [EKCalendar] = []
     var pageStartDate: Date = Date.now
     var pageEndDate: Date = Date.now
 
@@ -167,16 +168,22 @@ import SwiftUI
     func updateCalendars() {
         let calendarAll = eventStore.calendars(for: .event)
         self.calendars = []
+        self.subscriptionCalendars = []
         for calendar in calendarAll {
             print(calendar)
             switch calendar.type {
             case .local, .calDAV:
                 self.calendars.append(calendar)
+            case .subscription:
+                self.subscriptionCalendars.append(calendar)
             default:
                 break
             }
         }
         self.calendars.sort() {
+            $0.title < $1.title
+        }
+        self.subscriptionCalendars.sort() {
             $0.title < $1.title
         }
 //        print(calendars)
