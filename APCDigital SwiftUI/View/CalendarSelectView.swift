@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalendarSelectView: View {
     @Environment(EventManagement.self) private var eventMangement
-    @State private var selectedCalendars: [String] = []
+    @State var selectedCalendars: [String]
 
     var body: some View {
         NavigationStack {
@@ -30,10 +30,11 @@ struct CalendarSelectView: View {
                     Text(calendar.title)
                 }
             }
+            .navigationTitle("Calendar Select")
         }
     }
 }
 
 #Preview {
-    CalendarSelectView()
+    CalendarSelectView(selectedCalendars: [])
 }

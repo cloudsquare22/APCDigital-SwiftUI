@@ -33,11 +33,11 @@ struct SettingView: View {
                         0
                     })
                 Section("Calendar") {
-                    NavigationLink(destination: CalendarSelectView(), label: {
-                        Label("n Calendar Selects", systemImage: "calendar.badge.checkmark")
+                    NavigationLink(destination: CalendarSelectView(selectedCalendars: []), label: {
+                        Label("Disp Calendar Selects", systemImage: "calendar.badge.checkmark")
                     })
-                    NavigationLink(destination: CalendarSelectView(), label: {
-                        Label("Holiday Calendar Selects", systemImage: "calendar.badge")
+                    NavigationLink(destination: CalendarSelectView(selectedCalendars: []), label: {
+                        Label("Holiday Calendar Select", systemImage: "calendar.badge")
                     })
                 }
             }
