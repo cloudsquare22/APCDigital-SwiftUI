@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SettingView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(EventManagement.self) private var eventMangement
     @State var moveSymbols: String = ""
     @State var eventBackgroundColor: Bool = true
+    @State var holidayCalendarId: String = ""
 
     var body: some View {
         NavigationStack {
@@ -39,6 +41,14 @@ struct SettingView: View {
                     NavigationLink(destination: CalendarSelectView(selectedCalendars: []), label: {
                         Label("Holiday Calendar Select", systemImage: "calendar.badge")
                     })
+                    Picker("Holiday Calendar Select", systemImage: "calendar.badge", selection: self.$holidayCalendarId, content: {
+                        Text("")
+                            .tag("")
+                        ForEach(self.eventMangement.allCalendars(), id: \.calendarIdentifier) { calendar in
+                            Text("\(calendar.title)")
+                                .tag(calendar.calendarIdentifier)
+                        }
+                    })
                 }
             }
             .navigationTitle("Setting")
@@ -52,6 +62,12 @@ struct SettingView: View {
                 })
             })
         }
+        .onChange(of: self.holidayCalendarId) { old, new in
+            self.eventMangement.holidayCalendarId = new
+        }
+        .onAppear {
+            self.holidayCalendarId = self.eventMangement.holidayCalendarId
+        }        
     }
 }
 

@@ -102,6 +102,17 @@ import SwiftUI
              .sunday:    (1066.0, 93.0, 100.0)],
     ]
 
+    @ObservationIgnored
+    var holidayCalendarId: String = ""
+    
+    init() {
+        if let holidayCalendarId = UserDefaults.standard.string(forKey: "holidayCalendarId") {
+            self.holidayCalendarId = holidayCalendarId
+        }
+        print("holidayCalendarId: \(self.holidayCalendarId)")
+    }
+
+    
     func updateEvents(startDay: DateComponents, endDay: DateComponents) {
         let predicate: NSPredicate = eventStore.predicateForEvents(withStart: startDay.date!, end: endDay.date!, calendars: nil)
         self.pageStartDate = startDay.date!
