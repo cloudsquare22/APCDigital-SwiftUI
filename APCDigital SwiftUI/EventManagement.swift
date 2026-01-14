@@ -126,7 +126,7 @@ import SwiftUI
         self.allDaysAreaEventsMap = [:]
         self.mainAreaEventViewDataMap = [:]
         for event in events {
-            if let calendar = event.calendar, calendar.title == "日本の祝日" {
+            if let calendar = event.calendar, calendar.calendarIdentifier == self.holidayCalendarId {
                 self.holidayEvents.append(event)
             }
             else if let calendar = event.calendar, calendar.title == "誕生日" {

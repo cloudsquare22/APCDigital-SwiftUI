@@ -38,9 +38,6 @@ struct SettingView: View {
                     NavigationLink(destination: CalendarSelectView(selectedCalendars: []), label: {
                         Label("Disp Calendar Selects", systemImage: "calendar.badge.checkmark")
                     })
-                    NavigationLink(destination: CalendarSelectView(selectedCalendars: []), label: {
-                        Label("Holiday Calendar Select", systemImage: "calendar.badge")
-                    })
                     Picker("Holiday Calendar Select", systemImage: "calendar.badge", selection: self.$holidayCalendarId, content: {
                         Text("")
                             .tag("")
@@ -64,6 +61,7 @@ struct SettingView: View {
         }
         .onChange(of: self.holidayCalendarId) { old, new in
             self.eventMangement.holidayCalendarId = new
+            UserDefaults.standard.set(new, forKey: "holidayCalendarId")
         }
         .onAppear {
             self.holidayCalendarId = self.eventMangement.holidayCalendarId
