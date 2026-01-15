@@ -104,7 +104,10 @@ import SwiftUI
 
     @ObservationIgnored
     var holidayCalendarId: String = ""
-    
+
+    @ObservationIgnored
+    var dispCalendarIds: [String] = []
+
     init() {
         if let holidayCalendarId = UserDefaults.standard.string(forKey: "holidayCalendarId") {
             self.holidayCalendarId = holidayCalendarId
@@ -185,6 +188,7 @@ import SwiftUI
             switch calendar.type {
             case .local, .calDAV:
                 self.calendars.append(calendar)
+                self.dispCalendarIds.append(calendar.calendarIdentifier) // 仮
             case .subscription:
                 self.subscriptionCalendars.append(calendar)
             default:

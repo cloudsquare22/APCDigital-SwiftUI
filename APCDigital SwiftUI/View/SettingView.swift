@@ -35,7 +35,7 @@ struct SettingView: View {
                         0
                     })
                 Section("Calendar") {
-                    NavigationLink(destination: CalendarSelectView(selectedCalendars: []), label: {
+                    NavigationLink(destination: CalendarSelectView(selectedCalendars: self.eventMangement.dispCalendarIds), label: {
                         Label("Disp Calendar Selects", systemImage: "calendar.badge.checkmark")
                     })
                     Picker("Holiday Calendar Select", systemImage: "calendar.badge", selection: self.$holidayCalendarId, content: {
