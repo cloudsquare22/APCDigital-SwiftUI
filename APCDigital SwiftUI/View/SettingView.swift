@@ -13,6 +13,7 @@ struct SettingView: View {
     @State var moveSymbols: String = ""
     @State var eventBackgroundColor: Bool = true
     @State var holidayCalendarId: String = ""
+    @State var addEventClaenderId: String = ""
 
     var body: some View {
         NavigationStack {
@@ -39,6 +40,14 @@ struct SettingView: View {
                         Label("Disp Calendar Selects", systemImage: "calendar.badge.checkmark")
                     })
                     Picker("Holiday Calendar Select", systemImage: "calendar.badge", selection: self.$holidayCalendarId, content: {
+                        Text("")
+                            .tag("")
+                        ForEach(self.eventMangement.allCalendars(), id: \.calendarIdentifier) { calendar in
+                            Text("\(calendar.title)")
+                                .tag(calendar.calendarIdentifier)
+                        }
+                    })
+                    Picker("Add Event Calendar Select", systemImage: "calendar.badge.plus", selection: self.$addEventClaenderId, content: {
                         Text("")
                             .tag("")
                         ForEach(self.eventMangement.allCalendars(), id: \.calendarIdentifier) { calendar in
