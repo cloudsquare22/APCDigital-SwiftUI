@@ -80,7 +80,7 @@ extension PaperMarkupViewController {
         let markupEditViewController = MarkupEditViewController(supportedFeatureSet: .latest)
         markupEditViewController.modalPresentationStyle = .popover
         markupEditViewController.popoverPresentationController?.barButtonItem = button
-        markupEditViewController.delegate = self as? any MarkupEditViewController.Delegate
+        markupEditViewController.delegate = self
         self.present(markupEditViewController, animated: true)
     }
     
