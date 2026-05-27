@@ -29,4 +29,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         }
         return true
     }
+    
+    var orientationLock: UIInterfaceOrientationMask = .all // 宣言上は広めに
+
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+//        print("*** UIInterfaceOrientationMask ***")
+        return [.landscapeLeft, .landscapeRight]
+    }
+    
 }
