@@ -65,8 +65,17 @@ struct MainView: View {
                         self.paperMarkupViewController = paperMarkupViewController
                         self.drawingPencilData(date: self.dateManagement.pagestartday)
                     }
+                },
+                onDidChangeMarkup: {
+                    print("*** MainView: onDidChangeMarkup")
+                    if let date = self.dateManagement.pagestartday,
+                        let markup = self.paperMarkupViewController?.markup {
+                        Task {
+                            try! await self.dataOperation.upsertPencilData(date: date,
+                                                                           pagedata: markup.dataRepresentation())
+                        }
+                    }
                 })
-                
                 MenuView(dispEventEditView: self.$dispEventEditView,
                          dispEventListView: self.$dispEventListView,
                          dispExportView: self.$dispExportView,

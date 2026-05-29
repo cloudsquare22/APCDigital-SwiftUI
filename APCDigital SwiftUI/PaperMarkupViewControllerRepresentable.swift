@@ -15,6 +15,7 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
     let viewSize: CGSize
     @Binding var pkToolPicker: PKToolPicker
     var onCreated: ((PaperMarkupViewController) -> Void)? = nil
+    var onDidChangeMarkup: (() -> Void)? = nil
 
     func makeUIViewController(context: Context) -> PaperMarkupViewController {
         let markupModel = PaperMarkup(bounds: CGRect(x: 0, y: 0, width: self.viewSize.width, height: self.viewSize.height))
@@ -50,7 +51,7 @@ struct PaperMarkupViewControllerRepresentable: UIViewControllerRepresentable {
         
         // PaperMarkupViewController.Delegate
         func paperMarkupViewControllerDidChangeMarkup(_ paperMarkupViewController: PaperMarkupViewController) {
-//            print("\(#function)")
+            self.parent.onDidChangeMarkup?()
         }
         
         func paperMarkupViewControllerDidChangeSelection(_ paperMarkupViewController: PaperMarkupViewController) {
