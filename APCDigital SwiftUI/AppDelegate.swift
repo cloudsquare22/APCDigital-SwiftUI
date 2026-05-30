@@ -27,14 +27,27 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
                 }
             })
         }
+        
+        // AppDelegate.swift の didFinishLaunchingWithOptions 内に追加
+        let info = Bundle.main.infoDictionary ?? [:]
+        let iPhone = info["UISupportedInterfaceOrientations"] as? [String] ?? []
+        let iPad = info["UISupportedInterfaceOrientations~ipad"] as? [String] ?? []
+        let requiresFullScreen = info["UIRequiresFullScreen"] as? Bool
+        
+        print("UISupportedInterfaceOrientations (iPhone): \(iPhone)")
+        print("UISupportedInterfaceOrientations~ipad: \(iPad)")
+        print("UIRequiresFullScreen: \(String(describing: requiresFullScreen))")
+        
         return true
     }
     
-    var orientationLock: UIInterfaceOrientationMask = .all // 宣言上は広めに
-
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-//        print("*** UIInterfaceOrientationMask ***")
-        return [.landscapeLeft, .landscapeRight]
+    // Restrict orientation at runtime while keeping Info.plist broad enough (include Portrait on iPhone)
+    // This avoids relying on deprecated UIRequiresFullScreen on iOS 26+
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        // Lock to landscape for all devices at runtime
+        return .landscape
+        // If you ever need per-device behavior:
+        // if UIDevice.current.userInterfaceIdiom == .pad { return .landscape } else { return .landscape }
     }
-    
 }
