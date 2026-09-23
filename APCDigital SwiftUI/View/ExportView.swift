@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PaperKit
+import SwiftData
 
 struct ExportView: View {
     let size: CGSize
